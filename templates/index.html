@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cybersecurity Checker</title>
+  <meta name="viewport" content="width=device-width">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/script.js"></script>
+  <style>
+    .container {
+      max-width: 1000px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 style="text-align:center">Cybersecurity Checker</h1>
+    <h3 style="text-align:center">Check your program's dependencies for cybersecurity threats</h3>
+    <br>
+
+    <div class="form-group" id="appNameForm">
+      <label for="appNameFormInput">Enter your application's name:</label>
+      <input class="form-control" name="NameInput" id="appNameFormInput"></textarea>
+    </div>
+    <br>
+    <div class="form-group" id="dependencyForm">
+      <label for="dependencyFormArea">Enter dependencies, separated by commas:</label>
+      <textarea class="form-control" name="TextArea" id="dependencyFormArea" rows="2"></textarea>
+    </div>
+
+    <button onclick="transferJSON()" class="btn btn-default">Check</button>
+    <button onclick="clearForm()" class="btn btn-default">Clear</button>
+    <br>
+    <br>
+
+    <p id="result"></p>
+
+  </div>
+
+  <!-- <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+
+
+</body>
+
+</html>
