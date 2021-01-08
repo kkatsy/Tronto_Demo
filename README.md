@@ -4,4 +4,4 @@
 
 - app.py: contains flask framework
 - tronto.py: contains Tronto functions wrapper
-- twitter.py: contains Katya's twitter code to pull tweets
+- twitter.py: contains twitter code to pull tweets
