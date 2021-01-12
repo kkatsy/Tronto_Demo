@@ -39,21 +39,21 @@
       <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
     </div>
     <br>
-    <div class="form-group" id="dependencyForm">
+    <!-- <div class="form-group" id="dependencyForm">
       <label for="dependencyFormArea">Enter dependencies, separated by commas:</label>
       <textarea class="form-control" name="TextArea" id="dependencyFormArea" rows="2"></textarea>
     </div>
-    <br>
+    <br> -->
     <div class="form-group" id="dependenciesForm">
       <label for="dependencyTagsInput">Enter dependencies, press enter to submit:</label>
       <br>
       <input type="text" name="dependencyTags" value="xcode,swift,macos" data-role="tagsinput" style="display: none; min-width: 1000px; max-width: 100%">
-      <script>
+      <!-- <script>
       $('input').tagsinput();
-      </script>
+      </script> -->
     </div>
 
-    <button onclick="transferJSON()" class="btn btn-info">Check</button>
+    <button onclick="showInput()" class="btn btn-info">Check</button>
     <button onclick="clearForm()" class="btn btn-danger">Clear</button>
     <br>
     <br>
