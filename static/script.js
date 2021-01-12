@@ -30,7 +30,7 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = document.getElementById("appNameFormInput").value
+  name = document.getElementById("dependencyTagsInput").value
   url = "/helloworld/" + name;
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
