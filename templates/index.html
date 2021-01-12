@@ -37,16 +37,16 @@
     </div>
     <br>
     <div class="form-group" id="dependenciesForm">
-      <label for="dependencyTagsInput">Enter dependencies:</label>
+      <label for="dependencyTagsInput">Enter dependencies, press enter to submit:</label>
       <br>
-      <input type="text" value="xcode,swift,macos" placeholder="press enter to add dependency" data-role="tagsinput" style="display: none;">
+      <input type="text" name="dependencyTags" value="xcode,swift,macos" data-role="tagsinput" style="display: none; width: 100%">
       <script>
       $('input').tagsinput();
       </script>
     </div>
 
-    <button onclick="transferJSON()" class="btn btn-default">Check</button>
-    <button onclick="clearForm()" class="btn btn-default">Clear</button>
+    <button onclick="transferJSON()" class="btn btn-info">Check</button>
+    <button onclick="clearForm()" class="btn btn-danger">Clear</button>
     <br>
     <br>
 
