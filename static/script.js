@@ -47,6 +47,6 @@ function showInput() {
 function clearForm() {
   // clear form input and output
   document.getElementById("appNameFormInput").value = ""
-  document.getElementById("dependencyFormArea").value = ""
+  document.getElementById("dependencyTagsInput").value = ""
   document.getElementById("result").innerHTML = ""
 }
