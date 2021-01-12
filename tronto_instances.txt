@@ -1,0 +1,272 @@
+<CWE400 rdf:about="#CVE202121235">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.5</has_severity_score>
+</CWE400>
+<Application rdf:about="#kamadak-exif_project;kamadak-exif;0.5.2;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121235"/>
+</Application>
+<CWE79 rdf:about="#CVE202121494">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         4.8</has_severity_score>
+</CWE79>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121494"/>
+</Application>
+<CWE352 rdf:about="#CVE202121495">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         8.8</has_severity_score>
+</CWE352>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121495"/>
+</Application>
+<CWE120 rdf:about="#CVE202122492">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         8.8</has_severity_score>
+</CWE120>
+<Operating_system rdf:about="#google;android;8.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122492"/>
+</Operating_system>
+<CWE787 rdf:about="#CVE202122493">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.8</has_severity_score>
+</CWE787>
+<Operating_system rdf:about="#google;android;8.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122493"/>
+</Operating_system>
+<NVDCWEnoinfo rdf:about="#CVE202122494">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</NVDCWEnoinfo>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122494"/>
+</Operating_system>
+<CWE787 rdf:about="#CVE202122495">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</CWE787>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122495"/>
+</Operating_system>
+<CWE79 rdf:about="#CVE20213002">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Application rdf:about="#seopanel;seo_panel;4.8.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213002"/>
+</Application>
+<CWE682 rdf:about="#CVE20213004">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE682>
+<Application rdf:about="#stableyieldcredit_project;stableyieldcredit;-;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213004"/>
+</Application>
+<NVDCWEnoinfo rdf:about="#CVE20213005">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         4.3</has_severity_score>
+</NVDCWEnoinfo>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213005"/>
+</Application>
+<CWE863 rdf:about="#CVE20213006">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE863>
+<Application rdf:about="#seal_finance_project;seal_finance;-;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213006"/>
+</Application>
+<CWE79 rdf:about="#CVE20213014">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Operating_system rdf:about="#mikrotik;routeros;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213014"/>
+</Operating_system>
+<CWE89 rdf:about="#CVE20213018">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         9.8</has_severity_score>
+</CWE89>
+<Application rdf:about="#ipeak;ipeakcms;3.5;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213018"/>
+</Application>
+<CWE22 rdf:about="#CVE20213019">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE22>
+<Application rdf:about="#lanproxy_project;lanproxy;0.1;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213019"/>
+</Application>
+<CWE89 rdf:about="#CVE20213021">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         9.8</has_severity_score>
+</CWE89>
+<Application rdf:about="#ispconfig;ispconfig;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213021"/>
+</Application>
+<NVDCWEnoinfo rdf:about="#CVE20213022">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</NVDCWEnoinfo>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213022"/>
+</Operating_system>
+<CWE79 rdf:about="#CVE20213026">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Application rdf:about="#invisioncommunity;ips_community_suite;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213026"/>
+</Application>
+<CWE400 rdf:about="#CVE202121235">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.5</has_severity_score>
+</CWE400>
+<Application rdf:about="#kamadak-exif_project;kamadak-exif;0.5.2;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121235"/>
+</Application>
+<CWE79 rdf:about="#CVE202121494">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         4.8</has_severity_score>
+</CWE79>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121494"/>
+</Application>
+<CWE352 rdf:about="#CVE202121495">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         8.8</has_severity_score>
+</CWE352>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202121495"/>
+</Application>
+<CWE120 rdf:about="#CVE202122492">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         8.8</has_severity_score>
+</CWE120>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122492"/>
+</Operating_system>
+<CWE787 rdf:about="#CVE202122493">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.8</has_severity_score>
+</CWE787>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122493"/>
+</Operating_system>
+<NVDCWEnoinfo rdf:about="#CVE202122494">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</NVDCWEnoinfo>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122494"/>
+</Operating_system>
+<CWE787 rdf:about="#CVE202122495">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</CWE787>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE202122495"/>
+</Operating_system>
+<CWE79 rdf:about="#CVE20213002">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Application rdf:about="#seopanel;seo_panel;4.8.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213002"/>
+</Application>
+<CWE682 rdf:about="#CVE20213004">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE682>
+<Application rdf:about="#stableyieldcredit_project;stableyieldcredit;-;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213004"/>
+</Application>
+<NVDCWEnoinfo rdf:about="#CVE20213005">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         4.3</has_severity_score>
+</NVDCWEnoinfo>
+<Application rdf:about="#mk-auth;mk-auth;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213005"/>
+</Application>
+<CWE863 rdf:about="#CVE20213006">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE863>
+<Application rdf:about="#seal_finance_project;seal_finance;-;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213006"/>
+</Application>
+<CWE79 rdf:about="#CVE20213014">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Operating_system rdf:about="#mikrotik;routeros;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213014"/>
+</Operating_system>
+<CWE89 rdf:about="#CVE20213018">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         9.8</has_severity_score>
+</CWE89>
+<Application rdf:about="#ipeak;ipeakcms;3.5;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213018"/>
+</Application>
+<CWE22 rdf:about="#CVE20213019">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         7.5</has_severity_score>
+</CWE22>
+<Application rdf:about="#lanproxy_project;lanproxy;0.1;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213019"/>
+</Application>
+<CWE89 rdf:about="#CVE20213021">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         9.8</has_severity_score>
+</CWE89>
+<Application rdf:about="#ispconfig;ispconfig;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213021"/>
+</Application>
+<NVDCWEnoinfo rdf:about="#CVE20213022">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         5.5</has_severity_score>
+</NVDCWEnoinfo>
+<Operating_system rdf:about="#google;android;10.0;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213022"/>
+</Operating_system>
+<CWE79 rdf:about="#CVE20213026">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_severity_score rdf:datatype="http://www.w3.org/2001/XMLSchema#float">         6.1</has_severity_score>
+</CWE79>
+<Application rdf:about="#invisioncommunity;ips_community_suite;*;*">
+	<rdf:type             rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<has_vulnerability rdf:resource="#CVE20213026"/>
+</Application>
