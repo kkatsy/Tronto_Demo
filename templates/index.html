@@ -14,7 +14,13 @@
   <script type="text/javascript" src="/static/script.js"></script>
   <style>
     .container {
+    max-width: 1000px;
+    }
+    .header {
       max-width: 1000px;
+    }
+    textarea {
+      width: 1000px;
     }
   </style>
 </head>
@@ -22,13 +28,15 @@
 <body>
 
   <div class="container">
-    <h1 style="text-align:center">Cybersecurity Checker</h1>
-    <h3 style="text-align:center">Check your program's dependencies for cybersecurity threats</h3>
+    <div class="header" id="appNameForm">
+      <h1 style="text-align:center">Cybersecurity Checker</h1>
+      <h3 style="text-align:center">Check your program's dependencies for cybersecurity threats</h3>
+    </div>
     <br>
 
     <div class="form-group" id="appNameForm">
       <label for="appNameFormInput">Enter your application's name:</label>
-      <input class="form-control" name="NameInput" id="appNameFormInput"></textarea>
+      <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
     </div>
     <br>
     <div class="form-group" id="dependencyForm">
@@ -39,7 +47,7 @@
     <div class="form-group" id="dependenciesForm">
       <label for="dependencyTagsInput">Enter dependencies, press enter to submit:</label>
       <br>
-      <input type="text" name="dependencyTags" value="xcode,swift,macos" data-role="tagsinput" style="display: none; width: 100%">
+      <input type="text" name="dependencyTags" value="xcode,swift,macos" data-role="tagsinput" style="display: none; min-width: 1000px; max-width: 100%">
       <script>
       $('input').tagsinput();
       </script>
