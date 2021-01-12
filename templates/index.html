@@ -42,7 +42,15 @@
     <br>
 
     <p id="result"></p>
-    
+    <div class="form-group" id="appNameForm2">
+      <label for="appNameFormInput2">Experiment:</label>
+      <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
+      <script>
+      $('input').tagsinput();
+      </script>
+    </div>
+
+    <br>
     <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
     <script>
     $('input').tagsinput();
