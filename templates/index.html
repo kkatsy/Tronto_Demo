@@ -8,10 +8,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> -->
+  <script type="text/javascript" src="./bootstraptagsinput/script.js"></script>
+  <link rel="stylesheet" href="./bootstraptagsinput/style.css">
 
-  <script type="text/javascript" src="/static/script.js"></script>
+  <script type="text/javascript" src="./static/script.js"></script>
   <style>
     .container {
       max-width: 1000px;
@@ -41,20 +43,7 @@
     <br>
     <br>
 
-    <p id="result"></p>
-    <div class="form-group" id="appNameForm2">
-      <label for="appNameFormInput2">Experiment:</label>
-      <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
-      <script>
-      $('input').tagsinput();
-      </script>
-    </div>
-
-    <br>
-    <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
-    <script>
-    $('input').tagsinput();
-    </script>
+    <input type="text" value="" data-role="tagsinput" placeholder="Add tags" />
 
   </div>
 
