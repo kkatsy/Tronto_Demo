@@ -35,6 +35,14 @@
       <label for="dependencyFormArea">Enter dependencies, separated by commas:</label>
       <textarea class="form-control" name="TextArea" id="dependencyFormArea" rows="2"></textarea>
     </div>
+    <br>
+    <div class="form-group" id="dependenciesForm">
+      <label for="dependencyTagsInput">Enter dependencies as tags:</label>
+      <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;" size="100%">
+      <script>
+      $('input').tagsinput();
+      </script>
+    </div>
 
     <button onclick="transferJSON()" class="btn btn-default">Check</button>
     <button onclick="clearForm()" class="btn btn-default">Clear</button>
@@ -42,33 +50,7 @@
     <br>
 
     <p id="result"></p>
-    
-    <div class="bootstrap-tagsinput" id="appNameForm2">
-      <label for="appNameFormInput2">Experiment:</label>
-      <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
-      <script>
-      $('input').tagsinput();
-      </script>
-    </div>
 
-    <br>
-    <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" style="display: none;">
-    <script>
-    $('input').tagsinput();
-    </script>
-
-    <div class="bs-example">
-      <select multiple data-role="tagsinput">
-              <option value="Amsterdam">Amsterdam</option>
-              <option value="Washington">Washington</option>
-              <option value="Sydney">Sydney</option>
-              <option value="Beijing">Beijing</option>
-              <option value="Cairo">Cairo</option>
-            </select>
-    </div>
-    <script>
-    $('input').tagsinput();
-    </script>
 
   </div>
 
