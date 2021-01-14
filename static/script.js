@@ -2,8 +2,8 @@ function transferJSON() {
   // get dependencies, split into list
   name = document.getElementById("appNameFormInput").value
 
-  depend_string = document.getElementById("dependencyFormArea").value
-  var depend_string = depend_string.split(', ');
+  depend_string = document.getElementById("dependencyTagsInput").value
+  var depend_string = depend_string.split(',');
 
   // get json string w dependencies
   var obj = new Object();
@@ -20,7 +20,7 @@ function transferJSON() {
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your program is " + response;
+      document.getElementById("result").innerHTML = "Your program " + name + " is " + response + ".";
     }
   }
   http.open("GET", url, true);

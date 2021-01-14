@@ -18,6 +18,7 @@
     }
     #dependencyTagsInput{
       width: 1000px; !important
+      min-width: : 1000px; !important
     }
     textarea {
       width: 1000px;
@@ -46,14 +47,14 @@
     <div class="form-group" id="dependenciesForm">
       <label for="dependencyTagsInput">Enter dependencies, press enter to submit:</label>
       <br>
-      <input type="text" name="dependencyInput" id="dependencyTagsInput" value="xcode,swift,macos" data-role="tagsinput" style="display: none;">
+      <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
       <!-- <script>
       $('input').tagsinput();
       </script> -->
     </div>
     <br>
-    <button onclick="showInput()" class="btn btn-info">Check</button>
-    <button onclick="clearForm()" class="btn btn-danger">Clear</button>
+    <button onclick="transferJSON()" class="btn btn-info">Check</button>
+    <button onclick="clearForm()" class="btn btn-info">Clear</button>
     <br>
 
     <p id="result"></p>
