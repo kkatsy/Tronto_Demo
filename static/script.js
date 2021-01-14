@@ -31,7 +31,8 @@ function transferJSON() {
 function showInput() {
   // check that things are working
   name = document.getElementById("dependencyTagsInput").value
-  url = "/helloworld/" + name;
+  type = typeof name
+  url = "/helloworld/" + type;
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
