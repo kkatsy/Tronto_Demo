@@ -27,7 +27,7 @@ def home():
 @app.route('/helloworld/<name>',methods=['GET'])
 def helloword(name):
     print('hello world func')
-    return 'Hello World ' + name
+    return name
 
 
 # route to get app's vulnerability status
