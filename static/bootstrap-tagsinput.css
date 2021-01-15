@@ -24,7 +24,6 @@
   background-color: transparent;
   padding: 0 6px;
   margin: 0;
-  width: auto;
   max-width: 100%;
 }
 .bootstrap-tagsinput.form-control input::-moz-placeholder {
@@ -50,8 +49,7 @@
   cursor: pointer;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
-  content: "x";
-  color: red;
+  content: "t";
   padding: 0px 2px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {

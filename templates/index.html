@@ -8,9 +8,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> -->
-
   <script type="text/javascript" src="/static/script.js"></script>
   <script type="text/javascript" src="/static/bootstrap-tagsinput.js"></script>
   <link href="/static/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
@@ -37,18 +34,10 @@
       <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
     </div>
     <br>
-    <!-- <div class="form-group" id="dependencyForm">
-      <label for="dependencyFormArea">Enter dependencies, separated by commas:</label>
-      <textarea class="form-control" name="TextArea" id="dependencyFormArea" rows="2"></textarea>
-    </div>
-    <br> -->
     <div class="form-group" id="dependenciesForm">
       <label for="dependencyTagsInput">Enter dependencies, press enter to submit:</label>
       <br>
       <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
-      <!-- <script>
-      $('input').tagsinput();
-      </script> -->
     </div>
     <br>
     <button onclick="transferJSON()" class="btn btn-info">Check</button>
