@@ -30,7 +30,7 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = document.getElementById("dependencyTagsInput").tagsinput('items')
+  name = document.getElementById("dependencyTagsInput").val()
   var split = name.split(',');
   url = "/helloworld/" + split;
   var http = new XMLHttpRequest();
@@ -48,6 +48,6 @@ function showInput() {
 function clearForm() {
   // clear form input and output
   document.getElementById("appNameFormInput").value = "";
-  document.getElementById("dependencyTagsInput").tagsinput('removeAll');
+  $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
 }
