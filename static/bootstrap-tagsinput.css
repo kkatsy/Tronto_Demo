@@ -13,6 +13,7 @@
   vertical-align: middle;
   border-radius: 4px;
   max-width: 100%;
+  min-width: 100%;
   line-height: 22px;
   cursor: text;
 }
@@ -24,7 +25,7 @@
   padding: 0 6px;
   margin: 0;
   width: auto;
-  max-width: inherit;
+  max-width: 100%;
 }
 .bootstrap-tagsinput.form-control input::-moz-placeholder {
   color: #777;
@@ -50,6 +51,7 @@
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
   content: "x";
+  color: red;
   padding: 0px 2px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {
