@@ -3,12 +3,13 @@ function transferJSON() {
   name = document.getElementById("appNameFormInput").value
 
   depend_string = document.getElementById("dependencyTagsInput").value
-  var depend_string = depend_string.split(',');
+  dependencies = String(depend_string);
+  var depend_str = dependencies.split(',');
 
   // get json string w dependencies
   var obj = new Object();
   obj.appName = name;
-  obj.dependencies = depend_string;
+  obj.dependencies = depend_str;
   obj.status = 'unknown';
   var json_string = JSON.stringify(obj);
 
@@ -30,9 +31,8 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = document.getElementById("dependencyTagsInput").value
-  type = typeof name
-  url = "/helloworld/" + type;
+  name = String(document.getElementById("dependencyTagsInput").value)
+  url = "/helloworld/" + name;
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
