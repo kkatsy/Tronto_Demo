@@ -2,13 +2,13 @@ function transferJSON() {
   // get dependencies, split into list
   name = document.getElementById("appNameFormInput").value
 
-  depend_string = document.getElementById("dependencyTagsInput").value
-  var depend_str = depend_string.split(',');
+  depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
+  //var depend_string = depend_string.split(',');
 
   // get json string w dependencies
   var obj = new Object();
   obj.appName = name;
-  obj.dependencies = depend_str;
+  obj.dependencies = depend_string;
   obj.status = 'unknown';
   var json_string = JSON.stringify(obj);
 
@@ -20,7 +20,7 @@ function transferJSON() {
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your program " + name + " is " + response + ".";
+      document.getElementById("result").innerHTML = "Your program is " + response;
     }
   }
   http.open("GET", url, true);
@@ -47,6 +47,6 @@ function showInput() {
 function clearForm() {
   // clear form input and output
   document.getElementById("appNameFormInput").value = ""
-  document.getElementById("dependencyTagsInput").value = ""
+  document.getElementById("dependencyTagsInput").tagsinput('items') = ""
   document.getElementById("result").innerHTML = ""
 }
