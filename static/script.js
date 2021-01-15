@@ -3,8 +3,7 @@ function transferJSON() {
   name = document.getElementById("appNameFormInput").value
 
   depend_string = document.getElementById("dependencyTagsInput").value
-  dependencies = String(depend_string);
-  var depend_str = dependencies.split(',');
+  var depend_str = depend_string.split(',');
 
   // get json string w dependencies
   var obj = new Object();
@@ -31,7 +30,7 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = String(document.getElementById("dependencyTagsInput").value)
+  name = document.getElementById("dependencyTagsInput").tagsinput('items')
   url = "/helloworld/" + name;
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
