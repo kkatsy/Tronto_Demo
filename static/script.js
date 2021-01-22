@@ -2,7 +2,9 @@ function transferJSON() {
   // get dependencies, split into list
   name = document.getElementById("appNameFormInput").value
 
-  depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
+  //depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
+  depend_string = $('#dependencyTagsInput').val()
+  
   var depend_string = depend_string.split(',');
 
   // get json string w dependencies
