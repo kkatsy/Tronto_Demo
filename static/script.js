@@ -20,7 +20,7 @@ function transferJSON() {
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your program is " + response;
+      document.getElementById("result").innerHTML = "Your program is " + response + ".";
     }
   }
   http.open("GET", url, true);
@@ -30,7 +30,7 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = document.getElementById("dependencyTagsInput").val()
+  name = document.getElementById("dependencyTagsInput").tagsinput('items')
   var split = name.split(',');
   url = "/helloworld/" + split;
   var http = new XMLHttpRequest();
