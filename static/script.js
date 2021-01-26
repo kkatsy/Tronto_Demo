@@ -2,12 +2,14 @@ function transferJSON() {
   // get dependencies, split into list
   name = document.getElementById("appNameFormInput").value
 
-  depend_string = document.getElementById("dependencyFormArea").value
-  var depend_string = depend_string.split(', ');
+  //depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
+  depend_string = $('#dependencyTagsInput').val()
+
+  var depend_string = depend_string.split(',');
 
   // get json string w dependencies
   var obj = new Object();
-  obj.appName = name;
+  obj.name = name;
   obj.dependencies = depend_string;
   obj.status = 'unknown';
   var json_string = JSON.stringify(obj);
@@ -20,7 +22,7 @@ function transferJSON() {
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your program is " + response;
+      document.getElementById("result").innerHTML = "Your program is " + response + ".";
     }
   }
   http.open("GET", url, true);
@@ -30,8 +32,9 @@ function transferJSON() {
 
 function showInput() {
   // check that things are working
-  name = document.getElementById("appNameFormInput").value
-  url = "/helloworld/" + name;
+  name = document.getElementById("dependencyTagsInput").tagsinput('items')
+  var split = name.split(',');
+  url = "/helloworld/" + split;
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -46,7 +49,7 @@ function showInput() {
 
 function clearForm() {
   // clear form input and output
-  document.getElementById("appNameFormInput").value = ""
-  document.getElementById("dependencyFormArea").value = ""
-  document.getElementById("result").innerHTML = ""
+  document.getElementById("appNameFormInput").value = "";
+  $('#dependencyTagsInput').tagsinput('removeAll');
+  document.getElementById("result").innerHTML = "";
 }
