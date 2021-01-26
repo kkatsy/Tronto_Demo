@@ -3,20 +3,20 @@
 **Heroku Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
 
 ### Repository Organization
-**directories** \\
-static: JS and CSS files \\
-templates: HTML files \\
-tronto: code for getting applications data within ontology
+**directories**
+- static: JS and CSS files
+- templates: HTML files
+- tronto: code for getting applications data within ontology
 
-**python files** \\
-app.py: flask routes and functions \\
-tronto_owl_ontology.py: tronto class \\
-twitter.py: pulling tweets w/ Twitter API
+**python files**
+- app.py: flask routes and functions
+- tronto_owl_ontology.py: tronto class
+- twitter.py: pulling tweets w/ Twitter API
 
-**data files** \\
-dependencynames.json: name strings of applications within ontology \\
-tronto_d.owl: owl files containing ontology \\
-product_dict.pickle: dict of dicts containing names + iris data within ontology
+**data files**
+- dependencynames.json: name strings of applications within ontology
+- tronto_d.owl: owl files containing ontology 
+- product_dict.pickle: dict of dicts containing names + iris data within ontology
 
 ### TODOs:
 - mess with css + make presentable
