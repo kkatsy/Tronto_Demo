@@ -4,12 +4,12 @@ function transferJSON() {
 
   //depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
   depend_string = $('#dependencyTagsInput').val()
-  
+
   var depend_string = depend_string.split(',');
 
   // get json string w dependencies
   var obj = new Object();
-  obj.appName = name;
+  obj.name = name;
   obj.dependencies = depend_string;
   obj.status = 'unknown';
   var json_string = JSON.stringify(obj);

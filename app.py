@@ -1,20 +1,15 @@
 from flask import Flask, render_template, request, make_response
 import json
-
-# get app's vulnerability status
-# CONNECT TO MODULE HERE
-def get_status(dependencies):
-    # create new node in ontology
-    # sync reasoner (potentially)
-    # is_vulnerable?
-    return 'vulnerable'
-
-###############################################################################
+from owlready2 import *
+from tronto_owl_ontology import Tronto
+import Cython
 
 # start up flask webframework
 app = Flask(__name__)
 app.debug = True
 
+# create ontology Object
+tronto = Tronto()
 
 # home page of demo
 @app.route('/')
@@ -29,6 +24,13 @@ def helloword(name):
     print('hello world func')
     return name
 
+# test to make sure routing works
+@app.route('/dependencynames.json',methods=['GET'])
+def dependencydata():
+    with open('dependencynames.json', 'r') as myfile:
+        data = myfile.read()
+    return data
+
 
 # route to get app's vulnerability status
 @app.route('/app_status/<json_str>',methods=['GET'])
@@ -36,8 +38,14 @@ def app_status(json_str):
     # get json app + dependencies from JS
     app_dict = json.loads(json_str)
 
+    tronto.add_to_ontology(app_dict)
+
+    print('sync started')
+    tronto.sync_ontology()
+    print('sync finished')
+
     # get the app's status via python module
-    app_dict['status'] = get_status(app_dict['dependencies'])
+    app_dict['status'] = tronto.is_app_vulnerable()
 
     return app_dict['status']
 
