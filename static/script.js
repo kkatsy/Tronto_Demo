@@ -53,3 +53,30 @@ function clearForm() {
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
 }
+
+function add_typeahead() {
+  var dependencynames = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: {
+      url: 'dependencynames.json',
+      filter: function(list) {
+        return $.map(list, function(dependencyname) {
+          return { name: dependencyname }; });
+      }
+    }
+  });
+  dependencynames.initialize();
+
+  $('input').tagsinput({
+    typeaheadjs: {
+      name: 'dependencynames',
+      displayKey: 'name',
+      valueKey: 'name',
+      source: dependencynames.ttAdapter()
+    }
+  });
+}
+
+// TODO
+function create_table() {}

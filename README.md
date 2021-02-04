@@ -1,7 +1,7 @@
 # cybersecurity-checker
 
 **Heroku Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
--> wrapper doesn't run on site b/c of 503 error (fix!)
+-> wrapper doesn't run on site b/c of 503 error (fix!) (occurs bc of owlready2 exception, try w python 3.9)
 
 ### Repository Organization
 **directories**
@@ -22,7 +22,8 @@
 ### TODOs:
 - check vulnerability by dependency: add function to tronto class
 - add checkbox: if user checks, add application to ontology via sync_reasoner
-- change output: show application vulnerability + which dependencies are vulnerable (table)
+- change output: show application vulnerability + which dependencies are vulnerable
+- create table from JSON dependency data w/ javascript
 - embed tweets (query = depedency name), format ~20 end of page
 - make demo more presentable: centered, bigger font, fix colors, css grid stuff and such
 - if time, figure out how to run sync_reasoner as background job via stack queue

@@ -2,8 +2,6 @@
 <html>
 
 <head>
-  <br>
-  <br>
   <title>TRONTO</title>
   <meta name="viewport" content="width=device-width">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -11,28 +9,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script type="text/javascript" src="/static/script.js"></script>
+  <link href="/static/script.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="/static/bootstrap-tagsinput.js"></script>
   <script type="text/javascript" src="/static/typeahead.js"></script>
   <link href="/static/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
   <link href="/static/typeahead.css" rel="stylesheet" type="text/css" />
-  <style>
-    .container {
-    max-width: 800px;
-    margin: auto;
-    }
-    textarea {
-      width: 1000px;
-      resize: none;
-    }
-  </style>
 </head>
 
 <body>
-
   <div class="container">
     <div class="header" id="appNameForm">
       <h1 style="text-align:center">TRONTO</h1>
-      <!-- <h3 style="text-align:center">Check your program's dependencies for cybersecurity threats</h3> -->
     </div>
     <br>
     <br>
@@ -46,30 +33,7 @@
       <label for="dependencyTagsInput">Enter dependencies - name and version (if applicable). Press enter to submit:</label>
       <br>
       <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
-      <script>
-      var dependencynames = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: 'dependencynames.json',
-          filter: function(list) {
-            return $.map(list, function(dependencyname) {
-              return { name: dependencyname }; });
-          }
-        }
-      });
-      dependencynames.initialize();
-
-      $('input').tagsinput({
-        typeaheadjs: {
-          name: 'dependencynames',
-          displayKey: 'name',
-          valueKey: 'name',
-          source: dependencynames.ttAdapter()
-        }
-      });
-    </script>
-
+      <script> add_typeahead() </script>
     </div>
     <br>
     <button onclick="transferJSON()" class="btn btn-info">Check</button>
@@ -77,11 +41,7 @@
     <br>
     <br>
     <p id="result"></p>
-
-
   </div>
-
-
 </body>
 
 </html>
