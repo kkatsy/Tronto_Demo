@@ -6,9 +6,10 @@ body {
 }
 
 #logo{
-  font-family:Courier New;
-  font-size:120px;
-  color:Green;
+  font-family: Courier;
+  font-size:115px;
+  font-weight: normal;
+  color:steelblue;
   text-align:center;
   vertical-align:middle;
   height:30%;
@@ -21,38 +22,35 @@ body {
   padding: 10px;
 }
 
-.formLabel{
+/* .formLabel{
   font-weight:normal;
   font-size:24px;
   color:purple;
-}
+} */
 
-.appNameFormInput{
+/* .appNameFormInput{
   font-weight:normal;
   color:purple;
-}
+} */
 
-.appname {
+/* .appname {
   background-color:red;
   border: 1px solid blue;
   padding: 10px;
 }
 
-
-
 .depname {
   background-color: pink;
   border: 1px solid blue;
   padding: 20px;
-}
+} */
 
-.knopki {
+/* .knopki {
   background-color: pink;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
   text-align: left;
-
-}
+} */
 
 textarea {
   width:500px;

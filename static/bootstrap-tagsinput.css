@@ -43,6 +43,7 @@
   box-shadow: none;
 }
 .bootstrap-tagsinput .tag {
+  background: steelblue;
   margin-right: 2px;
   color: white;
 }
