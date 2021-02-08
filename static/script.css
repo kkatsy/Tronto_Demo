@@ -1,8 +1,66 @@
-.container {
-max-width: 800px;
-margin: auto;
+body {
+  height:100%;
+  width:100%;
+  padding-top:5%;
+  font-family: Tahoma, sans-serif;
 }
+
+#logo{
+  font-family:Courier New;
+  font-size:120px;
+  color:Green;
+  text-align:center;
+  vertical-align:middle;
+  height:30%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto;
+  border: 2px solid green;
+  padding: 10px;
+}
+
+.formLabel{
+  font-weight:normal;
+  font-size:24px;
+  color:purple;
+}
+
+.appNameFormInput{
+  font-weight:normal;
+  color:purple;
+}
+
+.appname {
+  background-color:red;
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+
+
+.depname {
+  background-color: pink;
+  border: 1px solid blue;
+  padding: 20px;
+}
+
+.knopki {
+  background-color: pink;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  text-align: left;
+
+}
+
 textarea {
-  width: 1000px;
+  width:500px;
   resize: none;
+}
+
+.result-item {
+  background-color: green;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
 }
