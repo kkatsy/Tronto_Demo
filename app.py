@@ -42,10 +42,10 @@ def app_status(json_str):
     # create ontology app object
     tronto.add_to_ontology(app_dict)
 
-    # # add app to ontology
-    # print('sync started')
-    # tronto.sync_ontology()
-    # print('sync finished')
+    if app_dict['embed'] == 'true':
+        print('sync started')
+        tronto.sync_ontology()
+        print('sync finished')
 
     # get the app's vulnerability status
     app_dict['status'] = tronto.is_app_vulnerable()

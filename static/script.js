@@ -1,17 +1,25 @@
 function transferJSON() {
-  // get dependencies, split into list
+  // get application name
   name = document.getElementById("appNameFormInput").value
 
-  //depend_string = document.getElementById("dependencyTagsInput").tagsinput('items')
-  depend_string = $('#dependencyTagsInput').val()
-
+  // get dependencies, split into list
+  depend_string = $("#dependencyTagsInput").val()
   var depend_string = depend_string.split(',');
+
+  checkbox = $("#embedCheck:checked").val()
 
   // get json string w dependencies
   var obj = new Object();
   obj.name = name;
   obj.dependencies = depend_string;
-  obj.status = 'unknown';
+  obj.status = "unknown";
+
+  if (checkbox == "on") {
+    obj.embed = "true";
+  } else {
+    obj.embed = "false";
+  }
+
   var json_string = JSON.stringify(obj);
 
   // get site route for app status func server-side
@@ -22,7 +30,7 @@ function transferJSON() {
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your program is " + response + ".";
+      document.getElementById("result").innerHTML = "Your application " + name + " is " + response + ".";
     }
   }
   http.open("GET", url, true);
@@ -52,6 +60,8 @@ function clearForm() {
   document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
+  $(":checkbox").prop('checked', false).parent().removeClass('active');
+
 }
 
 function add_typeahead() {
@@ -78,6 +88,3 @@ function add_typeahead() {
     }
   });
 }
-
-// TODO
-function create_table() {}
