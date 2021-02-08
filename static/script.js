@@ -55,6 +55,7 @@ function clearForm() {
 }
 
 function add_typeahead() {
+  // get JSON keys for typeahead plugin
   var dependencynames = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
