@@ -40,7 +40,7 @@ def app_status(json_str):
     app_dict = json.loads(json_str)
 
     # create ontology app object
-    tronto.add_to_ontology(app_dict)
+    tronto.create_onto_application(app_dict)
 
     if app_dict['embed'] == 'true':
         print('sync started')

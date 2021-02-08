@@ -30,12 +30,11 @@
     </div>
     <br>
     <div class="form-group" id="dependenciesForm">
-      <label for="dependencyTagsInput">Enter dependencies - name and version (if applicable). Press enter to submit:</label>
+      <label for="dependencyTagsInput">Enter dependencies - name and version (if applicable). Press enter to add tag:</label>
       <br>
       <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
       <script> add_typeahead(); </script>
     </div>
-    <br>
     <div class="custom-control custom-checkbox">
       <input type="checkbox" class="custom-control-input" id="embedCheck">
       <label class="custom-control-label" for="embedCheck"> Embed app into ontology</label>
@@ -43,6 +42,7 @@
     <br>
     <button onclick="transferJSON()" class="btn btn-info">Check</button>
     <button onclick="clearForm()" class="btn btn-info">Clear</button>
+    <br>
     <br>
     <p id="result"></p>
   </div>

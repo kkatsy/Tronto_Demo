@@ -3238,7 +3238,7 @@ fieldset[disabled] .btn-success.focus {
 }
 .btn-info:hover {
   color: #fff;
-  background-color: steelblue; opacity: 0.6;
+  background-color: steelblue; opacity: 0.8;
 
 }
 .btn-info:active,
@@ -4842,7 +4842,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1;
   color: #fff;
   text-align: center;
@@ -4910,7 +4910,7 @@ a.label:focus {
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1;
   color: #fff;
   text-align: center;

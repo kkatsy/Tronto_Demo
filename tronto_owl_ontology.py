@@ -13,7 +13,8 @@ class Tronto(object):
         with open('product_dict.pickle', 'rb') as f:
             self.products_in_onto = pickle.load(f)
 
-    def add_to_ontology(self, app_dict):
+    # create new ontology application
+    def create_onto_application(self, app_dict):
         depends_on = []
         for dependency_name in app_dict['dependencies']:
             depend_iris = (self.products_in_onto[dependency_name])['iris']
@@ -26,9 +27,11 @@ class Tronto(object):
         self.cur_app = new_app
         self.cur_dependencies = app_dict['dependencies']
 
+    # embed application into ontology
     def sync_ontology(self):
         sync_reasoner()
 
+    # check if app vulnerable based on dependencies
     def is_app_vulnerable(self):
         for dependency_name in self.cur_dependencies:
             depend_iris = (self.products_in_onto[dependency_name])['iris']
@@ -39,6 +42,7 @@ class Tronto(object):
                 return 'vulnerable'
         return 'not vulnerable'
 
+    # get dict of dependencies and their vulnerability statuses
     def get_dependency_statuses(self):
         dependency_status_dict = {}
         for dependency_name in self.cur_dependencies:
@@ -50,10 +54,12 @@ class Tronto(object):
             dependency_status_dict[dependency_name] = {'is_vulnerable': is_vulnerable, 'vulnerabilities': vulnerabilities}
         return dependency_status_dict
 
+    # get application status after it's been embedded in ontology
     def is_app_in_onto_vulnerable(self):
         if (self.onto.Vulnerable_configuration in self.cur_app.is_a) == True:
             return 'vulnerable'
         return 'not vulnerable'
 
+    # save updated ontology
     def save_updated_ontology(self):
         self.onto.save(file='tronto_d_updated.owl')
