@@ -14,15 +14,14 @@ tronto = Tronto()
 # home page of demo
 @app.route('/')
 def home():
-    print('zdravstvuyte!')
     return render_template('index.html')
 
 
 # test to make sure routing works
 @app.route('/helloworld/<name>',methods=['GET'])
 def helloword(name):
-    print('hello world func')
     return name
+
 
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])
@@ -40,18 +39,25 @@ def app_status(json_str):
     app_dict = json.loads(json_str)
 
     # create ontology app object
-    tronto.add_to_ontology(app_dict)
+    tronto.create_onto_application(app_dict)
 
-    # add app to ontology
-    print('sync started')
-    tronto.sync_ontology()
-    print('sync finished')
+    if app_dict['embed'] == 'true':
+        print('sync started')
+        tronto.sync_ontology()
+        print('sync finished')
 
     # get the app's vulnerability status
     app_dict['status'] = tronto.is_app_vulnerable()
 
     return app_dict['status']
 
+# route to json of dependency status
+@app.route('/dependency_statuses',methods=['GET'])
+def dependency_statuses():
+    table_list = tronto.get_dependency_statuses()
+    table_json = json.dumps(table_list)
+    
+    return table_json
 
 if __name__ =='__main__':
     app.run()
