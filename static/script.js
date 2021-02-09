@@ -143,8 +143,29 @@ function transferJSON() {
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
 
       showTable();
+      add_tweets();
     }
   }
   http.open("GET", url, true);
   http.send();
+}
+
+function add_tweets() {
+
+  $("#tweet-container").removeClass('hidden');
+
+  var tweets = document.getElementsByClassName("tweetObject"); // or:
+
+  for(let a_tweet of tweets){
+   var id = a_tweet.getAttribute("tweetID");
+
+   twttr.widgets.createTweet(
+     id, a_tweet,
+      {
+        conversation : 'none',    // or all
+        cards        : 'hidden',  // or visible
+        linkColor    : '#cc0000', // default is blue
+        theme        : 'light'    // or dark
+      })
+ }
 }

@@ -1,6 +1,7 @@
 body {
-  height:100%;
-  width:100%;
+  height:850px;
+  width:850px;
+  margin: auto;
   padding-top:2%;
   font-family: Tahoma, sans-serif;
   font-size:18px;
@@ -17,7 +18,7 @@ body {
 }
 
 .container {
-  width:800px;
+  width:850px;
 }
 
 .search-grid-container {
@@ -52,4 +53,28 @@ textarea {
   background-color: green;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
+}
+
+.tweetObject {
+  width: 300 !important;
+}
+
+.tweetObject iframe {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tweet-container {
+  display:inline-block;
+  width: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+}
+
+.cell {
+  width: 300px;
+  flex: 1;
 }
