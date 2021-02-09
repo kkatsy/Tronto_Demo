@@ -44,15 +44,17 @@ class Tronto(object):
 
     # get dict of dependencies and their vulnerability statuses
     def get_dependency_statuses(self):
-        dependency_status_dict = {}
+        dependency_status_list = []
         for dependency_name in self.cur_dependencies:
             depend_iris = (self.products_in_onto[dependency_name])['iris']
             dependency = IRIS[depend_iris]
             vulnerabilities = dependency.has_vulnerability
             vulnerabilities = [str(iris).replace('tronto_d.', '') for iris in vulnerabilities]
-            is_vulnerable = True if (len(vulnerabilities) > 0) else False
-            dependency_status_dict[dependency_name] = {'is_vulnerable': is_vulnerable, 'vulnerabilities': vulnerabilities}
-        return dependency_status_dict
+            vulnerabilities = ', '.join(vulnerabilities)
+            is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
+            dependency_status_dict = {'name': dependency_name, 'status': is_vulnerable, 'vulnerabilities': vulnerabilities}
+            dependency_status_list.append(dependency_status_dict)
+        return dependency_status_list
 
     # get application status after it's been embedded in ontology
     def is_app_in_onto_vulnerable(self):

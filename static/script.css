@@ -22,36 +22,6 @@ body {
   padding: 10px;
 }
 
-/* .formLabel{
-  font-weight:normal;
-  font-size:24px;
-  color:purple;
-} */
-
-/* .appNameFormInput{
-  font-weight:normal;
-  color:purple;
-} */
-
-/* .appname {
-  background-color:red;
-  border: 1px solid blue;
-  padding: 10px;
-}
-
-.depname {
-  background-color: pink;
-  border: 1px solid blue;
-  padding: 20px;
-} */
-
-/* .knopki {
-  background-color: pink;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  text-align: left;
-} */
-
 textarea {
   width:500px;
   resize: none;
