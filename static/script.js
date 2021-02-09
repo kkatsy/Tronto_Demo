@@ -140,7 +140,7 @@ function transferJSON() {
     if (this.readyState == 4 && this.status == 200) {
 
       var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your application " + name + " is " + response + ".";
+      document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
 
       showTable();
     }

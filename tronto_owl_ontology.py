@@ -52,7 +52,7 @@ class Tronto(object):
             vulnerabilities = [str(iris).replace('tronto_d.', '') for iris in vulnerabilities]
             vulnerabilities = ', '.join(vulnerabilities)
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
-            dependency_status_dict = {'name': dependency_name, 'status': is_vulnerable, 'vulnerabilities': vulnerabilities}
+            dependency_status_dict = {'Name': dependency_name, 'Status': is_vulnerable, 'Vulnerabilities': vulnerabilities}
             dependency_status_list.append(dependency_status_dict)
         return dependency_status_list
 

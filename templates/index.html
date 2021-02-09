@@ -20,35 +20,39 @@
 </head>
 
 <body>
+  <div id="logo">TRONTO</div>
   <div class="container">
-    <div id="logo">TRONTO</div>
+  <div class="search-grid-container">
+
     <div class="form-group" id="appNameForm">
       <label for="appNameFormInput">Enter your application's name:</label>
       <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
     </div>
-    <br>
+
     <div class="form-group" id="dependenciesForm">
-      <label for="dependencyTagsInput">Enter dependencies - name and version (if applicable). Press enter to add tag:</label>
-      <br>
+      <label for="dependencyTagsInput">Enter dependencies (name and version if applicable):</label>
       <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
       <script> add_typeahead(); </script>
     </div>
+
     <div class="custom-control custom-checkbox">
       <input type="checkbox" class="custom-control-input" id="embedCheck">
-      <label class="custom-control-label" for="embedCheck"> Embed app into ontology</label>
+      <label class="custom-control-label" for="embedCheck"> Embed application into ontology</label>
     </div>
-    <br>
 
+    <div class="knopki">
     <button onclick="transferJSON()" class="btn btn-info">Check</button>
     <button onclick="clearForm()" class="btn btn-info">Clear</button>
-    <br>
-    <br>
   </div>
 
+  </div>
+
+</div>
+<br>
   <div class="container">
-    <p id="result"></p>
+    <p id="result" style="text-align:center"></p>
   </div>
-
+  <br>
   <div class="container">
   <table class="table table-bordered hidden" id="dependencyTable">
   </table>

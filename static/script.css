@@ -1,13 +1,14 @@
 body {
   height:100%;
   width:100%;
-  padding-top:5%;
+  padding-top:2%;
   font-family: Tahoma, sans-serif;
+  font-size:18px;
 }
 
 #logo{
   font-family: Courier New;
-  font-size:115px;
+  font-size:120px;
   font-weight: normal;
   color:steelblue;
   text-align:center;
@@ -15,16 +16,36 @@ body {
   height:30%;
 }
 
-.grid-container {
+.container {
+  width:800px;
+}
+
+.search-grid-container {
   display: grid;
   grid-template-columns: auto;
-  border: 2px solid green;
   padding: 10px;
+  width: 100%;
+}
+
+.knopki {
+  padding: 20px;
+  text-align:center;
 }
 
 textarea {
   width:500px;
   resize: none;
+}
+
+#result {
+  color:red;
+  font-style: italic;
+  font-size: 18px;
+}
+
+#result-non-red {
+  font-style: italic;
+  font-size: 18px;
 }
 
 .result-item {
