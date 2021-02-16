@@ -24,6 +24,7 @@ function clearForm() {
   document.getElementById("result").innerHTML = "";
   $(":checkbox").prop('checked', false).parent().removeClass('active');
 
+  $("#dependencyTable tr").remove()
 }
 
 

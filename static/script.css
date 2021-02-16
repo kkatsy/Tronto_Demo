@@ -2,7 +2,7 @@ body {
   height:850px;
   width:850px;
   margin: auto;
-  padding-top:2%;
+  padding-top:1%;
   font-family: Tahoma, sans-serif;
   font-size:18px;
 }
@@ -14,7 +14,7 @@ body {
   color:steelblue;
   text-align:center;
   vertical-align:middle;
-  height:30%;
+  height:20%;
 }
 
 .container {
@@ -56,7 +56,7 @@ textarea {
 }
 
 .tweetObject {
-  width: 300 !important;
+  width: 340 !important;
 }
 
 .tweetObject iframe {
@@ -71,10 +71,10 @@ textarea {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 18px;
+  gap: 24px;
 }
 
 .cell {
-  width: 300px;
+  width: 340px;
   flex: 1;
 }
