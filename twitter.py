@@ -1,4 +1,3 @@
-import re
 import tweepy
 from tweepy import OAuthHandler
 
@@ -46,10 +45,6 @@ class Twitter(object):
             # for tweets in batch, get full text and process tweets
             for single_tweet in single_call:
                 tweet_id = single_tweet.id
-                tweet_id_num_batch.append(tweet_id)
+                tweet_id_num_batch.append(str(tweet_id))
 
         return tweet_id_num_batch
-
-# twitter = Twitter()
-# ids = twitter.get_tweets('hacker', 20)
-# print(ids)

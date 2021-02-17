@@ -25,6 +25,7 @@ function clearForm() {
   $(":checkbox").prop('checked', false).parent().removeClass('active');
 
   $("#dependencyTable tr").remove()
+  $("#tweet-container div").remove()
 }
 
 
@@ -155,18 +156,17 @@ function add_tweets() {
 
   $("#tweet-container").removeClass('hidden');
 
-  var tweets = document.getElementsByClassName("tweetObject"); // or:
-
-  for(let a_tweet of tweets){
-   var id = a_tweet.getAttribute("tweetID");
-
-   twttr.widgets.createTweet(
-     id, a_tweet,
-      {
-        conversation : 'none',    // or all
-        cards        : 'hidden',  // or visible
-        linkColor    : '#cc0000', // default is blue
-        theme        : 'light'    // or dark
-      })
- }
+  var tweet_list = ['1359031539313508352', '1359031507919241216', '1359031487933341699', '1359031463212158978', '1359031445528797184', '1359031419876630529', '1359031371151249408', '1359031357226237955', '1359031347877183489', '1359031344496582657', '1359031312112377857', '1359031307800481793', '1359031302524194817', '1359031297570725888', '1359031267023495170', '1359031223662743553', '1359031222437965826', '1359031214477254657', '1359031201458233347'];
+  for(let tweet_ID of tweet_list){
+    twttr.widgets.createTweet(
+    tweet_ID,
+    document.getElementById('tweet-container'),
+    {
+      conversation : 'none',    // or all
+      cards        : 'hidden',  // or visible
+      linkColor    : '#cc0000', // default is blue
+      theme        : 'light'    // or dark
+    }
+    );
+  }
 }
