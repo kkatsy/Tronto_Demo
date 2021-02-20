@@ -25,7 +25,6 @@ class Twitter(object):
         # create tweepy API object to fetch tweets
         self.api = tweepy.API(self.auth)
 
-
     def get_tweets(self, query, count):
         # store processed tweet data dicts in list
         tweet_id_num_batch = []
@@ -48,3 +47,24 @@ class Twitter(object):
                 tweet_id_num_batch.append(str(tweet_id))
 
         return tweet_id_num_batch
+
+    def get_dependency_tweets(self, query_list, count):
+        tweet_id_list = []
+        num = 0
+
+        # keep pulling tweets until reach needed count
+        while len(tweet_id_list) != count:
+            # circular index of query_list
+            if num < len(query_list):
+                index = num
+            else:
+                index = num % len(query_list)
+
+            # pull single tweet id, add if new
+            tweet_id = self.get_tweets(query_list[index], 1)
+            if tweet_id not in tweet_id_list:
+                tweet_id_list.extend(tweet_id)
+
+            num += 1
+
+        return tweet_id_list

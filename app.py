@@ -2,14 +2,16 @@ from flask import Flask, render_template, request, make_response
 import json
 from owlready2 import *
 from tronto_owl_ontology import Tronto
+from twitter_api import Twitter
 import Cython
 
 # start up flask webframework
 app = Flask(__name__)
 app.debug = True
 
-# create ontology Object
+# create ontology + twitter objects
 tronto = Tronto()
+twitter = Twitter()
 
 # home page of demo
 @app.route('/')
@@ -56,8 +58,24 @@ def app_status(json_str):
 def dependency_statuses():
     table_list = tronto.get_dependency_statuses()
     table_json = json.dumps(table_list)
-    
+
     return table_json
+
+
+# route to get list of tweet ids to display
+@app.route('/tweet_list/<json_str>',methods=['GET'])
+def tweet_list(json_str):
+
+    # get json app + dependencies from JS
+    app_dict = json.loads(json_str)
+    dependencies = app_dict['dependencies']
+
+    # get list of tweet ids via twitter api
+    count = 21
+    tweet_id_list = twitter.get_dependency_tweets(dependencies, count)
+
+    return tweet_id_list
+
 
 if __name__ =='__main__':
     app.run()

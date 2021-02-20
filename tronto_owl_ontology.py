@@ -33,13 +33,17 @@ class Tronto(object):
 
     # check if app vulnerable based on dependencies
     def is_app_vulnerable(self):
-        for dependency_name in self.cur_dependencies:
-            depend_iris = (self.products_in_onto[dependency_name])['iris']
-            dependency = IRIS[depend_iris]
-            vulnerabilities = dependency.has_vulnerability
-            is_vulnerable = True if (len(vulnerabilities) > 0) else False
-            if is_vulnerable:
-                return 'vulnerable'
+        dependencies = list(self.cur_app.INDIRECT_depends_on)
+        dependencies.append(self.cur_app)
+
+        vuln = 0
+        for d in dependencies:
+            if len(d.has_vulnerability) > 0:
+                vuln = 1
+                break
+
+        if vuln == 1:
+            return 'vulnerable'
         return 'not vulnerable'
 
     # get dict of dependencies and their vulnerability statuses

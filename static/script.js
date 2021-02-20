@@ -109,7 +109,12 @@ function showTable() {
 }
 
 
-function transferJSON() {
+function clickCheck() {
+
+  // clear prev output in case of updated input
+  $("#dependencyTable tr").remove()
+  $("#tweet-container div").remove()
+
   // get application name
   name = document.getElementById("appNameFormInput").value
 
