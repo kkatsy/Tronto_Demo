@@ -11,19 +11,19 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = 'OONxxHdjTdGnJnnJ8Kg6d14bP'
-        consumer_secret = 'aZLkk2AV6RPqyxaDrCv3tOxyivP9yC1hhFpUJ2cOYEvej2WaAS'
-        access_token = '1300638328404934659-BuDxv7e45rHhx1mkKfUQ1V2Dto17Ca'
-        access_token_secret = 'vkmBTyC1OJNFP7bTF2QPrH7sVZgNPwzYGceCLC7DPmqhN'
+        api_key = 'NgeexB3ng4UMpDBqNyclyjbao' #
+        api_secret = 'xrT9S3yYF6aEs7UOM7Ddn7X0CBh7zZ7seXRmShcJ7ZvXW4IyOa' #
+        access_token = '1300638328404934659-Zp96vfwo351sGkJ0Dc6010jGzB812O' #
+        access_token_secret = 'EKm8GJ6YcPngII5Ue05EnYNhGpXgeGPtIdyCZbz9gHbZM' #
 
         # create OAuthHandler object
-        self.auth = OAuthHandler(consumer_key, consumer_secret)
+        self.auth = OAuthHandler(api_key, api_secret)
 
         # set access token and secret
         self.auth.set_access_token(access_token, access_token_secret)
 
         # create tweepy API object to fetch tweets
-        self.api = tweepy.API(self.auth)
+        self.api = tweepy.API(self.auth, wait_on_rate_limit=False)
 
     def get_tweets(self, query, count):
         # store processed tweet data dicts in list
@@ -62,9 +62,17 @@ class Twitter(object):
 
             # pull single tweet id, add if new
             tweet_id = self.get_tweets(query_list[index], 1)
-            if tweet_id not in tweet_id_list:
-                tweet_id_list.extend(tweet_id)
+            if len(tweet_id) != 0:
+                the_tweet_id = tweet_id[0]
+                if the_tweet_id is not tweet_id_list:
+                    tweet_id_list.append(the_tweet_id)
 
             num += 1
-
+        print(num)
         return tweet_id_list
+
+
+
+# twitter = Twitter()
+# ids = twitter.get_dependency_tweets(['junos', 'advanced threat prevention firmware', 'trusted execution technology'], 20)
+# print(ids)

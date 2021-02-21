@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, jsonify
 import json
 from owlready2 import *
 from tronto_owl_ontology import Tronto
@@ -73,8 +73,10 @@ def tweet_list(json_str):
     # get list of tweet ids via twitter api
     count = 21
     tweet_id_list = twitter.get_dependency_tweets(dependencies, count)
+    print(tweet_id_list)
 
-    return tweet_id_list
+    # convert to JSON
+    return json.dumps(tweet_id_list)
 
 
 if __name__ =='__main__':
