@@ -29,7 +29,7 @@ def helloword(name):
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])
 def dependencydata():
-    with open('dependencynames.json', 'r') as myfile:
+    with open('assets/dependencynames.json', 'r') as myfile:
         data = myfile.read()
     return data
 
