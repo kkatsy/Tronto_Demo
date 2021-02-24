@@ -44,6 +44,7 @@ def app_status(json_str):
     # create ontology app object
     tronto.create_onto_application(app_dict)
 
+    # if checkbox checked, run sync_reasoner
     if app_dict['embed'] == 'true':
         start = time.time()
 

@@ -60,7 +60,7 @@ class Twitter(object):
             else:
                 index = num % len(query_list)
 
-            # pull single tweet id, add if new
+            # pull tweet id batch, add to list
             tweet_ids = self.get_tweets(query_list[index], 3)
             if len(tweet_ids) != 0:
                 for the_tweet_id in tweet_ids:
@@ -72,8 +72,3 @@ class Twitter(object):
             num += 1
         print(num)
         return tweet_id_list
-
-
-# twitter = Twitter()
-# ids = twitter.get_dependency_tweets(['junos', 'advanced threat prevention firmware', 'trusted execution technology'], 20)
-# print(ids)

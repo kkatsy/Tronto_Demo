@@ -11,12 +11,13 @@ class Tronto(object):
         self.cur_app = None
         self.cur_dependencies = None
 
-        # build data for applications currently in onto
+        # build data for apps currently in ontology
         products = {}  # dict of dicts
         for individual in list(self.onto.individuals()):
             product_dict = {}
             iris = str(individual)[9:]
 
+            # extract + store application metadata
             if (';' in iris) and ('CVE' not in iris):
                 company, product, version, stage = iris.split(';')
                 company = company.replace('_', ' ')
@@ -26,18 +27,18 @@ class Tronto(object):
                     key = product
                 else:
                     key = product + ' ' + version
+                key = key.replace('\\\\', '')
 
                 product_dict['iris'] = self.base_iri + iris
                 product_dict['company'] = company
                 product_dict['product'] = product
                 product_dict['version'] = version
                 product_dict['stage'] = stage
-
-                key = key.replace('\\\\', '')
                 products[key] = product_dict
 
         self.products_in_onto = products
 
+        # generate json with most up-to-date ontology ingo
         product_names = list(products.keys())
         with open('assets/dependencynames.json', 'w') as f:
             json.dump(product_names, f)
@@ -99,5 +100,3 @@ class Tronto(object):
     # save updated ontology
     def save_updated_ontology(self):
         self.onto.save(file='tronto_d_updated.owl')
-
-# tronto = Tronto()
