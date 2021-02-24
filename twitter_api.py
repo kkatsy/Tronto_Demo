@@ -11,10 +11,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        api_key = 'NgeexB3ng4UMpDBqNyclyjbao'
-        api_secret = 'xrT9S3yYF6aEs7UOM7Ddn7X0CBh7zZ7seXRmShcJ7ZvXW4IyOa'
-        access_token = '1300638328404934659-Zp96vfwo351sGkJ0Dc6010jGzB812O'
-        access_token_secret = 'EKm8GJ6YcPngII5Ue05EnYNhGpXgeGPtIdyCZbz9gHbZM'
+        api_key = 'SCpVZk7nEvnbvjGLI3DQNSBXf'
+        api_secret = '6E2BXFZEZudxuhckOoY6qc8L0YPb0CrUei0N1mIXzyluBpVQI6'
+        access_token = '1300638328404934659-67qbPFLmI47ivO6R7jMehTWgMPlVgd'
+        access_token_secret = 'oM9NSb37DiQolbxQr0MSHMiWwQKU2aKjBk4wWuEhrOxiC'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(api_key, api_secret)
@@ -33,10 +33,10 @@ class Twitter(object):
         while count > 0:
             if count >= LIMIT:
                 # if still need more than limit, get limit
-                single_call = self.api.search(q=query, count=LIMIT, lang='en',result_type='recent')
+                single_call = self.api.search(q=query, count=LIMIT, lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
             else:
                 # if need less the limit, get what is left
-                single_call = self.api.search(q=query, count=count,lang='en',result_type='recent')
+                single_call = self.api.search(q=query, count=count,lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
             count -= LIMIT
             calls += 1
@@ -61,7 +61,7 @@ class Twitter(object):
                 index = num % len(query_list)
 
             # pull tweet id batch, add to list
-            tweet_ids = self.get_tweets(query_list[index], 3)
+            tweet_ids = self.get_tweets(query_list[index], 7)
             if len(tweet_ids) != 0:
                 for the_tweet_id in tweet_ids:
                     if the_tweet_id is not tweet_id_list:
