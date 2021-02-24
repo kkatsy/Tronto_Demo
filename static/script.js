@@ -24,6 +24,12 @@ function clearForm() {
   document.getElementById("result").innerHTML = "";
   $(":checkbox").prop('checked', false).parent().removeClass('active');
 
+  $('#spinnerContainer').removeClass('spinner');
+  $('#dependencyTable').addClass('hidden');
+  $('#tweet-container').addClass('hidden');
+  $('#resultContainer').addClass('hidden');
+  $("#dependencyTable tr").remove()
+  $("#tweet-container div").remove()
 }
 
 
@@ -97,7 +103,7 @@ function showTable() {
     if (this.readyState == 4 && this.status == 200) {
 
       var response = this.responseText;
-      $("#dependencyTable").removeClass('hidden');
+      // $("#dependencyTable").removeClass('hidden');
       generate_table(response);
     }
   }
@@ -107,7 +113,18 @@ function showTable() {
 }
 
 
-function transferJSON() {
+function clickCheck() {
+
+  $('#spinnerContainer').addClass('spinner');
+  $("#dependencyTable").addClass('hidden');
+  $("#tweet-container").addClass('hidden');
+  $("#resultContainer").addClass('hidden');
+
+  // clear prev output in case of updated input
+
+  $("#dependencyTable tr").remove()
+  $("#tweet-container div").remove()
+
   // get application name
   name = document.getElementById("appNameFormInput").value
 
@@ -143,8 +160,68 @@ function transferJSON() {
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
 
       showTable();
+      add_tweets(json_string);
     }
   }
   http.open("GET", url, true);
   http.send();
 }
+
+function add_tweets(json_string) {
+
+  //$("#tweet-container").removeClass('hidden');
+
+  // get site route for app status func server-side
+  var url = "/tweet_list/" + json_string;
+
+  // get request to get application's vuln status
+  var http = new XMLHttpRequest();
+  http.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      var response = this.responseText;
+      var tweet_list = JSON.parse(response)
+      console.log(tweet_list)
+
+      for(let tweet_ID of tweet_list){
+        twttr.widgets.createTweet(
+        tweet_ID,
+        document.getElementById('tweet-container'),
+        {
+          conversation : 'none',    // or all
+          cards        : 'hidden',  // or visible
+          linkColor    : '#cc0000', // default is blue
+          theme        : 'light'    // or dark
+        }
+        );
+      }
+
+      $('#spinnerContainer').removeClass('spinner');
+      $("#dependencyTable").removeClass('hidden');
+      $("#tweet-container").removeClass('hidden');
+      $("#resultContainer").removeClass('hidden');
+
+    }
+  }
+  http.open("GET", url, true);
+  http.send();
+}
+
+// function add_tweets() {
+//
+//   $("#tweet-container").removeClass('hidden');
+//
+//   var tweet_list = ['1359031539313508352', '1359031507919241216', '1359031487933341699', '1359031463212158978', '1359031445528797184', '1359031419876630529', '1359031371151249408', '1359031357226237955', '1359031347877183489', '1359031344496582657', '1359031312112377857', '1359031307800481793', '1359031302524194817', '1359031297570725888', '1359031267023495170', '1359031223662743553', '1359031222437965826', '1359031214477254657', '1359031201458233347'];
+//   for(let tweet_ID of tweet_list){
+//     twttr.widgets.createTweet(
+//     tweet_ID,
+//     document.getElementById('tweet-container'),
+//     {
+//       conversation : 'none',    // or all
+//       cards        : 'hidden',  // or visible
+//       linkColor    : '#cc0000', // default is blue
+//       theme        : 'light'    // or dark
+//     }
+//     );
+//   }
+// }

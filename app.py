@@ -1,15 +1,18 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, jsonify
 import json
 from owlready2 import *
 from tronto_owl_ontology import Tronto
+from twitter_api import Twitter
 import Cython
+import time
 
 # start up flask webframework
 app = Flask(__name__)
 app.debug = True
 
-# create ontology Object
+# create ontology + twitter objects
 tronto = Tronto()
+twitter = Twitter()
 
 # home page of demo
 @app.route('/')
@@ -26,7 +29,7 @@ def helloword(name):
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])
 def dependencydata():
-    with open('dependencynames.json', 'r') as myfile:
+    with open('assets/dependencynames.json', 'r') as myfile:
         data = myfile.read()
     return data
 
@@ -42,9 +45,13 @@ def app_status(json_str):
     tronto.create_onto_application(app_dict)
 
     if app_dict['embed'] == 'true':
-        print('sync started')
+        start = time.time()
+
         tronto.sync_ontology()
-        print('sync finished')
+        end = time.time()
+
+        run_time = end - start
+        print('sync reasoner runtime: ', run_time, ' seconds')
 
     # get the app's vulnerability status
     app_dict['status'] = tronto.is_app_vulnerable()
@@ -56,8 +63,26 @@ def app_status(json_str):
 def dependency_statuses():
     table_list = tronto.get_dependency_statuses()
     table_json = json.dumps(table_list)
-    
+
     return table_json
+
+
+# route to get list of tweet ids to display
+@app.route('/tweet_list/<json_str>',methods=['GET'])
+def tweet_list(json_str):
+
+    # get json app + dependencies from JS
+    app_dict = json.loads(json_str)
+    dependencies = app_dict['dependencies']
+
+    # get list of tweet ids via twitter api
+    count = 21
+    tweet_id_list = twitter.get_dependency_tweets(dependencies, count)
+    print(tweet_id_list)
+
+    # convert to JSON
+    return json.dumps(tweet_id_list)
+
 
 if __name__ =='__main__':
     app.run()

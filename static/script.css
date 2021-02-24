@@ -1,7 +1,8 @@
 body {
-  height:100%;
-  width:100%;
-  padding-top:2%;
+  height:850px;
+  width:850px;
+  margin: auto;
+  padding-top:1%;
   font-family: Tahoma, sans-serif;
   font-size:18px;
 }
@@ -13,11 +14,11 @@ body {
   color:steelblue;
   text-align:center;
   vertical-align:middle;
-  height:30%;
+  height:20%;
 }
 
 .container {
-  width:800px;
+  width:850px;
 }
 
 .search-grid-container {
@@ -41,6 +42,8 @@ textarea {
   color:red;
   font-style: italic;
   font-size: 18px;
+  text-align:center;
+  padding-bottom: 20px;
 }
 
 #result-non-red {
@@ -52,4 +55,60 @@ textarea {
   background-color: green;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
+}
+
+.twitter-tweet {
+  width: 250px !important;
+}
+
+.twitter-tweet iframe {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tweet-container {
+  width: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+}
+
+.cell {
+  width: 250px;
+  flex: 1;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border-top: 4px solid lightsteelblue;
+  border-right: 4px solid transparent;
+  animation: spinner 1s linear infinite;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+#spinnerContainer {
+  position: relative;
+  height: 36px;
+  margin:0 auto;
+  width: inherit;
+  right: 14px;
 }
