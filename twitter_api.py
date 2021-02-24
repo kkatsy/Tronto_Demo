@@ -11,10 +11,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        api_key = 'NgeexB3ng4UMpDBqNyclyjbao'
-        api_secret = 'xrT9S3yYF6aEs7UOM7Ddn7X0CBh7zZ7seXRmShcJ7ZvXW4IyOa'
-        access_token = '1300638328404934659-Zp96vfwo351sGkJ0Dc6010jGzB812O'
-        access_token_secret = 'EKm8GJ6YcPngII5Ue05EnYNhGpXgeGPtIdyCZbz9gHbZM'
+        api_key = '4qRUa231N1Iw7baromCJNoosY' #
+        api_secret = 'CFdFq8dhC91WKpRwf3E1wRJQIG336XzKUbhwJXzg4FO2HIk80T'
+        access_token = '1300638328404934659-Yrv3jOkNwCS3lmpGxk1VOBmG43Ki7b' #
+        access_token_secret = 'Y3vtgjRc2IOb6PZeYPsN98hTYvPLdNVAURrs8giDfG1WZ' #
 
         # create OAuthHandler object
         self.auth = OAuthHandler(api_key, api_secret)
