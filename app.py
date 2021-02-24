@@ -4,6 +4,7 @@ from owlready2 import *
 from tronto_owl_ontology import Tronto
 from twitter_api import Twitter
 import Cython
+import time
 
 # start up flask webframework
 app = Flask(__name__)
@@ -44,9 +45,13 @@ def app_status(json_str):
     tronto.create_onto_application(app_dict)
 
     if app_dict['embed'] == 'true':
-        print('sync started')
+        start = time.time()
+
         tronto.sync_ontology()
-        print('sync finished')
+        end = time.time()
+
+        run_time = end - start
+        print('sync reasoner runtime: ', run_time, ' seconds')
 
     # get the app's vulnerability status
     app_dict['status'] = tronto.is_app_vulnerable()

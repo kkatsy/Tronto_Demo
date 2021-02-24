@@ -43,21 +43,27 @@
     <div class="knopki">
     <button onclick="clickCheck()" class="btn btn-info">Check</button>
     <button onclick="clearForm()" class="btn btn-info">Clear</button>
-  </div>
+    </div>
 
   </div>
-
 </div>
-  <div class="container">
+<div class="container">
+<div class="search-grid-container">
+  <div class="container" id="spinnerContainer">
+    <!-- <script>   $('#spinnerContainer').addClass('spinner'); </script> -->
+  </div>
+
+  <div class="result-container hidden" id="resultContainer">
     <p id="result"></p>
   </div>
 
-  <div class="container" id="tableContainer">
-  <table class="table table-bordered" id="dependencyTable">
-  </table>
-</div>
+  <div class="table-container" id="tableContainer">
+  <table class="table table-bordered hidden" id="dependencyTable"></table>
+  </div>
 
-<div class="tweet-container" id="tweet-container"></div>
+  <div class="tweet-container hidden" id="tweet-container"></div>
+</div>
+</div>
 </body>
 
 </html>

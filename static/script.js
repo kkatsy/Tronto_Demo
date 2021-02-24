@@ -24,6 +24,10 @@ function clearForm() {
   document.getElementById("result").innerHTML = "";
   $(":checkbox").prop('checked', false).parent().removeClass('active');
 
+  $('#spinnerContainer').removeClass('spinner');
+  $('#dependencyTable').addClass('hidden');
+  $('#tweet-container').addClass('hidden');
+  $('#resultContainer').addClass('hidden');
   $("#dependencyTable tr").remove()
   $("#tweet-container div").remove()
 }
@@ -99,7 +103,7 @@ function showTable() {
     if (this.readyState == 4 && this.status == 200) {
 
       var response = this.responseText;
-      $("#dependencyTable").removeClass('hidden');
+      // $("#dependencyTable").removeClass('hidden');
       generate_table(response);
     }
   }
@@ -111,7 +115,13 @@ function showTable() {
 
 function clickCheck() {
 
+  $('#spinnerContainer').addClass('spinner');
+  $("#dependencyTable").addClass('hidden');
+  $("#tweet-container").addClass('hidden');
+  $("#resultContainer").addClass('hidden');
+
   // clear prev output in case of updated input
+
   $("#dependencyTable tr").remove()
   $("#tweet-container div").remove()
 
@@ -185,6 +195,11 @@ function add_tweets(json_string) {
         }
         );
       }
+
+      $('#spinnerContainer').removeClass('spinner');
+      $("#dependencyTable").removeClass('hidden');
+      $("#tweet-container").removeClass('hidden');
+      $("#resultContainer").removeClass('hidden');
 
     }
   }
