@@ -5,7 +5,7 @@ import json
 class Tronto(object):
 
     def __init__(self):
-        self.onto = get_ontology('assets/tronto_d.owl').load()
+        self.onto = get_ontology('assets/tronto_f.owl').load()
         self.added_apps = {}
         self.base_iri = self.onto.base_iri
         self.cur_app = None
