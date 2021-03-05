@@ -1,6 +1,6 @@
 # cybersecurity-checker
 
-**Heroku Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecuritychecker.herokuapp.com/)
+**Heroku Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
 
 
 ### Repository Organization

@@ -7,7 +7,7 @@ function showInput() {
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      // var response = JSON.parse(this.responseText)
+
       var response = this.responseText;
       document.getElementById("result").innerHTML = response;
     }
@@ -105,6 +105,7 @@ function showTable() {
 
       var response = this.responseText;
       // $("#dependencyTable").removeClass('hidden');
+      // potentially add warning label here
       generate_table(response);
     }
   }

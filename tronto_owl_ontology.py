@@ -11,15 +11,18 @@ class Tronto(object):
         self.cur_app = None
         self.cur_dependencies = None
 
-        # build data for apps currently in ontology
+        # build data for applications currently in onto
         products = {}  # dict of dicts
         for individual in list(self.onto.individuals()):
             product_dict = {}
             iris = str(individual)[9:]
 
-            # extract + store application metadata
-            if (';' in iris) and ('CVE' not in iris):
-                company, product, version, stage = iris.split(';')
+            # replace xml-encoded characters
+            clean_iris = iris.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')\
+                .replace('&quot;','\"').replace('&apos;', '\'')
+
+            if (';' in clean_iris) and ('CVE' not in clean_iris):
+                company, product, version, stage = clean_iris.split(';')
                 company = company.replace('_', ' ')
                 product = product.replace('_', ' ')
 
@@ -27,20 +30,20 @@ class Tronto(object):
                     key = product
                 else:
                     key = product + ' ' + version
-                key = key.replace('\\\\', '')
 
                 product_dict['iris'] = self.base_iri + iris
                 product_dict['company'] = company
                 product_dict['product'] = product
                 product_dict['version'] = version
                 product_dict['stage'] = stage
+
+                key = key.replace('\\\\', '')
                 products[key] = product_dict
 
         self.products_in_onto = products
 
-        # generate json with most up-to-date ontology ingo
         product_names = list(products.keys())
-        with open('assets/dependencynames.json', 'w') as f:
+        with open('dependencynames.json', 'w') as f:
             json.dump(product_names, f)
 
     # create new ontology application
@@ -83,11 +86,30 @@ class Tronto(object):
             depend_iris = (self.products_in_onto[dependency_name])['iris']
             dependency = IRIS[depend_iris]
             vulnerabilities = dependency.has_vulnerability
-            vulnerabilities = [str(iris).replace('tronto_d.', '') for iris in vulnerabilities]
-            vulnerabilities = ', '.join(vulnerabilities)
+            vulnerability_str = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            vulnerability_str = ', '.join(vulnerability_str)
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
+
+            severity_score = 0
+            if is_vulnerable:
+                for vuln in dependency.has_vulnerability:
+                    vuln_level = vuln.has_severity_level[0]
+                    if vuln_level > severity_score:
+                        severity_score = vuln_level
+
+            if severity_score > 3:
+                severity = 'Critical'
+            elif severity_score > 2:
+                severity = 'High'
+            elif severity_score > 1:
+                severity = 'Medium'
+            elif severity_score > 0:
+                severity = 'Low'
+            else:
+                severity = 'None'
+
             dependency_status_dict = {'Name': dependency_name, 'Status': is_vulnerable,
-                                      'Vulnerabilities': vulnerabilities}
+                                      'Vulnerabilities': vulnerability_str, 'Severity': severity}
             dependency_status_list.append(dependency_status_dict)
         return dependency_status_list
 
@@ -99,4 +121,4 @@ class Tronto(object):
 
     # save updated ontology
     def save_updated_ontology(self):
-        self.onto.save(file='tronto_d_updated.owl')
+        self.onto.save(file='tronto_f_updated.owl')
