@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, make_response, jsonify
 import json
 from owlready2 import *
-from tronto_owl_ontology import Tronto
+from tronto_wrapper import Tronto
 from twitter_api import Twitter
 import Cython
 import time
@@ -58,6 +58,15 @@ def app_status(json_str):
     app_dict['status'] = tronto.is_app_vulnerable()
 
     return app_dict['status']
+
+# check if vulnerability is critical or not
+@app.route('/vulnerability_level',methods=['GET'])
+def vulnerability_level():
+    is_critical = tronto.is_app_critical()
+
+    if is_critical:
+        return 'true'
+    return 'false'
 
 # route to json of dependency status
 @app.route('/dependency_statuses',methods=['GET'])

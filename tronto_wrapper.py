@@ -10,6 +10,7 @@ class Tronto(object):
         self.base_iri = self.onto.base_iri
         self.cur_app = None
         self.cur_dependencies = None
+        self.cur_vulnerability = None
 
         # build data for applications currently in onto
         products = {}  # dict of dicts
@@ -43,7 +44,7 @@ class Tronto(object):
         self.products_in_onto = products
 
         product_names = list(products.keys())
-        with open('dependencynames.json', 'w') as f:
+        with open('assets/dependencynames.json', 'w') as f:
             json.dump(product_names, f)
 
     # create new ontology application
@@ -56,6 +57,7 @@ class Tronto(object):
 
         new_app = self.onto.Application(app_dict['name'], depends_on=depends_on)
 
+        # update current information
         self.added_apps[app_dict['name']] = new_app
         self.cur_app = new_app
         self.cur_dependencies = app_dict['dependencies']
@@ -69,15 +71,33 @@ class Tronto(object):
         dependencies = list(self.cur_app.INDIRECT_depends_on)
         dependencies.append(self.cur_app)
 
-        vuln = 0
-        for d in dependencies:
-            if len(d.has_vulnerability) > 0:
-                vuln = 1
+        is_vulnerable = False
+        for dep in dependencies:
+            if len(dep.has_vulnerability) > 0:
+                is_vulnerable = True
                 break
 
-        if vuln == 1:
+        if is_vulnerable:
+            self.cur_vulnerability = True
             return 'vulnerable'
-        return 'not vulnerable'
+        else:
+            self.cur_vulnerability = False
+            return 'not vulnerable'
+
+    def is_app_critical(self):
+        dependencies = list(self.cur_app.INDIRECT_depends_on)
+        dependencies.append(self.cur_app)
+
+        is_critical = False
+        if self.cur_vulnerability:
+            for dep in dependencies:
+                for vuln in dep.has_vulnerability:
+                    vuln_level = vuln.has_severity_level[0]
+                    if vuln_level > 3.0:
+                        is_critical = True
+                        break
+
+        return is_critical
 
     # get dict of dependencies and their vulnerability statuses
     def get_dependency_statuses(self):
@@ -90,6 +110,7 @@ class Tronto(object):
             vulnerability_str = ', '.join(vulnerability_str)
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
 
+            # get highest severity score for each dependency's dependencies
             severity_score = 0
             if is_vulnerable:
                 for vuln in dependency.has_vulnerability:
@@ -97,20 +118,22 @@ class Tronto(object):
                     if vuln_level > severity_score:
                         severity_score = vuln_level
 
+            # map to corresponding label
             if severity_score > 3:
-                severity = 'Critical'
+                severity = 'critical'
             elif severity_score > 2:
-                severity = 'High'
+                severity = 'high'
             elif severity_score > 1:
-                severity = 'Medium'
+                severity = 'medium'
             elif severity_score > 0:
-                severity = 'Low'
+                severity = 'low'
             else:
-                severity = 'None'
+                severity = 'none'
 
             dependency_status_dict = {'Name': dependency_name, 'Status': is_vulnerable,
                                       'Vulnerabilities': vulnerability_str, 'Severity': severity}
             dependency_status_list.append(dependency_status_dict)
+
         return dependency_status_list
 
     # get application status after it's been embedded in ontology
@@ -121,4 +144,4 @@ class Tronto(object):
 
     # save updated ontology
     def save_updated_ontology(self):
-        self.onto.save(file='tronto_f_updated.owl')
+        self.onto.save(file='tronto_updated.owl')
