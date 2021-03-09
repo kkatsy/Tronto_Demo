@@ -46,6 +46,14 @@ textarea {
   padding-bottom: 20px;
 }
 
+#warning {
+  color:red;
+  font-style: italic;
+  font-size: 18px;
+  text-align:center;
+  padding-bottom: 20px;
+}
+
 #result-non-red {
   font-style: italic;
   font-size: 18px;

@@ -7,7 +7,7 @@ function showInput() {
   var http = new XMLHttpRequest();
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      // var response = JSON.parse(this.responseText)
+
       var response = this.responseText;
       document.getElementById("result").innerHTML = response;
     }
@@ -22,6 +22,7 @@ function clearForm() {
   document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
+  document.getElementById("warning").innerHTML = "";
   $(":checkbox").prop('checked', false).parent().removeClass('active');
 
   // remove previous results
@@ -105,6 +106,7 @@ function showTable() {
 
       var response = this.responseText;
       // $("#dependencyTable").removeClass('hidden');
+      // potentially add warning label here
       generate_table(response);
     }
   }
@@ -160,6 +162,7 @@ function clickCheck() {
       var response = this.responseText;
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
 
+      criticalLevel();
       showTable();
       add_tweets(json_string);
     }
@@ -204,4 +207,26 @@ function add_tweets(json_string) {
   }
   http.open("GET", url, true);
   http.send();
+}
+
+function criticalLevel() {
+
+  url = "/critical_level";
+  var http = new XMLHttpRequest();
+
+  http.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      var response = this.responseText;
+
+      if(response == "true"){
+        document.getElementById("warning").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
+      } else {
+        document.getElementById("warning").innerHTML = ""
+      }
+    }
+  }
+  http.open("GET", url, true);
+  http.send();
+
 }
