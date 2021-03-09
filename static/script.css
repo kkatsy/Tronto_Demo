@@ -46,7 +46,7 @@ textarea {
   padding-bottom: 20px;
 }
 
-#warning {
+#warning-result {
   color:red;
   font-style: italic;
   font-size: 18px;

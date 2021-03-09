@@ -165,6 +165,11 @@ function clickCheck() {
       criticalLevel();
       showTable();
       add_tweets(json_string);
+
+      //$('#spinnerContainer').removeClass('spinner');
+      $("#dependencyTable").removeClass('hidden');
+      $("#tweet-container").removeClass('hidden');
+      $("#resultContainer").removeClass('hidden');
     }
   }
   http.open("GET", url, true);
@@ -198,10 +203,10 @@ function add_tweets(json_string) {
         );
       }
 
-      $('#spinnerContainer').removeClass('spinner');
-      $("#dependencyTable").removeClass('hidden');
-      $("#tweet-container").removeClass('hidden');
-      $("#resultContainer").removeClass('hidden');
+       $('#spinnerContainer').removeClass('spinner');
+      // $("#dependencyTable").removeClass('hidden');
+      // $("#tweet-container").removeClass('hidden');
+      // $("#resultContainer").removeClass('hidden');
 
     }
   }
@@ -220,9 +225,9 @@ function criticalLevel() {
       var response = this.responseText;
 
       if(response == "true"){
-        document.getElementById("warning").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
+        document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
       } else {
-        document.getElementById("warning").innerHTML = ""
+        document.getElementById("warning-result").innerHTML = ""
       }
     }
   }
