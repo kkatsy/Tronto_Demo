@@ -99,6 +99,17 @@ class Tronto(object):
 
         return is_critical
 
+    # get list of direct CVEs
+    def get_dependency_CVE_list(self):
+        cve_list = []
+        for dependency_name in self.cur_dependencies:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            dependency = IRIS[depend_iris]
+            vulnerabilities = dependency.has_vulnerability
+            cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            cve_list.extend(cves)
+        return cve_list
+
     # get dict of dependencies and their vulnerability statuses
     def get_dependency_statuses(self):
         dependency_status_list = []

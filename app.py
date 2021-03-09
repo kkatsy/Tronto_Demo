@@ -83,11 +83,13 @@ def tweet_list(json_str):
 
     # get json app + dependencies from JS
     app_dict = json.loads(json_str)
-    dependencies = app_dict['dependencies']
+    cve_list = tronto.get_dependency_CVE_list()
+    print(cve_list)
+    # dependencies = app_dict['dependencies']
 
     # get list of tweet ids via twitter api
     count = 21
-    tweet_id_list = twitter.get_dependency_tweets(dependencies, count)
+    tweet_id_list = twitter.get_dependency_tweets(cve_list, count)
     print(tweet_id_list)
 
     # convert to JSON
