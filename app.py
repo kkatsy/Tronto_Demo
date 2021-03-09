@@ -60,8 +60,8 @@ def app_status(json_str):
     return app_dict['status']
 
 # check if vulnerability is critical or not
-@app.route('/vulnerability_level',methods=['GET'])
-def vulnerability_level():
+@app.route('/critical_level',methods=['GET'])
+def critical_level():
     is_critical = tronto.is_app_critical()
 
     if is_critical:
