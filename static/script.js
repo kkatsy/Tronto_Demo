@@ -22,8 +22,11 @@ function clearForm() {
   document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
-  document.getElementById("warning").innerHTML = "";
   $(":checkbox").prop('checked', false).parent().removeClass('active');
+
+  if(document.getElementById("warning") != null){
+    document.getElementById("warning").innerHTML = "";
+  }
 
   // remove previous results
   $('#spinnerContainer').removeClass('spinner');
@@ -227,7 +230,7 @@ function criticalLevel() {
       if(response == "true"){
         document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
       } else {
-        document.getElementById("warning-result").innerHTML = " "
+        document.getElementById("warning-result").innerHTML = ""
       }
     }
   }
