@@ -88,8 +88,9 @@ def tweet_list(json_str):
     # dependencies = app_dict['dependencies']
 
     # get list of tweet ids via twitter api
-    count = 21
+    count = 7
     tweet_id_list = twitter.get_dependency_tweets(cve_list, count)
+    tweet_id_list = tweet_id_list * 3
     print(tweet_id_list)
 
     # convert to JSON
