@@ -164,7 +164,6 @@ function clickCheck() {
 
       var response = this.responseText;
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
-
       criticalLevel();
       showTable();
       add_tweets(json_string);
@@ -175,7 +174,7 @@ function clickCheck() {
       $("#resultContainer").removeClass('hidden');
     }
   }
-  http.open("GET", url, true);
+  http.open("GET", url, false);
   http.send();
 }
 
