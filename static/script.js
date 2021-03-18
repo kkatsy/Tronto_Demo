@@ -30,8 +30,8 @@ function clearForm() {
   $('#dependencyTable').addClass('hidden');
   $('#tweet-container').addClass('hidden');
   $('#resultContainer').addClass('hidden');
-  $("#dependencyTable tr").remove()
-  $("#tweet-container div").remove()
+  $("#dependencyTable tr").remove();
+  $("#tweet-container div").remove();
 }
 
 
@@ -227,7 +227,7 @@ function criticalLevel() {
       if(response == "true"){
         document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
       } else {
-        document.getElementById("warning-result").innerHTML = ""
+        document.getElementById("warning-result").innerHTML = " "
       }
     }
   }
