@@ -11,10 +11,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        api_key = ***REMOVED***
-        api_secret = ***REMOVED***
-        access_token = ***REMOVED***
-        access_token_secret = ***REMOVED***
+        api_key = 'EBoeQqGvXzEELZ1yK6f3sqkOI'
+        api_secret = 'YRVYcmQMcoUs4324d9AKJ0YTG4YznnkJtRD8yG1XrqrqGmrxtx'
+        access_token = '1300638328404934659-z6Z8qJGi8JZNjNbnYlOBsqMJA2DMQg'
+        access_token_secret = 'cJa52zlCLoZC2DMiJIqYn4dCYFIPE34j748DkgsIrgcqy'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(api_key, api_secret)
@@ -50,25 +50,30 @@ class Twitter(object):
 
     def get_dependency_tweets(self, query_list, count):
         tweet_id_list = []
-        num = 0
+        query_1 = query_list[0]
+        single_call = self.api.search(q=query_1, count=count,lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-        # keep pulling tweets until reach needed count
-        while len(tweet_id_list) != count:
-            # circular index of query_list
-            if num < len(query_list):
-                index = num
-            else:
-                index = num % len(query_list)
+        for single_tweet in single_call:
+            tweet_id = single_tweet.id
+            tweet_id_list.append(str(tweet_id))
 
-            # pull tweet id batch, add to list
-            tweet_ids = self.get_tweets(query_list[index], 7)
-            if len(tweet_ids) != 0:
-                for the_tweet_id in tweet_ids:
-                    if the_tweet_id is not tweet_id_list:
-                        tweet_id_list.append(the_tweet_id)
-                    if len(tweet_id_list) == count:
-                        break
-
-            num += 1
-        print(num)
+        # # keep pulling tweets until reach needed count
+        # while len(tweet_id_list) != count:
+        #     # circular index of query_list
+        #     if num < len(query_list):
+        #         index = num
+        #     else:
+        #         index = num % len(query_list)
+        #
+        #     # pull tweet id batch, add to list
+        #     tweet_ids = self.get_tweets(query_list[index], 7)
+        #     if len(tweet_ids) != 0:
+        #         for the_tweet_id in tweet_ids:
+        #             if the_tweet_id is not tweet_id_list:
+        #                 tweet_id_list.append(the_tweet_id)
+        #             if len(tweet_id_list) == count:
+        #                 break
+        #
+        #     num += 1
+        # print(num)
         return tweet_id_list

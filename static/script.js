@@ -100,6 +100,7 @@ function generate_table(response){
 
 
 function showTable() {
+  console.log("in showTable")
 
   url = "/dependency_statuses";
   var http = new XMLHttpRequest();
@@ -164,6 +165,7 @@ function clickCheck() {
 
       var response = this.responseText;
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
+      console.log("response: ", response)
       criticalLevel();
       showTable();
       add_tweets(json_string);
@@ -174,11 +176,12 @@ function clickCheck() {
       $("#resultContainer").removeClass('hidden');
     }
   }
-  http.open("GET", url, false);
+  http.open("GET", url, true);
   http.send();
 }
 
 function add_tweets(json_string) {
+  console.log("in add_tweets")
 
   // get site route for app status func server-side
   var url = "/tweet_list/" + json_string;
@@ -217,7 +220,7 @@ function add_tweets(json_string) {
 }
 
 function criticalLevel() {
-
+  console.log("in criticalLevel")
   url = "/critical_level";
   var http = new XMLHttpRequest();
 
