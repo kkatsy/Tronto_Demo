@@ -155,6 +155,17 @@ function clickCheck() {
 
   var json_string = JSON.stringify(obj);
 
+  getAppStatus(json_string);
+  criticalLevel();
+  showTable();
+  add_tweets(json_string);
+
+  $("#dependencyTable").removeClass('hidden');
+  $("#tweet-container").removeClass('hidden');
+  $("#resultContainer").removeClass('hidden');
+}
+
+function getAppStatus(json_string){
   // get site route for app status func server-side
   var url = "/app_status/" + json_string;
 
@@ -166,14 +177,11 @@ function clickCheck() {
       var response = this.responseText;
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
       console.log("response: ", response)
-      criticalLevel();
-      showTable();
-      add_tweets(json_string);
+      // criticalLevel();
+      // showTable();
+      // add_tweets(json_string);
 
       //$('#spinnerContainer').removeClass('spinner');
-      $("#dependencyTable").removeClass('hidden');
-      $("#tweet-container").removeClass('hidden');
-      $("#resultContainer").removeClass('hidden');
     }
   }
   http.open("GET", url, true);
