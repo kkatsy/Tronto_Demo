@@ -99,7 +99,7 @@ function generate_table(response){
 }
 
 
-function showTable() {
+function showTable(callback) {
   console.log("in showTable")
 
   url = "/dependency_statuses";
@@ -112,6 +112,7 @@ function showTable() {
       // $("#dependencyTable").removeClass('hidden');
       // potentially add warning label here
       generate_table(response);
+      callback();
     }
   }
   http.open("GET", url, true);
@@ -155,17 +156,29 @@ function clickCheck() {
 
   var json_string = JSON.stringify(obj);
 
-  getAppStatus(json_string);
-  criticalLevel();
-  showTable();
-  add_tweets(json_string);
-
-  $("#dependencyTable").removeClass('hidden');
-  $("#tweet-container").removeClass('hidden');
-  $("#resultContainer").removeClass('hidden');
+  getAppStatus(json_string, function(){
+    criticalLevel(function(){
+      showTable(function(){
+        add_tweets(json_string, function(){
+          console.log("done with the methodical madness")
+          $("#dependencyTable").removeClass('hidden');
+          $("#tweet-container").removeClass('hidden');
+          $("#resultContainer").removeClass('hidden');
+        });
+      });
+    });
+  });
+  // getAppStatus(json_string);
+  // criticalLevel();
+  // showTable();
+  // add_tweets(json_string);
+  //
+  // $("#dependencyTable").removeClass('hidden');
+  // $("#tweet-container").removeClass('hidden');
+  // $("#resultContainer").removeClass('hidden');
 }
 
-function getAppStatus(json_string){
+function getAppStatus(json_string, callback){
   // get site route for app status func server-side
   var url = "/app_status/" + json_string;
 
@@ -177,6 +190,7 @@ function getAppStatus(json_string){
       var response = this.responseText;
       document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
       console.log("response: ", response)
+      callback();
       // criticalLevel();
       // showTable();
       // add_tweets(json_string);
@@ -188,7 +202,7 @@ function getAppStatus(json_string){
   http.send();
 }
 
-function add_tweets(json_string) {
+function add_tweets(json_string, callback) {
   console.log("in add_tweets")
 
   // get site route for app status func server-side
@@ -217,6 +231,7 @@ function add_tweets(json_string) {
       }
 
        $('#spinnerContainer').removeClass('spinner');
+       callback();
       // $("#dependencyTable").removeClass('hidden');
       // $("#tweet-container").removeClass('hidden');
       // $("#resultContainer").removeClass('hidden');
@@ -227,7 +242,7 @@ function add_tweets(json_string) {
   http.send();
 }
 
-function criticalLevel() {
+function criticalLevel(callback) {
   console.log("in criticalLevel")
   url = "/critical_level";
   var http = new XMLHttpRequest();
@@ -242,6 +257,7 @@ function criticalLevel() {
       } else {
         document.getElementById("warning-result").innerHTML = ""
       }
+      callback();
     }
   }
   http.open("GET", url, true);
