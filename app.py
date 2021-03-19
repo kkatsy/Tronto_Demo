@@ -62,6 +62,7 @@ def app_status(json_str):
 # check if vulnerability is critical or not
 @app.route('/critical_level',methods=['GET'])
 def critical_level():
+    time.sleep(1)
     is_critical = tronto.is_app_critical()
 
     if is_critical:
@@ -71,6 +72,7 @@ def critical_level():
 # route to json of dependency status
 @app.route('/dependency_statuses',methods=['GET'])
 def dependency_statuses():
+    time.sleep(1)
     table_list = tronto.get_dependency_statuses()
     table_json = json.dumps(table_list)
 
@@ -80,7 +82,7 @@ def dependency_statuses():
 # route to get list of tweet ids to display
 @app.route('/tweet_list/<json_str>',methods=['GET'])
 def tweet_list(json_str):
-
+    time.sleep(1)
     # get json app + dependencies from JS
     app_dict = json.loads(json_str)
     cve_list = tronto.get_dependency_CVE_list()
@@ -90,8 +92,7 @@ def tweet_list(json_str):
     # get list of tweet ids via twitter api
     count = 7
     tweet_id_list = twitter.get_dependency_tweets(cve_list, count)
-    tweet_id_list = tweet_id_list * 3
-    print(tweet_id_list)
+    print('tweet ids: ', tweet_id_list)
 
     # convert to JSON
     return json.dumps(tweet_id_list)
