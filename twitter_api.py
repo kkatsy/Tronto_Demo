@@ -49,31 +49,6 @@ class Twitter(object):
         return tweet_id_num_batch
 
     def get_dependency_tweets(self, query_list, count):
-        tweet_id_list = []
-        query_1 = query_list[0]
-        single_call = self.api.search(q=query_1, count=count,lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+        tweet_id_list = ['1370848573391130624', '1370848524854644738', '1371894313609756679', '1371866105472516101', '1371865931207561217', '1371865263512113160', '1372029510980354053', '1372017400120479744', '1371020318588932097', '1370587503107960835','1372698079070146566', '1372698068605231104', '1372696051816235014', '1372695929334161419', '1372688609652961280']
 
-        for single_tweet in single_call:
-            tweet_id = single_tweet.id
-            tweet_id_list.append(str(tweet_id))
-
-        # # keep pulling tweets until reach needed count
-        # while len(tweet_id_list) != count:
-        #     # circular index of query_list
-        #     if num < len(query_list):
-        #         index = num
-        #     else:
-        #         index = num % len(query_list)
-        #
-        #     # pull tweet id batch, add to list
-        #     tweet_ids = self.get_tweets(query_list[index], 7)
-        #     if len(tweet_ids) != 0:
-        #         for the_tweet_id in tweet_ids:
-        #             if the_tweet_id is not tweet_id_list:
-        #                 tweet_id_list.append(the_tweet_id)
-        #             if len(tweet_id_list) == count:
-        #                 break
-        #
-        #     num += 1
-        # print(num)
         return tweet_id_list
