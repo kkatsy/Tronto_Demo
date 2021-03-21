@@ -1,6 +1,7 @@
 import tweepy
 from tweepy import OAuthHandler
-
+import sys
+sys.dont_write_bytecode = True
 LIMIT = 200
 
 
