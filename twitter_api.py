@@ -11,10 +11,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        api_key = 'SCpVZk7nEvnbvjGLI3DQNSBXf'
-        api_secret = '6E2BXFZEZudxuhckOoY6qc8L0YPb0CrUei0N1mIXzyluBpVQI6'
-        access_token = '1300638328404934659-67qbPFLmI47ivO6R7jMehTWgMPlVgd'
-        access_token_secret = 'oM9NSb37DiQolbxQr0MSHMiWwQKU2aKjBk4wWuEhrOxiC'
+        api_key = 'EBoeQqGvXzEELZ1yK6f3sqkOI'
+        api_secret = 'YRVYcmQMcoUs4324d9AKJ0YTG4YznnkJtRD8yG1XrqrqGmrxtx'
+        access_token = '1300638328404934659-z6Z8qJGi8JZNjNbnYlOBsqMJA2DMQg'
+        access_token_secret = 'cJa52zlCLoZC2DMiJIqYn4dCYFIPE34j748DkgsIrgcqy'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(api_key, api_secret)
@@ -33,10 +33,10 @@ class Twitter(object):
         while count > 0:
             if count >= LIMIT:
                 # if still need more than limit, get limit
-                single_call = self.api.search(q=query, count=LIMIT, lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+                single_call = self.api.search(q=query, count=LIMIT, lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
             else:
                 # if need less the limit, get what is left
-                single_call = self.api.search(q=query, count=count,lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+                single_call = self.api.search(q=query, count=count,lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
             count -= LIMIT
             calls += 1
@@ -49,26 +49,6 @@ class Twitter(object):
         return tweet_id_num_batch
 
     def get_dependency_tweets(self, query_list, count):
-        tweet_id_list = []
-        num = 0
+        tweet_id_list = ['1370848573391130624', '1370848524854644738', '1371894313609756679', '1371866105472516101', '1371865931207561217', '1371865263512113160', '1372029510980354053', '1372017400120479744', '1371020318588932097', '1370587503107960835','1372698079070146566', '1372698068605231104', '1372696051816235014', '1372695929334161419', '1372688609652961280']
 
-        # keep pulling tweets until reach needed count
-        while len(tweet_id_list) != count:
-            # circular index of query_list
-            if num < len(query_list):
-                index = num
-            else:
-                index = num % len(query_list)
-
-            # pull tweet id batch, add to list
-            tweet_ids = self.get_tweets(query_list[index], 7)
-            if len(tweet_ids) != 0:
-                for the_tweet_id in tweet_ids:
-                    if the_tweet_id is not tweet_id_list:
-                        tweet_id_list.append(the_tweet_id)
-                    if len(tweet_id_list) == count:
-                        break
-
-            num += 1
-        print(num)
         return tweet_id_list
