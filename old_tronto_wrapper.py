@@ -8,8 +8,11 @@ class Tronto(object):
         self.onto = get_ontology('assets/tronto_f.owl').load()
         self.added_apps = {}
         self.base_iri = self.onto.base_iri
+        self.cur_app = None
+        self.cur_dependencies = None
+        self.cur_vulnerability = None
 
-        # build data for applications in ontology
+        # build data for applications currently in onto
         products = {}  # dict of dicts
         for individual in list(self.onto.individuals()):
             product_dict = {}
@@ -40,13 +43,33 @@ class Tronto(object):
 
         self.products_in_onto = products
 
-        # save products in ontology for typeahead
         product_names = list(products.keys())
         with open('assets/dependencynames.json', 'w') as f:
             json.dump(product_names, f)
 
-    # get app's vulnerability status
-    def is_vulnerable(self, dependencies):
+    # create new ontology application
+    def create_onto_application(self, app_dict):
+        depends_on = []
+        for dependency_name in app_dict['dependencies']:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            depend_obj = IRIS[depend_iris]
+            depends_on.append(depend_obj)
+
+        new_app = self.onto.Application(app_dict['name'], depends_on=depends_on)
+
+        # update current information
+        self.added_apps[app_dict['name']] = new_app
+        self.cur_app = new_app
+        self.cur_dependencies = app_dict['dependencies']
+
+    # embed application into ontology
+    def sync_ontology(self):
+        sync_reasoner()
+
+    # check if app vulnerable based on dependencies
+    def is_app_vulnerable(self):
+        dependencies = list(self.cur_app.INDIRECT_depends_on)
+        dependencies.append(self.cur_app)
 
         is_vulnerable = False
         for dep in dependencies:
@@ -55,45 +78,47 @@ class Tronto(object):
                 break
 
         if is_vulnerable:
+            self.cur_vulnerability = True
             return 'vulnerable'
         else:
+            self.cur_vulnerability = False
             return 'not vulnerable'
 
-    # check if app has critical vulnerability
-    def is_critical(self, dependencies):
+    def is_app_critical(self):
+        dependencies = list(self.cur_app.INDIRECT_depends_on)
+        dependencies.append(self.cur_app)
 
-        is_critical = 'false'
-        for dep in dependencies:
-            for vuln in dep.has_vulnerability:
-                vuln_level = vuln.has_severity_level[0]
-                if vuln_level > 3.0:
-                    is_critical = 'true'
-                    break
+        is_critical = False
+        if self.cur_vulnerability:
+            for dep in dependencies:
+                for vuln in dep.has_vulnerability:
+                    vuln_level = vuln.has_severity_level[0]
+                    if vuln_level > 3.0:
+                        is_critical = True
+                        break
 
         return is_critical
 
-    # get list of all vulnerabilities in dependencies
-    def get_vulnerabilities(self, app):
-
+    # get list of direct CVEs
+    def get_dependency_CVE_list(self):
         cve_list = []
-        dependencies = list(app.depends_on)
-        for dependency in dependencies:
+        for dependency_name in self.cur_dependencies:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            dependency = IRIS[depend_iris]
             vulnerabilities = dependency.has_vulnerability
             cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
             cve_list.extend(cves)
-
-        cve_list = sorted(list(set(cve_list)))
         return cve_list
 
-    # get dictionary of dependency data
-    def get_dependency_dict(self, app):
-
+    # get dict of dependencies and their vulnerability statuses
+    def get_dependency_statuses(self):
         dependency_status_list = []
-        dependencies = list(app.depends_on)
-        for dependency in dependencies:
+        for dependency_name in self.cur_dependencies:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            dependency = IRIS[depend_iris]
             vulnerabilities = dependency.has_vulnerability
             vulnerability_str = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
-            vulnerability_str = ', '.join(sorted(vulnerability_str))
+            vulnerability_str = ', '.join(vulnerability_str)
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
 
             # get highest severity score for each dependency's dependencies
@@ -116,43 +141,18 @@ class Tronto(object):
             else:
                 severity = 'none'
 
-            dependency_name = (str(dependency).split(';')[1]).replace('_', ' ')
-
             dependency_status_dict = {'Name': dependency_name, 'Status': is_vulnerable,
                                       'Vulnerabilities': vulnerability_str, 'Severity': severity}
             dependency_status_list.append(dependency_status_dict)
 
         return dependency_status_list
 
-    def get_app_data(self, app_dict):
-        app_data_dict = {}
-        app_dependencies = app_dict['dependencies']
-        depends_on = []
-        for dependency_name in app_dependencies:
-            if dependency_name in self.products_in_onto:
-                depend_iris = (self.products_in_onto[dependency_name])['iris']
-                depend_obj = IRIS[depend_iris]
-                depends_on.append(depend_obj)
-            else:
-                app_dependencies.remove(dependency_name)
+    # get application status after it's been embedded in ontology
+    def is_app_in_onto_vulnerable(self):
+        if (self.onto.Vulnerable_configuration in self.cur_app.is_a) == True:
+            return 'vulnerable'
+        return 'not vulnerable'
 
-        new_app = self.onto.Application(app_dict['name'], depends_on=depends_on)
-
-        dependencies = list(new_app.INDIRECT_depends_on)
-        dependencies.append(new_app)
-
-        app_data_dict['name'] = app_dict['name']
-        app_data_dict['dependencies'] = app_dependencies
-
-        app_data_dict['is_vulnerable'] = self.is_vulnerable(dependencies)
-        app_data_dict['is_critical'] = self.is_critical(dependencies)
-        app_data_dict['vulnerabilities'] = self.get_vulnerabilities(new_app)
-        app_data_dict['dependency_dict'] = self.get_dependency_dict(new_app)
-
-        return app_data_dict
-
-    def sync_ontology(self):
-        sync_reasoner()
-
+    # save updated ontology
     def save_updated_ontology(self):
-        self.onto.save(file='tronto_f_updated.owl')
+        self.onto.save(file='tronto_updated.owl')
