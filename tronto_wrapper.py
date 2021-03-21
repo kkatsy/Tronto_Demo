@@ -125,9 +125,9 @@ class Tronto(object):
         return dependency_status_list
 
     def get_app_data(self, app_dict):
-        app_data_dict = {}
-        app_dependencies = app_dict['dependencies']
-        depends_on = []
+        app_data_dict = {}                              # dict to return to client-side
+        app_dependencies = app_dict['dependencies']     # list of all valid dependencies
+        depends_on = []                                 # depedency ontology objects
         for dependency_name in app_dependencies:
             if dependency_name in self.products_in_onto:
                 depend_iris = (self.products_in_onto[dependency_name])['iris']
@@ -136,14 +136,16 @@ class Tronto(object):
             else:
                 app_dependencies.remove(dependency_name)
 
+        # create new ontology application
         new_app = self.onto.Application(app_dict['name'], depends_on=depends_on)
 
+        # get list of dependencies recursively
         dependencies = list(new_app.INDIRECT_depends_on)
         dependencies.append(new_app)
 
+        # get and store app data
         app_data_dict['name'] = app_dict['name']
         app_data_dict['dependencies'] = app_dependencies
-
         app_data_dict['is_vulnerable'] = self.is_vulnerable(dependencies)
         app_data_dict['is_critical'] = self.is_critical(dependencies)
         app_data_dict['vulnerabilities'] = self.get_vulnerabilities(new_app)

@@ -1,6 +1,6 @@
 
 function clearForm() {
-
+  // remove user input, clear results, hide containers
   document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
@@ -10,11 +10,11 @@ function clearForm() {
     document.getElementById("warning").innerHTML = "";
   }
 
-  // remove previous results
   $('#spinnerContainer').removeClass('spinner');
   $('#dependencyTable').addClass('hidden');
   $('#tweet-container').addClass('hidden');
   $('#resultContainer').addClass('hidden');
+
   $("#dependencyTable tr").remove();
   $("#tweet-container div").remove();
 }
@@ -82,6 +82,7 @@ function createTweets(tweet_list){
 }
 
 function showStatus(app_name, vulnerability_status){
+  // vulnerable or not vulnerable
   document.getElementById("result").innerHTML = "Your application " + app_name + " is " + vulnerability_status + "!";
   $("#resultContainer").removeClass('hidden');
 }
@@ -95,6 +96,7 @@ function showIfCritical(critical_status){
 }
 
 function showDependencyData(dependency_dict){
+  // create table with data for dependencies
   dependencies = dependency_dict
   let table = document.querySelector("table");
   let data = Object.keys(dependencies[0]);
@@ -131,7 +133,7 @@ function showTweets(query_list){
 }
 
 function getAppData(input_json){
-  // get site route for app status func server-side
+  // get site route for app data func server-side
   var url = "/app_data/" + input_json;
 
   // get request to get application's vuln status
@@ -143,6 +145,7 @@ function getAppData(input_json){
       response = JSON.parse(response)
       console.log("response: ", response)
 
+      // call functions to display received app data
       showStatus(response.name, response.is_vulnerable);
       showIfCritical(response.is_critical);
       showDependencyData(response.dependency_dict);
@@ -184,8 +187,8 @@ function clickCheck() {
   //   obj.embed = "false";
   // }
 
+  // func to make http request for app's data
   var app_json_string = JSON.stringify(obj);
   console.log(app_json_string);
-
   getAppData(app_json_string);
 }
