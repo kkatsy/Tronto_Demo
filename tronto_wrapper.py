@@ -1,6 +1,7 @@
 from owlready2 import *
 import json
-
+import sys
+sys.dont_write_bytecode = True
 
 class Tronto(object):
 
