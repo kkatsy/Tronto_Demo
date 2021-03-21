@@ -1,28 +1,10 @@
 
-function showInput() {
-  // check that things are working
-  name = document.getElementById("dependencyTagsInput").tagsinput('items')
-  var split = name.split(',');
-  url = "/helloworld/" + split;
-  var http = new XMLHttpRequest();
-  http.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-      var response = this.responseText;
-      document.getElementById("result").innerHTML = response;
-    }
-  }
-  http.open("GET", url, true);
-  http.send();
-}
-
-
 function clearForm() {
-  // clear form input and output
+
   document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
-  $(":checkbox").prop('checked', false).parent().removeClass('active');
+  //$(":checkbox").prop('checked', false).parent().removeClass('active');
 
   if(document.getElementById("warning") != null){
     document.getElementById("warning").innerHTML = "";
@@ -37,8 +19,7 @@ function clearForm() {
   $("#tweet-container div").remove();
 }
 
-
-function add_typeahead() {
+function addTypeahead() {
   // get JSON keys for typeahead plugin
   var dependencynames = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -63,7 +44,6 @@ function add_typeahead() {
   });
 }
 
-
 function generateTableHead(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
@@ -74,7 +54,6 @@ function generateTableHead(table, data) {
     row.appendChild(th);
   }
 }
-
 
 function generateTable(table, data) {
   for (let element of data) {
@@ -87,49 +66,102 @@ function generateTable(table, data) {
   }
 }
 
+function createTweets(tweet_list){
+  for(let tweet_ID of tweet_list){
+    twttr.widgets.createTweet(
+    tweet_ID,
+    document.getElementById('tweet-container'),
+    {
+      conversation : 'none',    // or all
+      cards        : 'hidden',  // or visible
+      linkColor    : '#cc0000', // default is blue
+      theme        : 'light'    // or dark
+    }
+    );
+  }
+}
 
-function generate_table(response){
+function showStatus(app_name, vulnerability_status){
+  document.getElementById("result").innerHTML = "Your application " + app_name + " is " + vulnerability_status + "!";
+  $("#resultContainer").removeClass('hidden');
+}
 
-  var dependencies = JSON.parse(response);
+function showIfCritical(critical_status){
+  if(critical_status == "true"){
+    document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
+  } else {
+    document.getElementById("warning-result").innerHTML = ""
+  }
+}
 
+function showDependencyData(dependency_dict){
+  dependencies = dependency_dict
   let table = document.querySelector("table");
   let data = Object.keys(dependencies[0]);
   generateTable(table, dependencies);
   generateTableHead(table, data);
+  $("#dependencyTable").removeClass('hidden');
 }
 
+function showTweets(query_list){
+  json_query = JSON.stringify(query_list)
 
-function showTable(callback) {
-  console.log("in showTable")
+  // get site route for app status func server-side
+  var url = "/tweet_ids/" + json_query;
 
-  url = "/dependency_statuses";
+  // get request to get application's vuln status
   var http = new XMLHttpRequest();
-
   http.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 
       var response = this.responseText;
-      // $("#dependencyTable").removeClass('hidden');
-      // potentially add warning label here
-      generate_table(response);
-      callback();
+      if(response == "error"){
+        console.log(response)
+      } else {
+        var tweet_list = JSON.parse(response)
+        createTweets(tweet_list);
+        $('#spinnerContainer').removeClass('spinner');
+        $("#tweet-container").removeClass('hidden');
+      }
+
     }
   }
   http.open("GET", url, true);
   http.send();
-
 }
 
+function getAppData(input_json){
+  // get site route for app status func server-side
+  var url = "/app_data/" + input_json;
+
+  // get request to get application's vuln status
+  var http = new XMLHttpRequest();
+  http.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      var response = this.responseText;
+      response = JSON.parse(response)
+      console.log("response: ", response)
+
+      showStatus(response.name, response.is_vulnerable);
+      showIfCritical(response.is_critical);
+      showDependencyData(response.dependency_dict);
+      showTweets(response.vulnerabilities);
+    }
+  }
+  http.open("GET", url, true);
+  http.send();
+}
 
 function clickCheck() {
 
+  // hide all results containers, start spinner
   $('#spinnerContainer').addClass('spinner');
   $("#dependencyTable").addClass('hidden');
   $("#tweet-container").addClass('hidden');
   $("#resultContainer").addClass('hidden');
 
   // clear prev output in case of updated input
-
   $("#dependencyTable tr").remove()
   $("#tweet-container div").remove()
 
@@ -140,127 +172,20 @@ function clickCheck() {
   depend_string = $("#dependencyTagsInput").val()
   var depend_string = depend_string.split(',');
 
-  checkbox = $("#embedCheck:checked").val()
-
   // get json string w dependencies
   var obj = new Object();
   obj.name = name;
   obj.dependencies = depend_string;
-  obj.status = "unknown";
 
-  if (checkbox == "on") {
-    obj.embed = "true";
-  } else {
-    obj.embed = "false";
-  }
+  // checkbox = $("#embedCheck:checked").val()
+  // if (checkbox == "on") {
+  //   obj.embed = "true";
+  // } else {
+  //   obj.embed = "false";
+  // }
 
-  var json_string = JSON.stringify(obj);
+  var app_json_string = JSON.stringify(obj);
+  console.log(app_json_string);
 
-  getAppStatus(json_string, function(){
-    criticalLevel(function(){
-      showTable(function(){
-        add_tweets(json_string, function(){
-          console.log("done with the methodical madness")
-          $("#dependencyTable").removeClass('hidden');
-          $("#tweet-container").removeClass('hidden');
-          $("#resultContainer").removeClass('hidden');
-        });
-      });
-    });
-  });
-  // getAppStatus(json_string);
-  // criticalLevel();
-  // showTable();
-  // add_tweets(json_string);
-  //
-  // $("#dependencyTable").removeClass('hidden');
-  // $("#tweet-container").removeClass('hidden');
-  // $("#resultContainer").removeClass('hidden');
-}
-
-function getAppStatus(json_string, callback){
-  // get site route for app status func server-side
-  var url = "/app_status/" + json_string;
-
-  // get request to get application's vuln status
-  var http = new XMLHttpRequest();
-  http.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-      var response = this.responseText;
-      document.getElementById("result").innerHTML = "Your application " + name + " is " + response + "!";
-      console.log("response: ", response)
-      callback();
-      // criticalLevel();
-      // showTable();
-      // add_tweets(json_string);
-
-      //$('#spinnerContainer').removeClass('spinner');
-    }
-  }
-  http.open("GET", url, true);
-  http.send();
-}
-
-function add_tweets(json_string, callback) {
-  console.log("in add_tweets")
-
-  // get site route for app status func server-side
-  var url = "/tweet_list/" + json_string;
-
-  // get request to get application's vuln status
-  var http = new XMLHttpRequest();
-  http.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-      var response = this.responseText;
-      var tweet_list = JSON.parse(response)
-      console.log(tweet_list)
-
-      for(let tweet_ID of tweet_list){
-        twttr.widgets.createTweet(
-        tweet_ID,
-        document.getElementById('tweet-container'),
-        {
-          conversation : 'none',    // or all
-          cards        : 'hidden',  // or visible
-          linkColor    : '#cc0000', // default is blue
-          theme        : 'light'    // or dark
-        }
-        );
-      }
-
-       $('#spinnerContainer').removeClass('spinner');
-       callback();
-      // $("#dependencyTable").removeClass('hidden');
-      // $("#tweet-container").removeClass('hidden');
-      // $("#resultContainer").removeClass('hidden');
-
-    }
-  }
-  http.open("GET", url, true);
-  http.send();
-}
-
-function criticalLevel(callback) {
-  console.log("in criticalLevel")
-  url = "/critical_level";
-  var http = new XMLHttpRequest();
-
-  http.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-      var response = this.responseText;
-
-      if(response == "true"){
-        document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
-      } else {
-        document.getElementById("warning-result").innerHTML = ""
-      }
-      callback();
-    }
-  }
-  http.open("GET", url, true);
-  http.send();
-
+  getAppData(app_json_string);
 }

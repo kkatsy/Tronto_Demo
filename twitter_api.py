@@ -33,10 +33,10 @@ class Twitter(object):
         while count > 0:
             if count >= LIMIT:
                 # if still need more than limit, get limit
-                single_call = self.api.search(q=query, count=LIMIT, lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+                single_call = self.api.search(q=query, count=LIMIT, lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
             else:
                 # if need less the limit, get what is left
-                single_call = self.api.search(q=query, count=count,lang='en',result_type='recent',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+                single_call = self.api.search(q=query, count=count,lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
             count -= LIMIT
             calls += 1
