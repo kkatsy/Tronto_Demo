@@ -81,6 +81,7 @@ class Tronto(object):
         for dependency in dependencies:
             vulnerabilities = dependency.has_vulnerability
             cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            cves = [(cve[:3] + '-' + cve[3:7] + '-' + cve[7:]) for cve in cves]
             cve_list.extend(cves)
 
         cve_list = sorted(list(set(cve_list)))
@@ -94,6 +95,7 @@ class Tronto(object):
         for dependency in dependencies:
             vulnerabilities = dependency.has_vulnerability
             vulnerability_str = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            vulnerability_str = [(vuln[:3] + '-' + vuln[3:7] + '-' + vuln[7:]) for vuln in vulnerability_str]
             vulnerability_str = ', '.join(sorted(vulnerability_str))
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
 
