@@ -49,7 +49,7 @@ def tweet_ids(json_str):
     vulnerability_list = json.loads(json_str)
 
     # get list of tweet ids via twitter api
-    count = 7
+    count = 21
     tweet_id_list = twitter.get_dependency_tweets(vulnerability_list, count)
     print('tweet ids: ', tweet_id_list)
 
