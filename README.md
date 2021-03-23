@@ -21,8 +21,6 @@
 - runtime.txt: specify code lang versions
 
 TODOs:
-- make tweet functionality usable for now
-- error message if failure due to twitter api
 - think about how to integrate QA and descriptions
 - prettify margins/spacing and table
 - handle non-vulnerable results

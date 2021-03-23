@@ -106,6 +106,11 @@ function showDependencyData(dependency_dict){
 }
 
 function showTweets(query_list){
+  if(query_list.length > 21){
+    query_list = query_list.slice(0,20);
+    console.log("sliced");
+  }
+
   json_query = JSON.stringify(query_list)
 
   // get site route for app status func server-side
