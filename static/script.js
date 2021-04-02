@@ -150,11 +150,14 @@ function getAppData(input_json){
       response = JSON.parse(response)
       console.log("response: ", response)
 
-      // call functions to display received app data
-      showStatus(response.name, response.is_vulnerable);
-      showIfCritical(response.is_critical);
-      showDependencyData(response.dependency_dict);
-      showTweets(response.vulnerabilities);
+      if(response.vulnerabilities.length > 0){
+        // call functions to display received app data
+        showStatus(response.name, response.is_vulnerable);
+        showIfCritical(response.is_critical);
+        showDependencyData(response.dependency_dict);
+        showTweets(response.vulnerabilities);
+      } 
+
     }
   }
   http.open("GET", url, true);
@@ -162,38 +165,39 @@ function getAppData(input_json){
 }
 
 function clickCheck() {
+  if($("#dependencyTagsInput").val() != ""){
+    // hide all results containers, start spinner
+    $('#spinnerContainer').addClass('spinner');
+    $("#dependencyTable").addClass('hidden');
+    $("#tweet-container").addClass('hidden');
+    $("#resultContainer").addClass('hidden');
 
-  // hide all results containers, start spinner
-  $('#spinnerContainer').addClass('spinner');
-  $("#dependencyTable").addClass('hidden');
-  $("#tweet-container").addClass('hidden');
-  $("#resultContainer").addClass('hidden');
+    // clear prev output in case of updated input
+    $("#dependencyTable tr").remove()
+    $("#tweet-container div").remove()
 
-  // clear prev output in case of updated input
-  $("#dependencyTable tr").remove()
-  $("#tweet-container div").remove()
+    // get application name
+    name = document.getElementById("appNameFormInput").value
 
-  // get application name
-  name = document.getElementById("appNameFormInput").value
+    // get dependencies, split into list
+    depend_string = $("#dependencyTagsInput").val()
+    var depend_string = depend_string.split(',');
 
-  // get dependencies, split into list
-  depend_string = $("#dependencyTagsInput").val()
-  var depend_string = depend_string.split(',');
+    // get json string w dependencies
+    var obj = new Object();
+    obj.name = name;
+    obj.dependencies = depend_string;
 
-  // get json string w dependencies
-  var obj = new Object();
-  obj.name = name;
-  obj.dependencies = depend_string;
+    // checkbox = $("#embedCheck:checked").val()
+    // if (checkbox == "on") {
+    //   obj.embed = "true";
+    // } else {
+    //   obj.embed = "false";
+    // }
 
-  // checkbox = $("#embedCheck:checked").val()
-  // if (checkbox == "on") {
-  //   obj.embed = "true";
-  // } else {
-  //   obj.embed = "false";
-  // }
-
-  // func to make http request for app's data
-  var app_json_string = JSON.stringify(obj);
-  console.log(app_json_string);
-  getAppData(app_json_string);
+    // func to make http request for app's data
+    var app_json_string = JSON.stringify(obj);
+    console.log(app_json_string);
+    getAppData(app_json_string);
+  }
 }
