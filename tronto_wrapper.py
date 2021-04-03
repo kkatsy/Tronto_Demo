@@ -119,7 +119,10 @@ class Tronto(object):
             else:
                 severity = 'none'
 
-            dependency_name = (str(dependency).split(';')[1]).replace('_', ' ')
+            dep_list = str(dependency).split(';')
+            dependency_name = dep_list[1].replace('_', ' ')
+            if dep_list[2] != '*':
+                dependency_name = dependency_name + ' ' + dep_list[2]
 
             dependency_status_dict = {'Name': dependency_name, 'Status': is_vulnerable,
                                       'Vulnerabilities': vulnerability_str, 'Severity': severity}
@@ -153,6 +156,10 @@ class Tronto(object):
         app_data_dict['is_critical'] = self.is_critical(dependencies)
         app_data_dict['vulnerabilities'] = self.get_vulnerabilities(new_app)
         app_data_dict['dependency_dict'] = self.get_dependency_dict(new_app)
+
+        # for now, to decrease http request size
+        if len(app_data_dict['vulnerabilities']) > 0:
+            app_data_dict['vulnerabilities'] = ['dummy']
 
         return app_data_dict
 
