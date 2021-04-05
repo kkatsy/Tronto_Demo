@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js"></script>
   <script sync src="https://platform.twitter.com/widgets.js"></script>
 
   <script type="text/javascript" src="/static/bootstrap.js"></script>
@@ -19,51 +20,84 @@
   <link rel="shortcut icon" href="#">
 </head>
 
+
 <body>
   <div id="logo">TRONTO</div>
   <div class="container">
-  <div class="search-grid-container">
+    <div class="search-grid-container">
 
-    <div class="form-group" id="appNameForm">
-      <label for="appNameFormInput">Enter your application's name:</label>
-      <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
+      <div class="form-group" id="appNameForm">
+        <label for="appNameFormInput">Enter your application's name:</label>
+        <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
+      </div>
+
+      <div class="form-group" id="dependenciesForm">
+        <label for="dependencyTagsInput">Enter dependencies (include version, if applicable):</label>
+        <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
+        <script> addTypeahead(); </script>
+      </div>
+
+      <!-- <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="embedCheck">
+        <label class="custom-control-label" for="embedCheck"> Add application to system</label>
+      </div> -->
+
+      <div class="knopki">
+        <button onclick="clickCheck()" class="btn btn-info">Check</button>
+        <button onclick="clearForm()" class="btn btn-info">Clear</button>
+      </div>
+
     </div>
-
-    <div class="form-group" id="dependenciesForm">
-      <label for="dependencyTagsInput">Enter dependencies (include version, if applicable):</label>
-      <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
-      <script> addTypeahead(); </script>
-    </div>
-
-    <!-- <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input" id="embedCheck">
-      <label class="custom-control-label" for="embedCheck"> Add application to system</label>
-    </div> -->
-
-    <div class="knopki">
-    <button onclick="clickCheck()" class="btn btn-info">Check</button>
-    <button onclick="clearForm()" class="btn btn-info">Clear</button>
-    </div>
-
-  </div>
-</div>
-<div class="container">
-<div class="search-grid-container">
-
-  <div class="result-container hidden" id="resultContainer">
-    <p id="result"></p>
-    <p id="warning-result"></p>
   </div>
 
-  <div class="table-container" id="tableContainer">
-  <table class="table table-bordered hidden" id="dependencyTable"></table>
+  <div class="container">
+    <div class="search-grid-container">
+
+      <div class="container" id="spinnerContainer"></div>
+
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tableTab">Dependency Table</a></li>
+        <li><a data-toggle="tab" href="#tweetTab">Recent Tweets</a></li>
+        <li><a data-toggle="tab" href="#cveTab">CVE Explorer</a></li>
+        <li><a data-toggle="tab" href="#qaTab">Q&A Chatbot</a></li>
+      </ul>
+
+
+      <div class="tab-content">
+          <div id="tableTab" class="tab-pane fade in active">
+            <div class="tab-container">
+                <div class="result-container hidden" id="resultContainer">
+                  <p id="result"></p>
+                  <p id="warning-result"></p>
+                </div>
+                <div class="table-container" id="tableContainer">
+                  <table class="table table-bordered hidden" id="dependencyTable"></table>
+                </div>
+              </div>
+          </div>
+
+          <div id="tweetTab" class="tab-pane fade">
+            <div class="tab-container">
+              <div class="tweet-container hidden" id="tweet-container"></div>
+            </div>
+          </div>
+
+          <div id="cveTab" class="tab-pane fade">
+            <div class="tab-container">
+              <p>Pie charts about CVE severity distribution will go here.</p>
+            </div>
+          </div>
+
+          <div id="qaTab" class="tab-pane fade">
+            <div class="tab-container">
+              <p>Question and Answering interface will go here.</p>
+            </div>
+          </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="container" id="spinnerContainer"></div>
-
-  <div class="tweet-container hidden" id="tweet-container"></div>
-</div>
-</div>
 </body>
 
 </html>
