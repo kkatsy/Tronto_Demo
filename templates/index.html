@@ -17,6 +17,8 @@
   <script type="text/javascript" src="/static/typeahead.js"></script>
   <link href="/static/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
   <link href="/static/typeahead.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/chart.js"></script>
+  <link href="/static/chart.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="#">
 </head>
 
@@ -84,7 +86,19 @@
 
           <div id="cveTab" class="tab-pane fade">
             <div class="tab-container">
-              <p>Pie charts about CVE severity distribution will go here.</p>
+              <div class="chart-container">
+                <div class="chart-child">
+                  Pie Chart 1
+                  <canvas id="pie-chart-1"></canvas>
+                  <script> addPieChart1(); </script>
+                </div>
+
+                <div class="chart-child">
+                  Pie Chart 2
+                  <canvas id="pie-chart-2"></canvas>
+                  <script> addPieChart2(); </script>
+                </div>
+          </div>
             </div>
           </div>
 

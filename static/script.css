@@ -132,5 +132,21 @@ textarea {
 }
 
 .tab-container {
-  padding-top: 30px;
+  padding-top: 25px;
+}
+
+.chart-container {
+    display: flex;
+    padding-bottom: 50px;
+}
+
+.chart-child {
+    flex: 1;
+    padding-top: 10px;
+    text-align: center;
+    /* border: 2px solid yellow; */
+}
+
+.chart-child:first-child {
+    margin-right: 20px;
 }
