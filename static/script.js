@@ -10,6 +10,10 @@ function clearForm() {
     document.getElementById("warning").innerHTML = "";
   }
 
+  $('#navTabs').addClass('hidden');
+  $("#chatbotContainer").addClass('hidden');
+  $('.nav-tabs a[href="#tableTab"]').tab('show');
+
   $('#spinnerContainer').removeClass('spinner');
   $('#dependencyTable').addClass('hidden');
   $('#tweet-container').addClass('hidden');
@@ -127,7 +131,6 @@ function showTweets(query_list){
       } else {
         var tweet_list = JSON.parse(response)
         createTweets(tweet_list);
-        $('#spinnerContainer').removeClass('spinner');
         $("#tweet-container").removeClass('hidden');
       }
 
@@ -156,7 +159,10 @@ function getAppData(input_json){
         showIfCritical(response.is_critical);
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
-      } 
+        $('#spinnerContainer').removeClass('spinner');
+        $("#navTabs").removeClass('hidden');
+        $("#chatbotContainer").removeClass('hidden');
+      }
 
     }
   }
@@ -171,6 +177,8 @@ function clickCheck() {
     $("#dependencyTable").addClass('hidden');
     $("#tweet-container").addClass('hidden');
     $("#resultContainer").addClass('hidden');
+    $("#navTabs").addClass('hidden');
+    $("#chatbotContainer").addClass('hidden');
 
     // clear prev output in case of updated input
     $("#dependencyTable tr").remove()
