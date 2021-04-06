@@ -9,12 +9,12 @@ body {
 
 #logo{
   font-family: Courier New;
-  font-size:120px;
+  font-size:110px;
   font-weight: normal;
   color:steelblue;
   text-align:center;
   vertical-align:middle;
-  height:20%;
+  height:18%;
 }
 
 .container {
@@ -119,4 +119,35 @@ textarea {
   margin:0 auto;
   width: inherit;
   right: 14px;
+}
+
+.nav-tabs > li {
+    float:none;
+    display:inline-block;
+    zoom:1;
+}
+
+.nav-tabs {
+    text-align:center;
+}
+
+.tab-container {
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.chart-container {
+    display: flex;
+    padding-bottom: 50px;
+}
+
+.chart-child {
+    flex: 1;
+    padding-top: 10px;
+    text-align: center;
+    /* border: 2px solid yellow; */
+}
+
+.chart-child:first-child {
+    margin-right: 20px;
 }
