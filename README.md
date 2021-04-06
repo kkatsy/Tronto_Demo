@@ -2,10 +2,24 @@
 
 **Heroku Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
 
+**todos:**
+- [ ] connect chatbot to backend, maybe re-write
+- [ ] gather context for QA from description + tweets + links
+- [ ] try out Dian's QA api
+- [ ] connect charts to backend, maybe add more/different charts
+- [ ] try getting dependency query tweets (name, name+version, hashtags)
+- [ ] add links to CVEs in table to NVD CVE database site
+- [ ] make CVE codes not split on dashes in table breaks
+- [ ] try making ontology for 2021 or recent instead of 2019
+- [ ] add info about entered dependencies that aren't in ontology
+- [ ] add default values to demo input
+- [ ] remove app name field (for now...), tweak input directions
+- [ ] add result field descriptions
+- [ ] think: could dependencies be visualized as a tree... it'd be cute
 
 ### Repository Organization
 **directories**
-- assets: files containing metadata
+- assets: files containing data
 - static: JS and CSS files
 - templates: HTML files
 - tronto: tronto-related python code
@@ -14,13 +28,8 @@
 - app.py: flask endpoints and functions
 - tronto_wrapper.py: tronto wrapper class
 - twitter.py: pulling tweet ids w/ Twitter API
+- question_answering.py
 
 **heroku files**
 - Procfile: specify deployment config
 - requirements.txt: libraries to install
-- runtime.txt: specify code lang versions
-
-TODOs:
-- think about how to integrate QA and descriptions
-- prettify margins/spacing and table
-- handle non-vulnerable results
