@@ -2,9 +2,9 @@
 /* from: https://codepen.io/adamcjoiner/pen/ggxdJK */
 
 .chatbot-container{
-	padding: 10px;
+	padding: 7px;
 	background-color: lightsteelblue;
-	padding-bottom: 50px;
+	padding-bottom: 45px;
 	border-radius: 5px;
 }
 .chat {

@@ -58,7 +58,7 @@
 
       <div class="container" id="spinnerContainer"></div>
 
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs hidden" id="navTabs">
         <li class="active"><a data-toggle="tab" href="#tableTab">Dependency Table</a></li>
         <li><a data-toggle="tab" href="#tweetTab">Recent Tweets</a></li>
         <li><a data-toggle="tab" href="#cveTab">CVE Explorer</a></li>
@@ -66,7 +66,7 @@
       </ul>
 
 
-      <div class="tab-content">
+      <div class="tab-content" id="tabContent">
           <div id="tableTab" class="tab-pane fade in active">
             <div class="tab-container">
                 <div class="result-container hidden" id="resultContainer">
@@ -106,13 +106,14 @@
           <div id="qaTab" class="tab-pane fade">
             <div class="tab-container">
               <br>
-              <div class="chatbot-container">
+              <div class="chatbot-container hidden" id="chatbotContainer">
                 <div class="chat"></div>
                 <div class="busy"></div>
                 <div class="input">
                   <input type="text" placeholder="Type your question..." />
                   <a>Send</a>
                 </div>
+
               </div>
             </div>
           </div>
