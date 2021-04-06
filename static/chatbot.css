@@ -25,11 +25,11 @@
 }
 
 .chat .you {
-	color: #b4474b;
+	color: rgba(180,71,84,1.0);
 }
 
 .chat .other {
-	color: #315a7d;
+	color: steelblue;
 }
 
 .chat .text {
@@ -39,7 +39,7 @@
 .busy {
 	position: absolute;
 	padding: 3px 0;
-	color: white;
+	color: black;
 	display: none;
 	font-size: 10px;
 	font-weight: bold;
@@ -67,7 +67,7 @@
 	border: 1px solid #ccc;
 	background-color: #efefef;
 	padding: 5px;
-	color: black;
+	color: #315a7d;
 	text-decoration: none;
 	border-radius: 5px;
 	text-align: center;

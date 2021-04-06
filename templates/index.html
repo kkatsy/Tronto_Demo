@@ -59,7 +59,7 @@
       <div class="container" id="spinnerContainer"></div>
 
       <ul class="nav nav-tabs hidden" id="navTabs">
-        <li class="active"><a data-toggle="tab" href="#tableTab">Dependency Table</a></li>
+        <li class="active"><a data-toggle="tab" href="#tableTab">Dependency Info</a></li>
         <li><a data-toggle="tab" href="#tweetTab">Recent Tweets</a></li>
         <li><a data-toggle="tab" href="#cveTab">CVE Explorer</a></li>
         <li><a data-toggle="tab" href="#qaTab">Q&A Chatbot</a></li>
@@ -89,15 +89,13 @@
             <div class="tab-container">
               <div class="chart-container">
                 <div class="chart-child">
-                  Pie Chart 1
+                  CVEs per Dependency
                   <canvas id="pie-chart-1"></canvas>
-                  <script> addPieChart1(); </script>
                 </div>
 
                 <div class="chart-child">
-                  Pie Chart 2
+                  Severity Distribution
                   <canvas id="pie-chart-2"></canvas>
-                  <script> addPieChart2(); </script>
                 </div>
           </div>
             </div>
