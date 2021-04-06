@@ -160,11 +160,12 @@ function getAppData(input_json){
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
 
-        addPieChart1();
-        addPieChart2();
         $('#spinnerContainer').removeClass('spinner');
         $("#navTabs").removeClass('hidden');
         $("#chatbotContainer").removeClass('hidden');
+        
+        addPieChart1();
+        addPieChart2();
       }
 
     }
