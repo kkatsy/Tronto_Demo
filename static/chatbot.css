@@ -1,13 +1,18 @@
 /* ---------- CHAT BOT ENGINE CSS ----------- */
 /* from: https://codepen.io/adamcjoiner/pen/ggxdJK */
 
-
+.chatbot-container{
+	padding: 10px;
+	background-color: lightsteelblue;
+	padding-bottom: 50px;
+	border-radius: 5px;
+}
 .chat {
 	border: 1px solid #ccc;
 	height: 400px;
 	overflow-y: scroll;
 	background-color: white;
-	border-radius: 10px 0 0 0;
+	border-radius: 5px;
 }
 
 .chat div {
@@ -34,13 +39,15 @@
 .busy {
 	position: absolute;
 	padding: 3px 0;
-	color: #666;
+	color: white;
 	display: none;
-	font-size: 11px;
+	font-size: 10px;
+	font-weight: bold;
 }
 
 .input {
 	margin-top: 20px;
+	border-radius: 5px;
 }
 
 .input input {
@@ -48,7 +55,7 @@
 	float: left;
 	border: 1px solid #ccc;
 	padding: 5px;
-	width: 450px;
+	width: 80%;
 	margin: 0;
 	border-radius: 5px;
 }
@@ -59,10 +66,12 @@
 	font-weight: bold;
 	border: 1px solid #ccc;
 	background-color: #efefef;
-	padding: 7px 35px;
+	padding: 5px;
 	color: black;
 	text-decoration: none;
 	border-radius: 5px;
+	text-align: center;
+	width: 18%;
 }
 
 .input a:hover {
