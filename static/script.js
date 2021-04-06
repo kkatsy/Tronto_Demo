@@ -159,6 +159,9 @@ function getAppData(input_json){
         showIfCritical(response.is_critical);
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
+
+        addPieChart1();
+        addPieChart2();
         $('#spinnerContainer').removeClass('spinner');
         $("#navTabs").removeClass('hidden');
         $("#chatbotContainer").removeClass('hidden');
