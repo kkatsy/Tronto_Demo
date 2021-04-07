@@ -29,14 +29,19 @@
   <div class="container">
     <div class="search-grid-container">
 
-      <div class="form-group" id="appNameForm">
+      <!-- <div class="form-group" id="appNameForm">
         <label for="appNameFormInput">Enter your application's name:</label>
         <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1"></textarea>
+      </div> -->
+
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Get started by entering the libraries you want to use in your application - if you're using a not up-to-date version, make sure to specify which one you are using. If you can't find the library you're looking for in the dropdown, it means that it is not yet in our system. Here's a couple tags to get you started...  Sincerely, the Tronto Team.
       </div>
 
       <div class="form-group" id="dependenciesForm">
-        <label for="dependencyTagsInput">Enter dependencies (include version, if applicable):</label>
-        <input type="text" name="dependencyInput" id="dependencyTagsInput" value="" data-role="tagsinput">
+        <label for="dependencyTagsInput">To check if your application is vulnerable, enter all of its direct dependencies:</label>
+        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="jenkins,unite,evernote" data-role="tagsinput">
         <script> addTypeahead(); </script>
       </div>
 

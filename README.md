@@ -15,6 +15,10 @@
 - [ ] add default values to demo input
 - [ ] remove app name field (for now...), tweak input directions
 - [ ] add result field descriptions
+- [ ] handle non-vulnerable results
+- [ ] add dismissible instructions alert
+- [ ] error handling on the off-chance that something goes wrong
+- [ ] fill out research track application for twitter api
 - [ ] think: could dependencies be visualized as a tree... it'd be cute
 
 ### Repository Organization
