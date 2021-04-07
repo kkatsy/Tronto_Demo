@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, make_response, jsonify
 import json
 from owlready2 import *
 from tronto_wrapper import Tronto
-from twitter_api import Twitter
+from twitter import Twitter
 import Cython
 import time
 

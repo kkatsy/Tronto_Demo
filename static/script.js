@@ -1,7 +1,7 @@
 
 function clearForm() {
   // remove user input, clear results, hide containers
-  document.getElementById("appNameFormInput").value = "";
+  //document.getElementById("appNameFormInput").value = "";
   $('#dependencyTagsInput').tagsinput('removeAll');
   document.getElementById("result").innerHTML = "";
   //$(":checkbox").prop('checked', false).parent().removeClass('active');
@@ -155,7 +155,7 @@ function getAppData(input_json){
 
       if(response.vulnerabilities.length > 0){
         // call functions to display received app data
-        showStatus(response.name, response.is_vulnerable);
+        showStatus("", response.is_vulnerable);
         showIfCritical(response.is_critical);
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
@@ -163,7 +163,7 @@ function getAppData(input_json){
         $('#spinnerContainer').removeClass('spinner');
         $("#navTabs").removeClass('hidden');
         $("#chatbotContainer").removeClass('hidden');
-        
+
         addPieChart1();
         addPieChart2();
       }
@@ -189,7 +189,7 @@ function clickCheck() {
     $("#tweet-container div").remove()
 
     // get application name
-    name = document.getElementById("appNameFormInput").value
+    //name = document.getElementById("appNameFormInput").value
 
     // get dependencies, split into list
     depend_string = $("#dependencyTagsInput").val()
@@ -197,7 +197,7 @@ function clickCheck() {
 
     // get json string w dependencies
     var obj = new Object();
-    obj.name = name;
+    obj.name = "";
     obj.dependencies = depend_string;
 
     // checkbox = $("#embedCheck:checked").val()
