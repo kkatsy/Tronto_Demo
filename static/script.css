@@ -39,7 +39,7 @@ textarea {
 }
 
 #result {
-  color:red;
+  color: rgba(180,71,84,1.0);
   font-style: italic;
   font-size: 18px;
   text-align:center;
@@ -47,7 +47,7 @@ textarea {
 }
 
 #warning-result {
-  color:red;
+  color: rgba(180,71,84,1.0);
   font-style: italic;
   font-size: 18px;
   text-align:center;

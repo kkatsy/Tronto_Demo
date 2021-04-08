@@ -142,7 +142,7 @@ function showTweets(query_list){
 
 function getAppData(input_json){
   // get site route for app data func server-side
-  console.log("input_json: ", input_json)
+  //console.log("input_json: ", input_json)
   input_json = encodeURIComponent(input_json);
   var url = "/app_data/" + input_json;
 
@@ -153,7 +153,7 @@ function getAppData(input_json){
 
       var response = this.responseText;
       response = JSON.parse(response)
-      console.log("response: ", response)
+      //console.log("response: ", response)
 
       if(response.vulnerabilities.length > 0){
         // call functions to display received app data
@@ -161,6 +161,10 @@ function getAppData(input_json){
         showIfCritical(response.is_critical);
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
+
+        if(response.not_in_onto.length > 0){
+          console.log(response.not_in_onto)
+        }
 
         $('#spinnerContainer').removeClass('spinner');
         $("#navTabs").removeClass('hidden');
@@ -213,7 +217,7 @@ function clickCheck() {
 
     // func to make http request for app's data
     var app_json_string = JSON.stringify(obj);
-    console.log(app_json_string);
+    //console.log(app_json_string);
     getAppData(app_json_string);
   }
 }
