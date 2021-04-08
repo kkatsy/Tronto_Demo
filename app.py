@@ -5,6 +5,7 @@ from tronto_wrapper import Tronto
 from twitter import Twitter
 import Cython
 import time
+import random
 from urllib.parse import unquote
 
 # start up flask webframework
@@ -53,7 +54,12 @@ def tweet_ids(json_str):
 
     # get list of tweet ids via twitter api
     count = 21
-    tweet_id_list = twitter.get_dependency_tweets(vulnerability_list, count)
+    cybersec_words = ['exploit', 'domain', 'vpn', 'ip address', 'breach', 'firewall', 'malware', 'virus', 'ransomware', 'trojan horse', 'worm', 'DDoS', 'phishing', 'clickjack']
+    random.shuffle(cybersec_words)
+    cybersec_str = ' OR '.join(cybersec_words)
+    tweet_id_list = twitter.get_tweets(cybersec_str, 21)
+
+    #tweet_id_list = twitter.get_dependency_tweets(vulnerability_list, count)
     print('tweet ids: ', tweet_id_list)
 
     # convert to JSON
@@ -64,7 +70,7 @@ def tweet_ids(json_str):
 def chatbot(question):
     print("in chatbot")
     json_str = unquote(question)
-    answer = 'here is some answer'
+    answer = 'here is some answer from backend'
     return json.dumps(answer)
 
 if __name__ == '__main__':

@@ -120,7 +120,7 @@ class Tronto(object):
                 severity = 'none'
 
             dep_list = str(dependency).split(';')
-            dependency_name = dep_list[1].replace('_', ' ')
+            dependency_name = dep_list[1].replace('_', ' ').replace('\\\\', '')
             if dep_list[2] != '*':
                 dependency_name = dependency_name + ' ' + dep_list[2]
 
