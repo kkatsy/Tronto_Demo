@@ -3,8 +3,13 @@
 **Demo Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
 
 **todos:**
-- [ ] connect chatbot to backend, maybe re-write
+- [x] connect chatbot to backend, partially re-write
 - [x] fix uri encoding bug
+- [x] add default values to demo input
+- [x] remove app name field (for now...), tweak input directions
+- [x] add dismissible instructions alert
+- [x] handle entered dependencies that aren't in ontology
+- [ ] change results format: css, add not_in_onto, add info
 - [ ] gather context for QA from description + tweets + links
 - [ ] try out Dian's QA api
 - [ ] connect charts to backend, maybe add more/different charts
@@ -12,14 +17,11 @@
 - [ ] add links to CVEs in table to NVD CVE database site
 - [ ] make CVE codes not split on dashes in table breaks
 - [ ] try making ontology for 2021 or recent instead of 2019
-- [ ] add info about entered dependencies that aren't in ontology
-- [x] add default values to demo input
-- [x] remove app name field (for now...), tweak input directions
 - [ ] add result field descriptions
 - [ ] handle non-vulnerable results
-- [x] add dismissible instructions alert
 - [ ] error handling on the off-chance that something goes wrong
 - [ ] fill out research track application for twitter api
+- [ ] think: maybe separate overall results from table tab
 - [ ] think: could dependencies be visualized as a tree... it'd be neat
 
 ### Repository Organization

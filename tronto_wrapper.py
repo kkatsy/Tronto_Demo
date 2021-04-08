@@ -133,29 +133,33 @@ class Tronto(object):
     def get_app_data(self, app_dict):
         app_data_dict = {}                              # dict to return to client-side
         app_dependencies = app_dict['dependencies']     # list of all valid dependencies
-        depends_on = []                                 # depedency ontology objects
+        depends_on = []                                 # dependency ontology objects
+        onto_dependencies = []                          # dependencies in ontology
+        not_in_onto = []                                # entered depedencies not in ontology
         for dependency_name in app_dependencies:
             if dependency_name in self.products_in_onto:
+                onto_dependencies.append(dependency_name)
                 depend_iris = (self.products_in_onto[dependency_name])['iris']
                 depend_obj = IRIS[depend_iris]
                 depends_on.append(depend_obj)
             else:
-                app_dependencies.remove(dependency_name)
+                not_in_onto.append(dependency_name)
 
         # create new ontology application
         new_app = self.onto.Application(app_dict['name'], depends_on=depends_on)
 
         # get list of dependencies recursively
-        dependencies = list(new_app.INDIRECT_depends_on)
-        dependencies.append(new_app)
+        app_dependencies = list(new_app.INDIRECT_depends_on)
+        app_dependencies.append(new_app)
 
         # get and store app data
         app_data_dict['name'] = app_dict['name']
-        app_data_dict['dependencies'] = app_dependencies
-        app_data_dict['is_vulnerable'] = self.is_vulnerable(dependencies)
-        app_data_dict['is_critical'] = self.is_critical(dependencies)
+        app_data_dict['dependencies'] = onto_dependencies
+        app_data_dict['is_vulnerable'] = self.is_vulnerable(app_dependencies)
+        app_data_dict['is_critical'] = self.is_critical(app_dependencies)
         app_data_dict['vulnerabilities'] = self.get_vulnerabilities(new_app)
         app_data_dict['dependency_dict'] = self.get_dependency_dict(new_app)
+        app_data_dict['not_in_onto'] = not_in_onto
 
         # for now, to decrease http request size
         if len(app_data_dict['vulnerabilities']) > 0:
