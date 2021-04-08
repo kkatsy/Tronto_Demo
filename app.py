@@ -5,6 +5,7 @@ from tronto_wrapper import Tronto
 from twitter import Twitter
 import Cython
 import time
+from urllib.parse import unquote
 
 # start up flask webframework
 app = Flask(__name__)
@@ -33,6 +34,8 @@ def dependencydata():
 def app_data(json_str):
 
     # get json app + dependencies from JS
+    json_str = unquote(json_str)
+    print("json_str: ", json_str)
     app_dict = json.loads(json_str)
 
     app_data_dict = tronto.get_app_data(app_dict)

@@ -142,6 +142,8 @@ function showTweets(query_list){
 
 function getAppData(input_json){
   // get site route for app data func server-side
+  console.log("input_json: ", input_json)
+  input_json = encodeURIComponent(input_json);
   var url = "/app_data/" + input_json;
 
   // get request to get application's vuln status
@@ -167,8 +169,10 @@ function getAppData(input_json){
         addPieChart1();
         addPieChart2();
       }
-
+    } else if (this.status == 404) {
+      console.log("404 error")
     }
+
   }
   http.open("GET", url, true);
   http.send();
