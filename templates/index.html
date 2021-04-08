@@ -43,7 +43,7 @@
 
       <div class="form-group" id="dependenciesForm">
         <label for="dependencyTagsInput">To check if your application is vulnerable, enter all of its direct dependencies:</label>
-        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="jenkins,unite,evernote" data-role="tagsinput">
+        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="jenkins,python 3.5.0,debian linux 9.0" data-role="tagsinput">
         <script> addTypeahead(); </script>
       </div>
 
@@ -79,6 +79,7 @@
                 <div class="result-container hidden" id="resultContainer">
                   <p id="result"></p>
                   <p id="warning-result"></p>
+                  <p id="not_in_onto-result"></p>
                 </div>
                 <div class="table-container" id="tableContainer">
                   <table class="table table-bordered hidden" id="dependencyTable"></table>
