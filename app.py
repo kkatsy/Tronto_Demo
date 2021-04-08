@@ -62,8 +62,10 @@ def tweet_ids(json_str):
 # route to get QA response for Tronto Bot
 @app.route('/chatbot/<question>',methods=['GET'])
 def chatbot(question):
+    print("in chatbot")
+    json_str = unquote(question)
     answer = 'here is some answer'
-    return answer
+    return json.dumps(answer)
 
 if __name__ == '__main__':
     app.run()
