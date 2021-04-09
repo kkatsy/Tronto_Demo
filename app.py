@@ -54,7 +54,7 @@ def tweet_ids(json_str):
 
     # get list of tweet ids via twitter api
     count = 21
-    cybersec_words = ['exploit', 'domain', 'vpn', 'ip address', 'breach', 'firewall', 'malware', 'virus', 'ransomware', 'trojan horse', 'worm', 'DDoS', 'phishing', 'clickjack']
+    cybersec_words = ['exploit', 'domain', 'vulnerable', 'vulnerability', 'vpn', 'ip address', 'breach', 'firewall', 'malware', 'virus', 'ransomware', 'trojan horse', 'worm', 'DDoS', 'phishing', 'clickjack']
     random.shuffle(cybersec_words)
     cybersec_str = ' OR '.join(cybersec_words)
     tweet_id_list = twitter.get_tweets(cybersec_str, 21)

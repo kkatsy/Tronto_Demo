@@ -85,19 +85,28 @@ function createTweets(tweet_list){
   }
 }
 
-function showStatus(app_name, vulnerability_status){
+function showStatus(app_name, vulnerability_status, severity){
   // vulnerable or not vulnerable
   document.getElementById("result").innerHTML = "Your application " + app_name + " is " + vulnerability_status + "!";
+
+  if(vulnerability_status == "vulnerable"){
+    $("#result").addClass("bg-danger");
+    document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + "severity level: " + severity;
+    //document.getElementById("overall-level").innerHTML = "severity level: " + severity;
+  } else {
+    $("#result").addClass("bg-success");
+  }
+
   $("#resultContainer").removeClass('hidden');
 }
 
-function showIfCritical(critical_status){
-  if(critical_status == "true"){
-    document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
-  } else {
-    document.getElementById("warning-result").innerHTML = ""
-  }
-}
+// function showIfCritical(critical_status){
+//   if(critical_status == "true"){
+//     document.getElementById("warning-result").innerHTML = "WARNING: One or more dependencies have CRITICAL vulnerabilities!"
+//   } else {
+//     document.getElementById("warning-result").innerHTML = ""
+//   }
+// }
 
 function showDependencyData(dependency_dict){
   // create table with data for dependencies
@@ -157,8 +166,8 @@ function getAppData(input_json){
 
       if(response.vulnerabilities.length > 0){
         // call functions to display received app data
-        showStatus("", response.is_vulnerable);
-        showIfCritical(response.is_critical);
+        showStatus("", response.is_vulnerable, response.is_critical);
+        //showIfCritical(response.is_critical);
         showDependencyData(response.dependency_dict);
         showTweets(response.vulnerabilities);
 
