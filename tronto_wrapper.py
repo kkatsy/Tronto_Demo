@@ -63,15 +63,26 @@ class Tronto(object):
     # check if app has critical vulnerability
     def is_critical(self, dependencies):
 
-        is_critical = 'false'
+        highest_vuln_level = 0
         for dep in dependencies:
             for vuln in dep.has_vulnerability:
                 vuln_level = vuln.has_severity_level[0]
-                if vuln_level > 3.0:
-                    is_critical = 'true'
-                    break
+                if vuln_level > highest_vuln_level:
+                    highest_vuln_level = vuln_level
 
-        return is_critical
+        # map to corresponding label
+        if highest_vuln_level > 3:
+            severity = 'critical'
+        elif highest_vuln_level > 2:
+            severity = 'high'
+        elif highest_vuln_level > 1:
+            severity = 'medium'
+        elif highest_vuln_level > 0:
+            severity = 'low'
+        else:
+            severity = 'none'
+
+        return severity
 
     # get list of all vulnerabilities in dependencies
     def get_vulnerabilities(self, app):

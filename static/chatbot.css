@@ -9,7 +9,7 @@
 }
 .chat {
 	border: 1px solid #ccc;
-	height: 400px;
+	height: 300px;
 	overflow-y: scroll;
 	background-color: white;
 	border-radius: 5px;
