@@ -6,8 +6,8 @@ function clearForm() {
   document.getElementById("result").innerHTML = "";
   //$(":checkbox").prop('checked', false).parent().removeClass('active');
 
-  if(document.getElementById("warning") != null){
-    document.getElementById("warning").innerHTML = "";
+  if(document.getElementById("not-in-onto") != null){
+    document.getElementById("not-in-onto").innerHTML = "";
   }
 
   $('#navTabs').addClass('hidden');
@@ -108,7 +108,13 @@ function showStatus(app_name, vulnerability_status, severity){
 //   }
 // }
 
-function showDependencyData(dependency_dict){
+function showDependencyData(dependency_dict, not_in_onto){
+  // add if some dependencies on in system
+  if(not_in_onto.length > 0){
+    not_in_onto_list = not_in_onto.toString();
+    document.getElementById("not-in-onto").innerHTML = "Entered dependencies that are not in our system: " + not_in_onto_list;
+  }
+
   // create table with data for dependencies
   dependencies = dependency_dict
   let table = document.querySelector("table");
@@ -167,8 +173,7 @@ function getAppData(input_json){
       if(response.vulnerabilities.length > 0){
         // call functions to display received app data
         showStatus("", response.is_vulnerable, response.is_critical);
-        //showIfCritical(response.is_critical);
-        showDependencyData(response.dependency_dict);
+        showDependencyData(response.dependency_dict, response.not_in_onto);
         showTweets(response.vulnerabilities);
 
         if(response.not_in_onto.length > 0){

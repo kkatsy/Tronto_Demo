@@ -8,13 +8,14 @@ body {
 }
 
 #logo{
+  text-shadow: 2px 2px 3px lightsteelblue;
   font-family: Courier New;
-  font-size:110px;
+  font-size: 110px;
   font-weight: normal;
-  color:steelblue;
-  text-align:center;
-  vertical-align:middle;
-  height:18%;
+  color: steelblue;
+  text-align: center;
+  vertical-align: middle;
+  height: 18%;
 }
 
 .container {
@@ -46,6 +47,11 @@ textarea {
   border-radius: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+#not-in-onto{
+  text-align: center;
+  padding-top: 25px;
 }
 
 #resultContainer{
@@ -151,9 +157,10 @@ textarea {
 .chart-child {
     flex: 1;
     padding-top: 10px;
+    padding-bottom: 20px;
     text-align: center;
     width: 300px;
-    height: 300px;
+    /* height: 300px; */
     /* border: 2px solid yellow; */
 }
 
