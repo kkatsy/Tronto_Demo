@@ -178,6 +178,30 @@ class Tronto(object):
 
         return app_data_dict
 
+    def get_descriptions(self, dependencies):
+        descriptions = []
+        for dependency_name in dependencies:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            dependency = IRIS[depend_iris]
+            vulnerabilities = dependency.has_vulnerability
+            for vuln in vulnerabilities:
+                descriptions.append(vuln.has_description[0])
+
+        return descriptions
+
+    def get_cve_names(self, dependencies):
+        cve_list = []
+        for dependency_name in dependencies:
+            depend_iris = (self.products_in_onto[dependency_name])['iris']
+            dependency = IRIS[depend_iris]
+            vulnerabilities = dependency.has_vulnerability
+            cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            cves = [(cve[:3] + '-' + cve[3:7] + '-' + cve[7:]) for cve in cves]
+            cve_list.extend(cves)
+
+        cve_list = sorted(list(set(cve_list)))
+        return cve_list
+
     def sync_ontology(self):
         sync_reasoner()
 
