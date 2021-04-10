@@ -130,7 +130,8 @@ function showTweets(query_list){
     console.log("sliced");
   }
 
-  json_query = JSON.stringify(query_list)
+  var json_query = JSON.stringify(query_list);
+  json_query = encodeURIComponent(json_query);
 
   // get site route for app status func server-side
   var url = "/tweet_ids/" + json_query;
@@ -155,10 +156,10 @@ function showTweets(query_list){
   http.send();
 }
 
-function getAppData(input_json){
+function getAppData(input){
   // get site route for app data func server-side
   //console.log("input_json: ", input_json)
-  input_json = encodeURIComponent(input_json);
+  var input_json = encodeURIComponent(input);
   var url = "/app_data/" + input_json;
 
   // get request to get application's vuln status

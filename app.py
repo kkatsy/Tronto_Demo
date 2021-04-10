@@ -7,6 +7,7 @@ import Cython
 import time
 import random
 from urllib.parse import unquote
+from chatbot import ChatBot
 
 # start up flask webframework
 app = Flask(__name__)
@@ -15,6 +16,12 @@ app.debug = True
 # create ontology + twitter objects
 tronto = Tronto()
 twitter = Twitter()
+
+chatBot = ChatBot()
+description_list = None
+dependency_list = None
+cve_list = None
+tweet_list = None
 
 # home page of demo
 @app.route('/')
@@ -36,11 +43,16 @@ def app_data(json_str):
 
     # get json app + dependencies from JS
     json_str = unquote(json_str)
-    print("json_str: ", json_str)
+    # print("json_str: ", json_str)
     app_dict = json.loads(json_str)
 
     app_data_dict = tronto.get_app_data(app_dict)
-    print(app_data_dict)
+    # print(app_data_dict)
+
+    global description_list, dependency_list, cve_list
+    description_list = tronto.get_descriptions(app_data_dict['dependencies'])
+    dependency_list = app_data_dict['dependencies']
+    cve_list = tronto.get_cve_names(app_data_dict['dependencies'])
 
     return json.dumps(app_data_dict)
 
@@ -50,6 +62,7 @@ def app_data(json_str):
 def tweet_ids(json_str):
 
     # get json app + dependencies from JS
+    json_str = unquote(json_str)
     vulnerability_list = json.loads(json_str)
 
     # get list of tweet ids via twitter api
@@ -62,6 +75,9 @@ def tweet_ids(json_str):
     #tweet_id_list = twitter.get_dependency_tweets(vulnerability_list, count)
     print('tweet ids: ', tweet_id_list)
 
+    global tweet_list
+    tweet_list = tweet_id_list
+
     # convert to JSON
     return json.dumps(tweet_id_list)
 
@@ -69,8 +85,15 @@ def tweet_ids(json_str):
 @app.route('/chatbot/<question>',methods=['GET'])
 def chatbot(question):
     print("in chatbot")
-    json_str = unquote(question)
-    answer = 'here is some answer from backend'
+    question = unquote(question)
+
+    global description_list, dependency_list, cve_list, tweet_list
+    chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
+    
+    answer = chatBot.answer_to_question(question)
+    if answer == '':
+        answer = 'I\'m sorry - I don\'t know. Ask me another question!'
+
     return json.dumps(answer)
 
 if __name__ == '__main__':

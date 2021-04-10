@@ -12,8 +12,9 @@
 - [x] change results format: css, add not_in_onto, add info
 - [x] handle non-vulnerable results
 - [x] maybe separate overall results from table tab
-- [ ] gather context for QA from description + tweets + links
-- [ ] try out Dian's QA api + add api call
+- [x] gather known context for QA from descriptions + basic data
+- [х] try out Dian's QA api + add api call
+- [ ] gather canary context for QA from tweets + links
 - [ ] eventually will need modules for classifiers not apis so demo is usable
 - [ ] connect charts to backend, maybe add more/different charts
 - [ ] try getting dependency query tweets (name, name+version, hashtags), maybe CVEs
@@ -26,7 +27,6 @@
 - [ ] error handling on the off-chance that something goes wrong
 - [ ] fill out research track application for twitter api (still need funding info)
 - [ ] prettify things: maybe add texture, side panels, icons to tabs/buttons
-- [ ] think: could dependencies be visualized as a tree... it'd be neat
 
 ### Repository Organization
 **directories**

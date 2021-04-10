@@ -46,8 +46,8 @@ var updateChat = function(party, text) {
 // get QA from server-side with lag
 var chatBot = function(question) {
 	// jsonify + encode user's question
-	user_question = encodeURIComponent(question)
-	json_query = JSON.stringify(user_question)
+	var json_query = JSON.stringify(question);
+	json_query = encodeURIComponent(json_query);
 
 	// get site route for app status func server-side
 	var url = "/chatbot/" + json_query;
