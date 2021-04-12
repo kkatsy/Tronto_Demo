@@ -9,6 +9,9 @@ function clearForm() {
   if(document.getElementById("not-in-onto") != null){
     document.getElementById("not-in-onto").innerHTML = "";
   }
+  if(document.getElementById("tweetError") != null){
+    document.getElementById("tweetError").innerHTML = "";
+  }
 
   $('#navTabs').addClass('hidden');
   $("#chatbotContainer").addClass('hidden');
@@ -23,6 +26,8 @@ function clearForm() {
 
   $("#dependencyTable tr").remove();
   $("#tweet-container div").remove();
+  document.querySelector("#pieChart1").innerHTML = '<canvas id="pie-chart-1"></canvas>';
+  document.querySelector("#pieChart2").innerHTML = '<canvas id="pie-chart-2"></canvas>';
 }
 
 function addTypeahead() {
@@ -130,7 +135,6 @@ function showDependencyData(dependency_dict, not_in_onto){
 function showTweets(query_list){
   if(query_list.length > 21){
     query_list = query_list.slice(0,20);
-    console.log("sliced");
   }
 
   var json_query = JSON.stringify(query_list);
@@ -154,6 +158,8 @@ function showTweets(query_list){
           $("#tweet-container").removeClass('hidden');
         } else {
           console.log("no tweets to display")
+          document.getElementById("tweetError").innerHTML = "No recent vulnerability-related tweets found.";
+
         }
 
       }
@@ -193,8 +199,8 @@ function getAppData(input){
         $("#navTabs").removeClass('hidden');
         $("#chatbotContainer").removeClass('hidden');
 
-        addPieChart1();
-        addPieChart2();
+        addPieChart1(response.dependency_dict);
+        addPieChart2(response.dependency_dict);
       }
     } else if (this.status == 404) {
       console.log("404 error")
@@ -216,8 +222,11 @@ function clickCheck() {
     $("#chatbotContainer").addClass('hidden');
 
     // clear prev output in case of updated input
-    $("#dependencyTable tr").remove()
-    $("#tweet-container div").remove()
+    $("#dependencyTable tr").remove();
+    $("#tweet-container div").remove();
+
+    document.querySelector("#pieChart1").innerHTML = '<canvas id="pie-chart-1"></canvas>';
+    document.querySelector("#pieChart2").innerHTML = '<canvas id="pie-chart-2"></canvas>';
 
     // get application name
     //name = document.getElementById("appNameFormInput").value
