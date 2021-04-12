@@ -1,6 +1,17 @@
 /* ---------- CHAT BOT ENGINE JS ----------- */
 /* original from: https://codepen.io/adamcjoiner/pen/ggxdJK */
 
+function restartChat(){
+		var party = 'Tronto Bot';
+		var style = 'other';
+		var chat = $('.chat');
+		var text = 'Hi there! Enter a question to learn more about your vulnerabilities!'
+		var line = $('<div><span class="party"></span> <span class="text"></span></div>');
+		line.find('.party').addClass(style).text(party + ':');
+		line.find('.text').text(text);
+		chat.append(line);
+		chat.stop().animate({ scrollTop: chat.prop("scrollHeight")});
+}
 
 $(function() {
 
