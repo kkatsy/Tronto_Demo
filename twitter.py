@@ -1,10 +1,10 @@
 import tweepy
 from tweepy import OAuthHandler
 import random
+import requests
 import sys
 sys.dont_write_bytecode = True
-LIMIT = 200
-
+LIMIT = 350
 
 class Twitter(object):
     """
@@ -13,47 +13,106 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        api_key = 'EBoeQqGvXzEELZ1yK6f3sqkOI'
-        api_secret = 'YRVYcmQMcoUs4324d9AKJ0YTG4YznnkJtRD8yG1XrqrqGmrxtx'
-        access_token = '1300638328404934659-z6Z8qJGi8JZNjNbnYlOBsqMJA2DMQg'
-        access_token_secret = 'cJa52zlCLoZC2DMiJIqYn4dCYFIPE34j748DkgsIrgcqy'
+        consumer_key = ***REMOVED***
+        consumer_secret = ***REMOVED***
+        access_token = ***REMOVED***
+        access_token_secret = ***REMOVED***
 
         # create OAuthHandler object
-        self.auth = OAuthHandler(api_key, api_secret)
+        self.auth = OAuthHandler(consumer_key, consumer_secret)
 
         # set access token and secret
         self.auth.set_access_token(access_token, access_token_secret)
 
         # create tweepy API object to fetch tweets
-        self.api = tweepy.API(self.auth, wait_on_rate_limit=False)
+        self.api = tweepy.API(self.auth)
+
+        self.tweet_id_dict = None
+
+    def get_text(self, tweet):
+        # get full text of tweet
+        if 'RT ' in tweet.full_text[0:4]:
+            tweet_text = tweet.retweeted_status.full_text
+        else:
+            tweet_text = tweet.full_text
+
+        return tweet_text
 
     def get_tweets(self, query, count):
-        # store processed tweet data dicts in list
-        tweet_id_num_batch = []
-        calls = 0
+        #query += ' -filter:retweets'
+        print(query)
+        single_call = self.api.search(q=query, count=count, tweet_mode='extended', lang='en')
 
-        while count > 0:
-            if count >= LIMIT:
-                # if still need more than limit, get limit
-                single_call = self.api.search(q=query, count=LIMIT, lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+        # for tweets in batch, get full text and process tweets
+        tweet_text = []
+        tweet_ids = []
+        for single_tweet in single_call:
+            print(single_tweet.id)
+            full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
+            tweet_text.append(full_tweet.full_text)
+            tweet_ids.append(single_tweet.id)
+
+        id_text_dict = {}
+        for id, text in zip(tweet_ids, tweet_text):
+            if text not in id_text_dict.values():
+                id_text_dict[id] = text
+
+        return id_text_dict
+
+    def combine_tweet_dicts(self,list_of_dicts):
+        combined = list_of_dicts.pop()
+        while len(list_of_dicts) != 0:
+            next_dict = list_of_dicts.pop()
+            combined = {**combined, **next_dict}
+
+        unique_dict = {}
+        for id, text in combined.items():
+            if text not in unique_dict.values():
+                unique_dict[id] = text
+
+        return unique_dict
+
+    def filter_tweet_batch(self):
+        # given tweet text list, try to filter out irrelevant data
+        print('something')
+
+    def sort_by_severity(self, id_text_dict):
+        # Dian's classifier
+        tweets = []
+        for id, text in id_text_dict.items():
+            tweets.append((text,id))
+
+        url = "http://0.0.0.0:9802/tweet/pred"
+        query = {"tweets": tweets}
+        pred = requests.post(url=url, json=query)
+
+        # iterate through list, match text to id, append to list
+        print('pred: ', pred)
+        list_of_dicts = pred.json()
+        filtered_dict = {}
+        for tweet_obj in list_of_dicts:
+            text = tweet_obj['text']
+            id = str(tweet_obj['id'])
+            filtered_dict[id] = text
+
+        return filtered_dict
+
+    def get_query(self, query_list):
+        queries = []
+        for query_item in query_list:
+            exact_match = '\"'+ query_item + '\"'
+            no_space = '\"'+ query_item.replace(' ','') + '\"'
+            if exact_match != no_space:
+                queries.extend([exact_match, no_space])
             else:
-                # if need less the limit, get what is left
-                single_call = self.api.search(q=query, count=count,lang='en',wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
+                queries.extend([exact_match])
 
-            count -= LIMIT
-            calls += 1
-
-            # for tweets in batch, get full text and process tweets
-            for single_tweet in single_call:
-                tweet_id = single_tweet.id
-                tweet_id_num_batch.append(str(tweet_id))
-
-        return tweet_id_num_batch
-
-    def get_dependency_tweets(self, query_list, count):
-
-        tweet_id_list_full = ['1372621551447764993', '1372621548994068488', '1372608846070480902', '1371529943788752902', '1371509409847857153', '1371504138303987717', '1371504137112801281', '1371502418219925508', '1371493596319395842', '1371487684405964805', '1372621555113603074', '1372621521164853251', '1372601305596887041', '1371569446867902466', '1371569433114775553', '1371523104002953218', '1371520194712059906', '1371509591679328256', '1371504112597098504', '1371504111372357636', '1371501664037912576', '1371493596566843392', '1371487686285008898', '1372655501025157121', '1372655465029644293', '1372616403379970051', '1371508783986401281', '1371478901927608326', '1371473981534924805', '1371471279786766339', '1371471252162932737', '1371470400836751362', '1371463621641920515', '1371457490873946116', '1372681957558075392', '1372681920430145539', '1372646588649254916', '1371673981477081088', '1371673978016821249', '1371562217137655815', '1371539321770102790', '1371517950662959114', '1371514163219070977', '1372626388403027969', '1372626377598455808', '1372608846104035338', '1371673982651535360', '1371673976787845120', '1371566108646457347', '1371538958803423238', '1371517956073648136', '1371514163088986112', '1372595165152612358', '1372595108504276993', '1371677772859518985', '1371677757453828096', '1371565127628128257', '1371539140278370306', '1371536146656866309', '1371517958669922305', '1371514163198066690', '1372626400415514630', '1372626399253696517', '1372586295755743239', '1371677758636634114', '1371677755188842497', '1371565171555115008', '1371538773180354561', '1371535391707254787', '1371517963858231298', '1371514163210641409', '1373593993838219264', '1373002736682160131', '1372936818581192707', '1372864838477643777', '1372862356485668864', '1372861747309215746', '1372830043429347328', '1372776649003999236', '1372717939963568128', '1372655552329887755', '1372640651318284291', '1372632746913325058', '1372624773252014081', '1372599414804652036', '1372595133405917192', '1372595131979857920', '1372594651077750794', '1372594650389880832', '1372591692113657857', '1372589657565855751', '1371896757123186689', '1371896754778603521', '1371884113687363587', '1371677759752245249', '1371677751732736001', '1371590827194134528', '1371570283581210624', '1371564839341064199', '1371529231428169728', '1371517975392616457', '1371896716660727816', '1371896709945638912', '1371884113582563332', '1371725970533662721', '1371681539440967681', '1371681537196965888', '1371593681891962891', '1371570097991643136', '1371568614239825920', '1371533002782740480', '1371529231465857024', '1371896715092049926', '1371896708477620228', '1371884113582514176', '1371725972827947009', '1371681538321047553', '1371681536140001283', '1371592486217527297', '1371572389302140932', '1371570469141426189', '1371533004644962307', '1371529231558180868', '1371896712550301703', '1371896711250116611', '1371884113540608000', '1371725974212124674', '1371681532742660099', '1371681522357575682', '1371596601144250370', '1371570655020396558', '1371565594227699718', '1371533006427590672', '1371529231474307073', '1372681958958989321', '1372681904646987781', '1372646588707917829', '1371433197800685568', '1371191584537083905', '1372626445277798401', '1372625341504688132', '1372593759955910656', '1371448276931776512', '1371283771849383939', '1371267081270919170', '1371078335355293704', '1372681943276486663', '1372681931696005120', '1372646588804431878', '1371666581152014338', '1371666578991890434', '1371429737743200257', '1371429736279314432', '1371419694712942599', '1371417100414283784', '1371364710193463298', '1371363673021775876', '1371351787035316225', '1371335038189592576', '1373854573778116608', '1373673354062934018', '1373484732995006464', '1373379067962032129', '1373295922571059201', '1373114672564539396', '1372659239664160772', '1372659227567734793', '1372639038784606217', '1371447119484231682', '1371429734949720065', '1371429727802695689', '1371419150149693443', '1371417855347023874', '1371364713586655232', '1371363677673242624', '1371351789501612035', '1371335038172864514', '1372659242482728964', '1372659216574513158', '1372639038709100549', '1371464964288970754', '1371443049071570945', '1371429732219289605', '1371419331649753095', '1371398470821642241', '1371363681263583234', '1371357680988721153', '1371351791443529728', '1371350129542795264', '1373053161318014985', '1373040598857494528', '1373040552556498958', '1373016523212791814', '1372957039236890635', '1372957038402211840', '1372950055817150470', '1372934071656062983', '1372919137157197831', '1372734999267577859', '1372655267347845126', '1372640666552053766', '1372639695600033794', '1372457416969707521', '1372452394965999617', '1372238913918631937', '1371464963076788225', '1371432513562931203', '1371429729304199168', '1371419880474476544', '1372598896208310274', '1372598860179193858', '1371801026886561795', '1371725981162090496', '1371681533845704704', '1371681521262854145', '1371595432992854017', '1371562574400131082', '1371548237400838146', '1371544331048386567', '1372681902411366405', '1372681887555141632', '1372646588624027661', '1371685300540469248', '1371685299261161472', '1371563883593412609', '1371539499038220289', '1371538411786485765', '1371499038772723714', '1371487682430439433']
-
-        tweet_id_list = random.sample(tweet_id_list_full, count)
-
-        return tweet_id_list
+        query = ''
+        for i in range(len(queries) - 1):
+            if i == 0:
+                query += '( ' + queries[i]
+            else:
+                query += ' OR ' + queries[i]
+        query += ' ) ' + '( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )'
+        
+        return query

@@ -65,19 +65,31 @@ def tweet_ids(json_str):
     json_str = unquote(json_str)
     vulnerability_list = json.loads(json_str)
 
-    # get list of tweet ids via twitter api
-    count = 21
-    cybersec_words = ['exploit', 'domain', 'vulnerable', 'vulnerability', 'vpn', 'ip address', 'breach', 'firewall', 'malware', 'virus', 'ransomware', 'trojan horse', 'worm', 'DDoS', 'phishing', 'clickjack']
-    random.shuffle(cybersec_words)
-    cybersec_str = ' OR '.join(cybersec_words)
-    tweet_id_list = twitter.get_tweets(cybersec_str, 21)
-
-    #tweet_id_list = twitter.get_dependency_tweets(vulnerability_list, count)
-    print('tweet ids: ', tweet_id_list)
-
-    global tweet_list
-    tweet_list = tweet_id_list
-
+    # get dependencies and cve from global vars
+    global description_list, dependency_list, cve_list, tweet_list
+    print(cve_list)
+    to_combine = []
+    for a_list in [dependency_list, cve_list]:
+        if len(a_list) > 15:
+            a_list.sort()
+            a_list = a_list[-15:]
+        query_str = twitter.get_query(a_list)
+        query_1 = twitter.get_tweets(query_str + ' filter:links', 30)
+        query_2 = twitter.get_tweets(query_str + ' -filter:links', 30)
+        to_combine.append(query_1)
+        to_combine.append(query_2)
+    combined_tweets = twitter.combine_tweet_dicts(to_combine)
+    print("combined tweets: ",combined_tweets)
+    if len(combined_tweets) > 0:
+        ordered_ids = twitter.sort_by_severity(combined_tweets)
+        print("ordered ids: ",ordered_ids)
+        tweet_id_list = list(ordered_ids.keys())
+        tweet_list = list(ordered_ids.values())
+        print("tweet id list: ",tweet_id_list)
+    else:
+        tweet_id_list = []
+        tweet_list = []
+        print("no tweets")
     # convert to JSON
     return json.dumps(tweet_id_list)
 
@@ -89,12 +101,13 @@ def chatbot(question):
 
     global description_list, dependency_list, cve_list, tweet_list
     chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
-    
-    answer = chatBot.answer_to_question(question)
-    if answer == '':
-        answer = 'I\'m sorry - I don\'t know. Ask me another question!'
 
-    return json.dumps(answer)
+    answer = chatBot.answer_to_question(question)
+    print(answer['score'])
+    if answer['answer'] == '':
+        answer['answer'] = 'I\'m sorry - I don\'t know. Ask me another question!'
+
+    return json.dumps(answer['answer'])
 
 if __name__ == '__main__':
     app.run()

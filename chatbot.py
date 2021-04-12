@@ -11,7 +11,7 @@ class ChatBot:
     def get_known_context(description_list, dependency_list, cve_list):
         descriptions = ' '.join(description_list)
         dependency_info = 'Your application has the dependencies ' + ', '.join(dependency_list) + '.'
-        cve_info = 'Your application has the CVEs ' + ', '.join(cve_list) + '.'
+        cve_info = 'Your application has the vulnerabilities: ' + ', '.join(cve_list) + '.'
 
         known_context = descriptions + ' ' + dependency_info + '. ' + cve_info
         return known_context
@@ -27,7 +27,7 @@ class ChatBot:
         url = "http://0.0.0.0:9801/qa/pred"
         query = {"question": question, "context": self.combined_context}
         pred = requests.post(url=url, json=query)
-        return pred.json()['answer']
+        return pred.json()
 
     def update_data(self, description_list, dependency_list, cve_list, tweet_list):
         self.known_context = self.get_known_context(description_list, dependency_list, cve_list)

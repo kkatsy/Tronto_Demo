@@ -12,6 +12,8 @@ function clearForm() {
 
   $('#navTabs').addClass('hidden');
   $("#chatbotContainer").addClass('hidden');
+  $('#chatbotChat').empty();
+  restartChat();
   $('.nav-tabs a[href="#tableTab"]').tab('show');
 
   $('#spinnerContainer').removeClass('spinner');
@@ -91,10 +93,11 @@ function showStatus(app_name, vulnerability_status, severity){
 
   if(vulnerability_status == "vulnerable"){
     $("#result").addClass("bg-danger");
-    document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + "severity level: " + severity;
-    //document.getElementById("overall-level").innerHTML = "severity level: " + severity;
+    document.getElementById("result").innerHTML = document.getElementById("result").innerHTML + "<br>" + "Severity level: " + severity;
+    document.getElementById("result").style.color = "rgba(180,71,84,1.0)";
   } else {
     $("#result").addClass("bg-success");
+    document.getElementById("result").style.color = "rgba(39, 142, 32,1.0)";
   }
 
   $("#resultContainer").removeClass('hidden');
@@ -146,8 +149,13 @@ function showTweets(query_list){
         console.log(response)
       } else {
         var tweet_list = JSON.parse(response)
-        createTweets(tweet_list);
-        $("#tweet-container").removeClass('hidden');
+        if (tweet_list.length > 0) {
+          createTweets(tweet_list);
+          $("#tweet-container").removeClass('hidden');
+        } else {
+          console.log("no tweets to display")
+        }
+
       }
 
     }

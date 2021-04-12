@@ -66,11 +66,6 @@ textarea {
   padding-bottom: 20px;
 }
 
-#result-non-red {
-  /* font-style: italic; */
-  font-size: 18px;
-}
-
 .result-item {
   background-color: green;
   border: 1px solid rgba(0, 0, 0, 0.8);
