@@ -19,8 +19,9 @@
 - [x] try getting dependency query tweets (name, name+version, hashtags), maybe CVEs
 - [x] filter tweets before sending through classifiers
 - [x] use most recent CVEs from tweet queries if too many
-- [ ] connect charts to backend, maybe add more/different charts
-- [ ] add tweet error handling if no tweets are found
+- [x] connect charts to backend, maybe add more/different charts
+- [x] add tweet error handling if no tweets are found
+- [ ] add tronto_q.owl to repo and test
 - [ ] add links to CVEs in table to NVD CVE database site
 - [ ] make CVE codes not split on dashes in table breaks
 - [ ] add result descriptions + blurbs

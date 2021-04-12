@@ -91,6 +91,7 @@
 
           <div id="tweetTab" class="tab-pane fade">
             <div class="tab-container">
+              <p id="tweetError"></p>
               <div class="tweet-container hidden" id="tweet-container"></div>
             </div>
           </div>
@@ -98,12 +99,12 @@
           <div id="cveTab" class="tab-pane fade">
             <div class="tab-container">
               <div class="chart-container">
-                <div class="chart-child">
+                <div class="chart-child" id="pieChart1">
                   CVEs per Dependency
                   <canvas id="pie-chart-1"></canvas>
                 </div>
 
-                <div class="chart-child">
+                <div class="chart-child" id="pieChart2">
                   Severity Distribution
                   <canvas id="pie-chart-2"></canvas>
                 </div>
