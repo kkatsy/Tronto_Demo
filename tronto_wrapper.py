@@ -6,7 +6,7 @@ sys.dont_write_bytecode = True
 class Tronto(object):
 
     def __init__(self):
-        self.onto = get_ontology('assets/tronto_f.owl').load()
+        self.onto = get_ontology('assets/tronto_q.owl').load()
         self.added_apps = {}
         self.base_iri = self.onto.base_iri
 
@@ -91,7 +91,7 @@ class Tronto(object):
         dependencies = list(app.depends_on)
         for dependency in dependencies:
             vulnerabilities = dependency.has_vulnerability
-            cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            cves = [str(iris).replace('tronto_q.', '') for iris in vulnerabilities]
             cves = [(cve[:3] + '-' + cve[3:7] + '-' + cve[7:]) for cve in cves]
             cve_list.extend(cves)
 
@@ -105,7 +105,7 @@ class Tronto(object):
         dependencies = list(app.depends_on)
         for dependency in dependencies:
             vulnerabilities = dependency.has_vulnerability
-            vulnerability_str = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            vulnerability_str = [str(iris).replace('tronto_q.', '') for iris in vulnerabilities]
             vulnerability_str = [(vuln[:3] + '-' + vuln[3:7] + '-' + vuln[7:]) for vuln in vulnerability_str]
             vulnerability_str = ', '.join(sorted(vulnerability_str))
             is_vulnerable = 'vulnerable' if (len(vulnerabilities) > 0) else 'not vulnerable'
@@ -195,7 +195,7 @@ class Tronto(object):
             depend_iris = (self.products_in_onto[dependency_name])['iris']
             dependency = IRIS[depend_iris]
             vulnerabilities = dependency.has_vulnerability
-            cves = [str(iris).replace('tronto_f.', '') for iris in vulnerabilities]
+            cves = [str(iris).replace('tronto_q.', '') for iris in vulnerabilities]
             cves = [(cve[:3] + '-' + cve[3:7] + '-' + cve[7:]) for cve in cves]
             cve_list.extend(cves)
 
@@ -206,4 +206,4 @@ class Tronto(object):
         sync_reasoner()
 
     def save_updated_ontology(self):
-        self.onto.save(file='tronto_f_updated.owl')
+        self.onto.save(file='tronto_q_updated.owl')
