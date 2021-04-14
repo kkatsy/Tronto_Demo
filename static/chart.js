@@ -12,13 +12,14 @@ function addPieChart1(data_dict){
     num_vulnerabilities.push(vuln_num);
   }
 
+  var colors = ["rgba(84,161,229,1.0)","rgba(108,190,191,1.0)", "rgba(163, 228, 215, 1.0)", "rgba(19, 141, 117, 1.0)", "rgba(125, 206, 160, 1.0)", "rgba(195, 155, 211, 1.0)"]
   new Chart(document.getElementById("pie-chart-1"), {
       type: 'pie',
       data: {
         labels: dependency_names,
         datasets: [{
           label: "Population (millions)",
-          backgroundColor: ["rgba(84,161,229,1.0)","rgba(108,190,191,1.0)","rgba(248,206,107,1.0)","rgba(242,162,84,1.0)","rgba(237,110,133,1.0)"],
+          backgroundColor: colors,
           data: num_vulnerabilities
         }]
       },
@@ -58,14 +59,14 @@ function addPieChart2(data_dict){
   }
 
   data = [none, low, medium, high, critical];
-  
+
   new Chart(document.getElementById("pie-chart-2"), {
       type: 'pie',
       data: {
         labels: ["None", "Low", "Medium", "High", "Critical"],
         datasets: [{
           label: "Population (millions)",
-          backgroundColor: ["rgba(255,232,161,1.0)","rgba(180,71,84,1.0)","rgba(248,206,107,1.0)","rgba(242,162,84,1.0)","rgba(237,110,133,1.0)"],
+          backgroundColor: ["rgba(255,232,161,1.0)","rgba(248,206,107,1.0)","rgba(242,162,84,1.0)","rgba(237,110,133,1.0)","rgba(180,71,84,1.0)"],
           data: data
         }]
       },

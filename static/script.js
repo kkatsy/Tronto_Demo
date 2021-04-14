@@ -26,8 +26,8 @@ function clearForm() {
 
   $("#dependencyTable tr").remove();
   $("#tweet-container div").remove();
-  document.querySelector("#pieChart1").innerHTML = '<canvas id="pie-chart-1"></canvas>';
-  document.querySelector("#pieChart2").innerHTML = '<canvas id="pie-chart-2"></canvas>';
+  document.querySelector("#pieChart1").innerHTML = 'CVEs per Dependency<canvas id="pie-chart-1"></canvas>';
+  document.querySelector("#pieChart2").innerHTML = 'Severity Distribution<canvas id="pie-chart-2"></canvas>';
 }
 
 function addTypeahead() {
@@ -225,8 +225,8 @@ function clickCheck() {
     $("#dependencyTable tr").remove();
     $("#tweet-container div").remove();
 
-    document.querySelector("#pieChart1").innerHTML = '<canvas id="pie-chart-1"></canvas>';
-    document.querySelector("#pieChart2").innerHTML = '<canvas id="pie-chart-2"></canvas>';
+    document.querySelector("#pieChart1").innerHTML = 'CVEs per Dependency<canvas id="pie-chart-1"></canvas>';
+    document.querySelector("#pieChart2").innerHTML = 'Severity Distribution<canvas id="pie-chart-2"></canvas>';
 
     // get application name
     //name = document.getElementById("appNameFormInput").value

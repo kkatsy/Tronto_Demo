@@ -21,20 +21,26 @@
 - [x] use most recent CVEs from tweet queries if too many
 - [x] connect charts to backend, maybe add more/different charts
 - [x] add tweet error handling if no tweets are found
-- [ ] add tronto_q.owl to repo and test
+- [x] add tronto_q.owl to repo and test
+- [x] git lifs
+- [ ] create demo script
+- [ ] create demo slides
+- [ ] film version 1 of demo video
 - [ ] add links to CVEs in table to NVD CVE database site
 - [ ] make CVE codes not split on dashes in table breaks
 - [ ] add result descriptions + blurbs
-- [ ] error handling on the off-chance that something goes wrong
-
+- [ ] add separate spinner for tweets
+- [ ] filter out duplicate tweets better
+- [ ] filter out tweets that don't contain dependency/CVE names
+- [ ] fix tweet query bug -> missing last dependency
+- [ ] update demo link name to tronto instead of cybersec-checker?
 - [ ] fill out research track application for twitter api (still need funding info)
 - [ ] eventually will need modules for classifiers not apis so demo is usable?
-- [ ] try making ontology for 2021 or recent instead of 2019 (Prof Aranovich doing)
 - [ ] prettify things: maybe add texture, side panels, icons to tabs/buttons
 
 ### Repository Organization
 **directories**
-- assets: files containing data
+- assets: ontology-related data
 - static: JS and CSS files
 - templates: HTML files
 - tronto: tronto-related python code

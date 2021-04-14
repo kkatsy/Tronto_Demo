@@ -74,8 +74,8 @@ def tweet_ids(json_str):
             a_list.sort()
             a_list = a_list[-15:]
         query_str = twitter.get_query(a_list)
-        query_1 = twitter.get_tweets(query_str + ' filter:links', 30)
-        query_2 = twitter.get_tweets(query_str + ' -filter:links', 30)
+        query_1 = twitter.get_tweets(query_str + ' filter:links', 40)
+        query_2 = twitter.get_tweets(query_str + ' -filter:links', 40)
         to_combine.append(query_1)
         to_combine.append(query_2)
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
