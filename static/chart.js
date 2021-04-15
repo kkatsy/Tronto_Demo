@@ -59,14 +59,14 @@ function addPieChart2(data_dict){
   }
 
   data = [none, low, medium, high, critical];
-
+  colors = ["rgba(255,232,161,1.0)","rgba(248,206,107,1.0)","rgba(242,162,84,1.0)","rgba(237,110,133,1.0)","rgba(180,71,84,1.0)"];
   new Chart(document.getElementById("pie-chart-2"), {
       type: 'pie',
       data: {
         labels: ["None", "Low", "Medium", "High", "Critical"],
         datasets: [{
           label: "Population (millions)",
-          backgroundColor: ["rgba(255,232,161,1.0)","rgba(248,206,107,1.0)","rgba(242,162,84,1.0)","rgba(237,110,133,1.0)","rgba(180,71,84,1.0)"],
+          backgroundColor: colors,
           data: data
         }]
       },
