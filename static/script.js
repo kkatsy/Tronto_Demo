@@ -220,6 +220,8 @@ function clickCheck() {
     $("#resultContainer").addClass('hidden');
     $("#navTabs").addClass('hidden');
     $("#chatbotContainer").addClass('hidden');
+    $('#chatbotChat').empty();
+    restartChat();
 
     // clear prev output in case of updated input
     $("#dependencyTable tr").remove();

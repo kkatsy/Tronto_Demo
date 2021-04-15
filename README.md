@@ -22,10 +22,10 @@
 - [x] connect charts to backend, maybe add more/different charts
 - [x] add tweet error handling if no tweets are found
 - [x] add tronto_q.owl to repo and test
-- [x] git lifs
-- [ ] create demo script
-- [ ] create demo slides
-- [ ] film version 1 of demo video
+- [x] git lfs for file over 100MB limit
+- [x] create demo script
+- [x] create demo slides
+- [x] film version 1 of demo video
 - [ ] add links to CVEs in table to NVD CVE database site
 - [ ] make CVE codes not split on dashes in table breaks
 - [ ] add result descriptions + blurbs
