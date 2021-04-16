@@ -5,7 +5,6 @@
 ### Repository Organization
 **directories**
 - assets: ontology-related data
-- pipeline_qa_server: API classifier code
 - static: JS and CSS files
 - templates: HTML files
 - tronto: tronto-related python code
