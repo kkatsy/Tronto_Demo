@@ -6,6 +6,7 @@
 **directories**
 - assets: ontology-related data
 - static: JS and CSS files
+- pipeline_qa_server: API classifier
 - templates: HTML files
 - tronto: tronto-related python code
 
