@@ -13,10 +13,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = ***REMOVED***
-        consumer_secret = ***REMOVED***
-        access_token = ***REMOVED***
-        access_token_secret = ***REMOVED***
+        consumer_key = 'SCpVZk7nEvnbvjGLI3DQNSBXf'
+        consumer_secret = '6E2BXFZEZudxuhckOoY6qc8L0YPb0CrUei0N1mIXzyluBpVQI6'
+        access_token = '1300638328404934659-67qbPFLmI47ivO6R7jMehTWgMPlVgd'
+        access_token_secret = 'oM9NSb37DiQolbxQr0MSHMiWwQKU2aKjBk4wWuEhrOxiC'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(consumer_key, consumer_secret)
