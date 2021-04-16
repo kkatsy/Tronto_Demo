@@ -2,6 +2,23 @@
 
 **Demo Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
 
+### Repository Organization
+**directories**
+- assets: ontology-related data
+- static: JS and CSS files
+- templates: HTML files
+- tronto: tronto-related python code
+
+**python files**
+- app.py: flask endpoints and functions
+- tronto_wrapper.py: tronto wrapper class
+- twitter.py: pulling tweet ids w/ Twitter API
+- question_answering.py
+
+**heroku files**
+- Procfile: specify deployment config
+- requirements.txt: libraries to install
+
 **TODOs:**
 - [x] connect chatbot to backend, partially re-write
 - [x] clear chatbot chat on clear
@@ -26,6 +43,7 @@
 - [x] create demo script
 - [x] create demo slides
 - [x] film version 1 of demo video
+- [x] add NLP to script and do version 2
 - [ ] add links to CVEs in table to NVD CVE database site
 - [ ] make CVE codes not split on dashes in table breaks
 - [ ] add result descriptions + blurbs
@@ -37,20 +55,3 @@
 - [ ] fill out research track application for twitter api (still need funding info)
 - [ ] eventually will need modules for classifiers not apis so demo is usable?
 - [ ] prettify things: maybe add texture, side panels, icons to tabs/buttons
-
-### Repository Organization
-**directories**
-- assets: ontology-related data
-- static: JS and CSS files
-- templates: HTML files
-- tronto: tronto-related python code
-
-**python files**
-- app.py: flask endpoints and functions
-- tronto_wrapper.py: tronto wrapper class
-- twitter.py: pulling tweet ids w/ Twitter API
-- question_answering.py
-
-**heroku files**
-- Procfile: specify deployment config
-- requirements.txt: libraries to install
