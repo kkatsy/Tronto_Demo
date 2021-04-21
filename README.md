@@ -1,6 +1,5 @@
 # cybersecurity-checker
 
-**Demo Link:** Coming soon...
 
 ### Repository Organization
 **directories**
