@@ -1,6 +1,6 @@
 # cybersecurity-checker
 
-**Demo Link:** [https://cybersecurity-checker.herokuapp.com/](https://cybersecurity-checker.herokuapp.com/)
+**Demo Link:**
 
 ### Repository Organization
 **directories**
