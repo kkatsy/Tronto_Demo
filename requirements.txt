@@ -8,3 +8,4 @@ Werkzeug==0.15.6
 Cython
 owlready2
 tweepy
+bs4

@@ -73,8 +73,8 @@ def tweet_ids(json_str):
     to_combine = []
     for a_list in [dependency_list, cve_list, not_in_onto_list]:
         if len(a_list) > 15:
-            #a_list.sort()
             a_list = a_list[-15:]
+
         query_str = twitter.get_query(a_list)
         query_1 = twitter.get_tweets(query_str + ' filter:links', 30)
         query_2 = twitter.get_tweets(query_str + ' -filter:links', 30)
@@ -108,7 +108,7 @@ def chatbot(question):
 
     answer = chatBot.answer_to_question(question)
     print(answer['score'])
-    if answer['answer'] == '':
+    if answer['answer'] == '' or answer['score'] < 0.2:
         answer['answer'] = 'I\'m sorry - I don\'t know. Ask me another question!'
 
     return json.dumps(answer['answer'])

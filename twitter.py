@@ -1,5 +1,6 @@
 import tweepy
 from tweepy import OAuthHandler
+from difflib import SequenceMatcher
 import random
 import requests
 import sys
@@ -13,10 +14,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = ''
-        consumer_secret = ''
-        access_token = ''
-        access_token_secret = ''
+        consumer_key = 'SCpVZk7nEvnbvjGLI3DQNSBXf'
+        consumer_secret = '6E2BXFZEZudxuhckOoY6qc8L0YPb0CrUei0N1mIXzyluBpVQI6'
+        access_token = '1300638328404934659-67qbPFLmI47ivO6R7jMehTWgMPlVgd'
+        access_token_secret = 'oM9NSb37DiQolbxQr0MSHMiWwQKU2aKjBk4wWuEhrOxiC'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(consumer_key, consumer_secret)
@@ -72,9 +73,20 @@ class Twitter(object):
 
         return unique_dict
 
-    def filter_tweet_batch(self):
-        # given tweet text list, try to filter out irrelevant data
-        print('something')
+    def filter_tweet_batch(self, batch, queries):
+        # make sure query in batch
+        query_batch = []
+        for tweet in batch:
+            if any(q in tweet for q in queries):
+                query_batch.append(tweet)
+
+        # for i, the_tweet in enumerate(query_batch):
+        #     for j, a_tweet in enumerate(query_batch):
+        #         # if i and j not equal
+        #         if i != j and SequenceMatcher(None, the_tweet, a_tweet).ratio():
+        #         # check similarity,if really high, exclude one
+
+        return query_batch
 
     def sort_by_severity(self, id_text_dict):
         # Dian's classifier
