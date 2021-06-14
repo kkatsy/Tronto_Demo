@@ -94,19 +94,21 @@ class Twitter(object):
         for id, text in id_text_dict.items():
             tweets.append((text,id))
 
-        url = "http://0.0.0.0:9802/tweet/pred"
-        query = {"tweets": tweets}
-        pred = requests.post(url=url, json=query)
+        # print('starting up api')
+        # url = "http://0.0.0.0:9802/tweet/pred"
+        # query = {"tweets": tweets}
+        # pred = requests.post(url=url, json=query)
+        #
+        # # iterate through list, match text to id, append to list
+        # print('pred: ', pred)
+        # list_of_dicts = pred.json()
+        # filtered_dict = {}
+        # for tweet_obj in list_of_dicts:
+        #     text = tweet_obj['text']
+        #     id = str(tweet_obj['id'])
+        #     filtered_dict[id] = text
 
-        # iterate through list, match text to id, append to list
-        print('pred: ', pred)
-        list_of_dicts = pred.json()
-        filtered_dict = {}
-        for tweet_obj in list_of_dicts:
-            text = tweet_obj['text']
-            id = str(tweet_obj['id'])
-            filtered_dict[id] = text
-
+        filtered_dict = id_text_dict
         return filtered_dict
 
     def get_query(self, query_list):

@@ -9,3 +9,5 @@ Cython
 owlready2
 tweepy
 bs4
+torch
+transformers

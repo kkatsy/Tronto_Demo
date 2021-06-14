@@ -82,13 +82,17 @@ def tweet_ids(json_str):
         to_combine.append(query_2)
 
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
-
+    print('combine tweet dicts')
     if len(combined_tweets) > 0:
+        print('in the if statement')
         ordered_ids = twitter.sort_by_severity(combined_tweets)
+        print('sort by severity works')
         print("ordered ids: ",ordered_ids)
 
         tweet_id_list = list(ordered_ids.keys())
         tweet_list = list(ordered_ids.values())
+        
+        chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
         print("tweet id list: ",tweet_id_list)
     else:
         tweet_id_list = []

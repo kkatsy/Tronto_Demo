@@ -1,8 +1,10 @@
 import requests
 from get_url_content import get_context
+import re
 
 class ChatBot:
     def __init__(self):
+        self.tweet_list = None
         self.known_context = None
         self.canary_context = None
         self.combined_context = None
@@ -30,25 +32,34 @@ class ChatBot:
             for url in url_matches:
                 print('url: ', url)
                 tweet = tweet.replace(url, '')
-                url_content = get_url_content(url)
-                print('url_content: ', url_content)
-                tweets_text += ' ' + url_content
+
+                try:
+                    url_content = get_context(url)
+                    print('url_content: ', url_content)
+                    tweets_text += ' ' + url_content
+                except:
+                    print('passing')
 
             # add tweet to beginning of text
-            tweets_text = tweet + tweets_text
+            tweets_text = tweet + ' ' + tweets_text
 
-        return tweet_text
+        return tweets_text
 
     def answer_to_question(self, question):
         # question = "Is there a link to CVE?"
         # print(self.combined_context)
-        url = "http://0.0.0.0:9801/qa/pred"
+        print('here')
+        url = "http://0.0.0.0:9803/qa/pred"
         query = {"question": question, "context": self.combined_context}
         pred = requests.post(url=url, json=query)
+        print('there')
         print(self.canary_context)
         return pred.json()
 
     def update_data(self, description_list, dependency_list, cve_list, tweet_list):
-        self.known_context = self.get_known_context(description_list, dependency_list, cve_list)
-        self.canary_context = self.get_canary_context(tweet_list)
-        self.combined_context = self.known_context + ' ' + self.canary_context
+        if self.tweet_list != tweet_list:
+            self.tweet_list = tweet_list
+            self.known_context = self.get_known_context(description_list, dependency_list, cve_list)
+            self.canary_context = self.get_canary_context(tweet_list)
+            self.combined_context = self.known_context + ' ' + self.canary_context
+            print('data updated')

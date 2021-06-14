@@ -33,3 +33,8 @@
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
 # ssh -N -f -L localhost:9802:localhost:9802 kkatsy@errol.ucdavis.edu
+
+# ssh -N -f -L 0.0.0.0:9801:0.0.0.0:9801 kkatsy@errol.ucdavis.edu
+# ssh -N -f -L 0.0.0.0:9802:0.0.0.0:9802 kkatsy@errol.ucdavis.edu
+
+# $ ssh -L 0.0.0.0:9802:0.0.0.0:9802 kkatsy@errol.ucdavis.edu -N -v -v
