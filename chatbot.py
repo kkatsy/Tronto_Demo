@@ -49,7 +49,7 @@ class ChatBot:
         # question = "Is there a link to CVE?"
         # print(self.combined_context)
         print('here')
-        url = "http://0.0.0.0:9803/qa/pred"
+        url = "http://0.0.0.0:9801/qa/pred"
         query = {"question": question, "context": self.combined_context}
         pred = requests.post(url=url, json=query)
         print('there')

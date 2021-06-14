@@ -41,22 +41,25 @@ class Twitter(object):
 
     def get_tweets(self, query, count):
         #query += ' -filter:retweets'
-        print(query)
-        single_call = self.api.search(q=query, count=count, tweet_mode='extended', lang='en')
-
-        # for tweets in batch, get full text and process tweets
-        tweet_text = []
-        tweet_ids = []
-        for single_tweet in single_call:
-            print(single_tweet.id)
-            full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
-            tweet_text.append(full_tweet.full_text)
-            tweet_ids.append(single_tweet.id)
-
         id_text_dict = {}
-        for id, text in zip(tweet_ids, tweet_text):
-            if text not in id_text_dict.values():
-                id_text_dict[id] = text
+
+        try:
+            single_call = self.api.search(q=query, count=count, tweet_mode='extended', lang='en')
+
+            # for tweets in batch, get full text and process tweets
+            tweet_text = []
+            tweet_ids = []
+            for single_tweet in single_call:
+                print(single_tweet.id)
+                full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
+                tweet_text.append(full_tweet.full_text)
+                tweet_ids.append(single_tweet.id)
+
+            for id, text in zip(tweet_ids, tweet_text):
+                if text not in id_text_dict.values():
+                    id_text_dict[id] = text
+        except:
+            print('Twitter api query failed: limit prob exceeded')
 
         return id_text_dict
 
@@ -94,21 +97,20 @@ class Twitter(object):
         for id, text in id_text_dict.items():
             tweets.append((text,id))
 
-        # print('starting up api')
-        # url = "http://0.0.0.0:9802/tweet/pred"
-        # query = {"tweets": tweets}
-        # pred = requests.post(url=url, json=query)
-        #
-        # # iterate through list, match text to id, append to list
-        # print('pred: ', pred)
-        # list_of_dicts = pred.json()
-        # filtered_dict = {}
-        # for tweet_obj in list_of_dicts:
-        #     text = tweet_obj['text']
-        #     id = str(tweet_obj['id'])
-        #     filtered_dict[id] = text
+        print('starting up api')
+        url = "http://0.0.0.0:9802/tweet/pred"
+        query = {"tweets": tweets}
+        pred = requests.post(url=url, json=query)
 
-        filtered_dict = id_text_dict
+        # iterate through list, match text to id, append to list
+        print('pred: ', pred)
+        list_of_dicts = pred.json()
+        filtered_dict = {}
+        for tweet_obj in list_of_dicts:
+            text = tweet_obj['text']
+            id = str(tweet_obj['id'])
+            filtered_dict[id] = text
+
         return filtered_dict
 
     def get_query(self, query_list):

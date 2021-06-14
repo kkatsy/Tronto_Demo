@@ -85,13 +85,14 @@ def tweet_ids(json_str):
     print('combine tweet dicts')
     if len(combined_tweets) > 0:
         print('in the if statement')
-        ordered_ids = twitter.sort_by_severity(combined_tweets)
-        print('sort by severity works')
-        print("ordered ids: ",ordered_ids)
+        # ordered_ids = twitter.sort_by_severity(combined_tweets)
+        # print('sort by severity works')
+        # print("ordered ids: ",ordered_ids)
+        ordered_ids = combined_tweets
+        tweet_id_list = list(map (str, list(ordered_ids.keys())))
 
-        tweet_id_list = list(ordered_ids.keys())
+        # tweet_id_list = list(ordered_ids.keys())
         tweet_list = list(ordered_ids.values())
-        
         chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
         print("tweet id list: ",tweet_id_list)
     else:
@@ -99,6 +100,7 @@ def tweet_ids(json_str):
         tweet_list = []
         print("no tweets")
     # convert to JSON
+    print('tweet_id_list: ', tweet_id_list)
     return json.dumps(tweet_id_list)
 
 # route to get QA response for Tronto Bot

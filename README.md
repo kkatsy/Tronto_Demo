@@ -19,22 +19,17 @@
 - Procfile: specify deployment config
 - requirements.txt: libraries to install
 
-**TODOs:**
-- [ ] add links to CVEs in table to NVD CVE database site
-- [ ] make CVE codes not split on dashes in table breaks
-- [ ] add result descriptions + blurbs
-- [ ] add separate spinner for tweets
-- [ ] filter out duplicate tweets better
-- [ ] filter out tweets that don't contain dependency/CVE names
-- [ ] fix tweet query bug -> missing last dependency
-- [ ] fill out research track application for twitter api (still need funding info)
-- [ ] prettify things: maybe add texture, side panels, icons to tabs/buttons
-- [x] add url scraper for QA
+**Done and Todo:**
+- [x] add urls when initially loading
+- [x] make get_url_content exception proof
+- [x] run qa_server locally
+- [x] remove tweet_pipeline (for now)
+- [x] update urls only when new queries
+- [x] figure out why tweets aren't showing up
+- [ ] filter tweets better
+- [ ] add new tronto file
+- [ ] add home page
+
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
 # ssh -N -f -L localhost:9802:localhost:9802 kkatsy@errol.ucdavis.edu
-
-# ssh -N -f -L 0.0.0.0:9801:0.0.0.0:9801 kkatsy@errol.ucdavis.edu
-# ssh -N -f -L 0.0.0.0:9802:0.0.0.0:9802 kkatsy@errol.ucdavis.edu
-
-# $ ssh -L 0.0.0.0:9802:0.0.0.0:9802 kkatsy@errol.ucdavis.edu -N -v -v

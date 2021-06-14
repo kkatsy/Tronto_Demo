@@ -8,7 +8,7 @@ from transformers import pipeline
 
 def start_server(url_root='/qa',
                  host='0.0.0.0',
-                 port='9803',
+                 port='9801',
                  debug=False):
     def prefix_route(route_function, prefix='', mask='{0}{1}'):
         def newroute(route, *args, **kwargs):
@@ -18,7 +18,7 @@ def start_server(url_root='/qa',
     app = Flask(__name__)
     app.route = prefix_route(app.route, url_root)
 
-    print('9803')
+    print('9801')
 
     # hyper-paramters
     max_answer_len = 15
