@@ -24,11 +24,15 @@ not_in_onto_list = None
 cve_list = None
 tweet_list = None
 
-# home page of demo
+# demo page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
+# home page
+@app.route('/demo')
+def demo():
+    return render_template('demo.html')
 
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])

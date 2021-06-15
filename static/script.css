@@ -18,6 +18,53 @@ body {
   height: 18%;
 }
 
+h1{
+  font-family: Courier New;
+  text-align: center;
+  vertical-align: middle;
+  margin: auto;
+  font-weight: semibold;
+  font-size: 23px;
+}
+
+h3{
+  font-family: Courier New;
+  text-align: center;
+  vertical-align: middle;
+  margin: auto;
+  font-weight: bold;
+  font-style: italic;
+  color: steelblue;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.logo-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo-child {
+    flex: 1;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .container {
   width:850px;
 }

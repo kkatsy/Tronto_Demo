@@ -129,6 +129,6 @@ class Twitter(object):
                 query += '( ' + queries[i]
             else:
                 query += ' OR ' + queries[i]
-        query += ' ) ' + '( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )'
+        query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )'
 
         return query

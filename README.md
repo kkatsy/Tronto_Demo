@@ -28,7 +28,8 @@
 - [x] figure out why tweets aren't showing up
 - [ ] filter tweets better
 - [ ] add new tronto file
-- [ ] add home page
+- [ ] add home page -> button click -> demo flow
+- [ ] add spinner while tweets + info loads
 
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
