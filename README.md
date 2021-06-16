@@ -36,3 +36,4 @@
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
 # ssh -N -f -L localhost:9802:localhost:9802 kkatsy@errol.ucdavis.edu
+# scp -r kkatsy@errol.ucdavis.edu:/home/dianyu/security/exist_data /Users/kk/Documents/tronto

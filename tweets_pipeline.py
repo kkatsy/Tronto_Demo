@@ -36,7 +36,7 @@ def start_server(url_root='/tweet',
     bertoverflow_ner_model_path = "/mnt/dian/ner/debug_bertoverflow" # change this
     severity_model_path = "/pipeline_qa_server/model/cybersecurity_data"
     cvss_model_path = "pipeline_qa_server/cvss_score_data"
-    exist_model_path = "/mnt/dian/tronto/exist" # change this
+    exist_model_path = "pipeline_qa_server/exist_data"
 
 
     handle_impossible_answer = True
