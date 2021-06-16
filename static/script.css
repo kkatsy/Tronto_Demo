@@ -176,6 +176,15 @@ textarea {
   right: 14px;
 }
 
+#tweetSpinnerContainer {
+  position: relative;
+  height: 36px;
+  margin:0 auto;
+  width: inherit;
+  right: 14px;
+  padding-top: 25px;
+}
+
 .nav-tabs > li {
     float:none;
     display:inline-block;

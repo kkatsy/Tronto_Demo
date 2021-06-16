@@ -29,10 +29,15 @@ tweet_list = None
 def home():
     return render_template('home.html')
 
-# home page
+# demo page
 @app.route('/demo')
 def demo():
     return render_template('demo.html')
+
+# about page
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])
