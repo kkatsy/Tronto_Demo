@@ -47,6 +47,11 @@ img{
   width: 100%;
 }
 
+.tronto_description{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .logo-container {
     display: flex;
     flex-wrap: wrap;

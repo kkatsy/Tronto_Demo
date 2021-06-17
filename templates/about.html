@@ -29,8 +29,27 @@
   <div id="logo">TRONTO</div>
   <div class="container">
     <div class="search-grid-container">
-      <h1> Information Pipeline: </h1>
-      <img class="logo_img" src="/static/images/info_pipeline.png">
+        <p class="tronto_description"> Evaluating vulnerability is a critical step in building a new system:
+        you don’t want to use libraries would make you vulnerable to cybersecurity attacks. However, this
+        task is time-consuming and requires expert-level knowledge to be done well. There exist some
+        cybersecurity analysis tools, but they either fully rely on structured information in security
+        databases and miss vulnerabilities between updates, or they do use up-to-date info from the web
+        and social media, but treat it as purely unstructured information, not allowing a user to check if
+        a library is vulnerable or not.
+        <br> <br>
+        We made Tronto to address these problems: We use NLP approaches to
+        simplify and streamline the cybersecurity analysis process by combining known and real-time
+        information to get the fullest picture possible about the vulnerabilities for a specific set of
+        dependencies. <br><br></p>
+
+        <h1> Information Pipeline: </h1>
+        <img class="logo_img" src="/static/images/info_pipeline.png">
+
+        <p class="tronto_description">Our system works by creating a pipeline with two parallel streams. On
+         one hand, we gather real-time tweets about the dependencies and their CVEs and use BERT classifiers
+         to get the cybersecurity tweets and to identify the severity level of the issues they describe. On
+       the other hand, we create an ontology using the established vulnerability records from the CVE repository.
+        Then we combine the known and potential severity scores into a final vulnerability report. </p>
     </div>
   </div>
 
