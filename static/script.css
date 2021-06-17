@@ -220,10 +220,6 @@ textarea {
     width: 300px;
 }
 
-/* .chart-child:first-child {
-    margin-right: 20px;
-} */
-
 #tweetError {
   color: rgba(180,71,84,1.0);
   font-style: italic;

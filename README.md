@@ -26,18 +26,20 @@
 - [x] remove tweet_pipeline (for now)
 - [x] update urls only when new queries
 - [x] figure out why tweets aren't showing up
-- [ ] filter tweets better
+- [x] filter tweets better
 - [x] add new tronto file
 - [x] update is_vulnerable function
 - [x] add home page -> button click -> demo flow
 - [x] add home page -> button click -> about page
-- [ ] add methodology info to about page
+- [x] add methodology info to about page
 - [x] add spinner while tweets + info loads
 - [x] init gcloud app engine
 - [x] tweak chatbot
 - [ ] figure out where ner/debug_bertoverflow
+- [ ] get tweet_pipeline to work locally
+- [ ] move entire demo to gcloud
+- [ ] move entire demo to errol
 
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
-# ssh -N -f -L localhost:9802:localhost:9802 kkatsy@errol.ucdavis.edu
 # scp kkatsy@errol.ucdavis.edu:/home/raranovi/tronto_f.owl /Users/kk/Desktop/tronto_g.owl

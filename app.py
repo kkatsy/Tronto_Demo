@@ -24,20 +24,23 @@ not_in_onto_list = None
 cve_list = None
 tweet_list = None
 
-# demo page
+# home page
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 # demo page
 @app.route('/demo')
 def demo():
     return render_template('demo.html')
 
+
 # about page
 @app.route('/about')
 def about():
     return render_template('about.html')
+
 
 # route to dependency names json for typeahead
 @app.route('/dependencynames.json',methods=['GET'])
@@ -118,6 +121,7 @@ def tweet_ids(json_str):
     print('tweet_id_list: ', tweet_id_list)
     return json.dumps(tweet_id_list)
 
+
 # route to get QA response for Tronto Bot
 @app.route('/chatbot/<question>',methods=['GET'])
 def chatbot(question):
@@ -135,6 +139,7 @@ def chatbot(question):
         answer['answer'] = 'Please ask a valid question.'
 
     return json.dumps(answer['answer'])
+
 
 if __name__ == '__main__':
     app.run()
