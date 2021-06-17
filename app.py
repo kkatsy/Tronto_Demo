@@ -84,16 +84,22 @@ def tweet_ids(json_str):
         if len(a_list) > 15:
             a_list = a_list[-15:]
 
-        query_str = twitter.get_query(a_list)
-        query_1 = twitter.get_tweets(query_str + ' filter:links', 30)
-        query_2 = twitter.get_tweets(query_str + ' -filter:links', 30)
+        query_str, query_list = twitter.get_query(a_list)
+        query_1 = twitter.get_tweets(query_str + ' filter:links', 50)
+        query_2 = twitter.get_tweets(query_str + ' -filter:links', 50)
         to_combine.append(query_1)
         to_combine.append(query_2)
 
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
-    print('combine tweet dicts')
+
+    valid_tweets = {}
     if len(combined_tweets) > 0:
+        valid_tweets = twitter.filter_tweet_batch(combined_tweets, query_list)
+
+    print(query_list)
+    if len(valid_tweets) > 0:
         print('in the if statement')
+        # print(valid_tweets)
         # ordered_ids = twitter.sort_by_severity(combined_tweets)
         # print('sort by severity works')
         # print("ordered ids: ",ordered_ids)
@@ -117,14 +123,16 @@ def tweet_ids(json_str):
 def chatbot(question):
     print("in chatbot")
     question = unquote(question)
+    if len(question.split()) > 1:
+        global description_list, dependency_list, cve_list, tweet_list
+        chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
 
-    global description_list, dependency_list, cve_list, tweet_list
-    chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
-
-    answer = chatBot.answer_to_question(question)
-    print(answer['score'])
-    if answer['answer'] == '' or answer['score'] < 0.2:
-        answer['answer'] = 'I\'m sorry - I don\'t know. Ask me another question!'
+        answer = chatBot.answer_to_question(question)
+        print(answer['score'])
+        if answer['answer'] == '' or answer['score'] < 0.2:
+            answer['answer'] = 'I\'m sorry - I don\'t know. Ask me another question!'
+    else:
+        answer['answer'] = 'Please ask a valid question.'
 
     return json.dumps(answer['answer'])
 

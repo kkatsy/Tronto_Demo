@@ -164,7 +164,7 @@ function showTweets(query_list){
         } else {
           console.log("no tweets to display")
           document.getElementById("tweetError").innerHTML = "No recent vulnerability-related tweets found.";
-
+          $('#tweetSpinnerContainer').removeClass('spinner');
         }
 
       }

@@ -98,14 +98,15 @@ textarea {
 
 #not-in-onto{
   text-align: center;
-  font-weight: bold;
-  padding-top: 25px;
+  font-weight: 500;
+  padding-top: 30px;
 }
 
 #resultContainer{
   margin: auto;
   width: 50%;
 }
+
 #warning-result {
   color: rgba(180,71,84,1.0);
   font-style: italic;

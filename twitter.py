@@ -63,7 +63,7 @@ class Twitter(object):
 
         return id_text_dict
 
-    def combine_tweet_dicts(self,list_of_dicts):
+    def combine_tweet_dicts(self, list_of_dicts):
         combined = list_of_dicts.pop()
         while len(list_of_dicts) != 0:
             next_dict = list_of_dicts.pop()
@@ -76,12 +76,14 @@ class Twitter(object):
 
         return unique_dict
 
-    def filter_tweet_batch(self, batch, queries):
+    def filter_tweet_batch(self, id_text_dict, queries):
         # make sure query in batch
-        query_batch = []
-        for tweet in batch:
-            if any(q in tweet for q in queries):
-                query_batch.append(tweet)
+        query_batch = {}
+        for id, tweet in id_text_dict.items():
+            for q in queries:
+                if q in tweet.lower():
+                    query_batch[id] = tweet
+                    break
 
         # for i, the_tweet in enumerate(query_batch):
         #     for j, a_tweet in enumerate(query_batch):
@@ -129,6 +131,6 @@ class Twitter(object):
                 query += '( ' + queries[i]
             else:
                 query += ' OR ' + queries[i]
-        query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )'
+        query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet'
 
-        return query
+        return query, queries
