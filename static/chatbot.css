@@ -78,3 +78,7 @@
 	background-color: #ddd;
 	cursor: pointer;
 }
+
+input[type="text"]:disabled {
+	background-color:red;
+}

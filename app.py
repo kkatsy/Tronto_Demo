@@ -81,32 +81,43 @@ def tweet_ids(json_str):
 
     # get dependencies and cve from global vars
     global description_list, dependency_list, cve_list, not_in_onto_list, tweet_list
-    print(not_in_onto_list)
+    print('not in onto: ', not_in_onto_list)
     to_combine = []
+    combined_queries = []
     for a_list in [dependency_list, cve_list, not_in_onto_list]:
         if len(a_list) > 15:
             a_list = a_list[-15:]
 
-        query_str, query_list = twitter.get_query(a_list)
-        query_1 = twitter.get_tweets(query_str + ' filter:links', 50)
-        query_2 = twitter.get_tweets(query_str + ' -filter:links', 50)
-        to_combine.append(query_1)
-        to_combine.append(query_2)
+        # query_str, query_list = twitter.get_query(a_list)
+        # query_1 = twitter.get_tweets(query_str + ' filter:links', 50)
+        # query_2 = twitter.get_tweets(query_str + ' -filter:links', 50)
+
+        query_1, queries_1 = twitter.get_query(a_list, has_links=True)
+
+        tweets_1 = twitter.get_tweets(query_1, 20)
+        query_2, queries_2 = twitter.get_query(a_list, has_links=False)
+
+        tweets_2 = twitter.get_tweets(query_2, 20)
+        queries = list(set(queries_1 + queries_2))
+        combined_queries.extend(queries)
+
+        to_combine.append(tweets_1)
+        to_combine.append(tweets_2)
 
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
-
-    # valid_tweets = {}
-    # if len(combined_tweets) > 0:
-    #     valid_tweets = twitter.filter_tweet_batch(combined_tweets, query_list)
+    print('combined queries: ', combined_queries)
+    valid_tweets = {}
+    if len(combined_tweets) > 0:
+        valid_tweets = twitter.filter_tweet_batch(combined_tweets, combined_queries)
 
     # print(query_list)
-    if len(combined_tweets) > 0:
+    if len(valid_tweets) > 0:
         print('in the if statement')
         # print(valid_tweets)
-        ordered_ids = twitter.sort_by_severity(combined_tweets)
+        ordered_ids = twitter.sort_by_severity(valid_tweets)
         # print('sort by severity works')
         # print("ordered ids: ",ordered_ids)
-        # ordered_ids = combined_tweets
+        # ordered_ids = twitter.sort_by_severity(valid_tweets)
         tweet_id_list = list(map (str, list(ordered_ids.keys())))
 
         # tweet_id_list = list(ordered_ids.keys())
@@ -136,6 +147,7 @@ def chatbot(question):
         if answer['answer'] == '' or answer['score'] < 0.2:
             answer['answer'] = 'I\'m sorry - I don\'t know. Ask me another question!'
     else:
+        answer = {}
         answer['answer'] = 'Please ask a valid question.'
 
     return json.dumps(answer['answer'])

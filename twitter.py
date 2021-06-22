@@ -80,8 +80,9 @@ class Twitter(object):
         # make sure query in batch
         query_batch = {}
         for id, tweet in id_text_dict.items():
+            print(tweet)
             for q in queries:
-                if q in tweet.lower():
+                if q.lower() in tweet.lower():
                     query_batch[id] = tweet
                     break
 
@@ -115,15 +116,18 @@ class Twitter(object):
 
         return filtered_dict
 
-    def get_query(self, query_list):
+    def get_query(self, query_list, has_links):
         queries = []
+        query_strings = []
         for query_item in query_list:
             exact_match = '\"'+ query_item + '\"'
             no_space = '\"'+ query_item.replace(' ','') + '\"'
             if exact_match != no_space:
                 queries.extend([exact_match, no_space])
+                query_strings.extend([query_item, query_item.replace(' ','')])
             else:
                 queries.extend([exact_match])
+                query_strings.extend([query_item])
 
         query = ''
         for i in range(len(queries) - 1):
@@ -131,6 +135,10 @@ class Twitter(object):
                 query += '( ' + queries[i]
             else:
                 query += ' OR ' + queries[i]
-        query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet'
 
-        return query, queries
+        if has_links:
+            query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet filter:links'
+        else:
+            query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet -filter:links'
+        print(query_strings)
+        return query, query_strings

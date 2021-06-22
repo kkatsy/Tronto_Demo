@@ -35,9 +35,12 @@
 - [x] add spinner while tweets + info loads
 - [x] init gcloud app engine
 - [x] tweak chatbot
+- [x] don't allow QA before tweet + url info loads
+- [x] fix filtering so include queries
 - [x] figure out where ner/debug_bertoverflow
-- [ ] get tweet_pipeline to work locally
+- [x] get tweet_pipeline to work locally
 - [ ] move entire demo to errol
+- [ ] get tweet_pipeline to work on errol
 - [ ] move entire demo to gcloud: compute engine for main and gateway for APIs
 
 

@@ -95,6 +95,8 @@ function createTweets(tweet_list){
   // make div visible
   $("#tweet-container").removeClass('hidden');
   $('#tweetSpinnerContainer').removeClass('spinner');
+  document.getElementById("chatbotPlaceholder").disabled = false;
+  document.getElementById("chatbotPlaceholder").placeholder = "Type your question...";
 }
 
 function showStatus(app_name, vulnerability_status, severity){
@@ -165,6 +167,8 @@ function showTweets(query_list){
           console.log("no tweets to display")
           document.getElementById("tweetError").innerHTML = "No recent vulnerability-related tweets found.";
           $('#tweetSpinnerContainer').removeClass('spinner');
+          document.getElementById("chatbotPlaceholder").disabled = false;
+          document.getElementById("chatbotPlaceholder").placeholder = "Type your question...";
         }
 
       }
@@ -227,6 +231,8 @@ function clickCheck() {
     $("#navTabs").addClass('hidden');
     $("#chatbotContainer").addClass('hidden');
     $('#chatbotChat').empty();
+    document.getElementById("chatbotPlaceholder").disabled = true;
+    document.getElementById("chatbotPlaceholder").placeholder = "Please wait for tweets to load...";
     restartChat();
 
     // clear prev output in case of updated input
