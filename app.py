@@ -95,18 +95,18 @@ def tweet_ids(json_str):
 
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
 
-    valid_tweets = {}
-    if len(combined_tweets) > 0:
-        valid_tweets = twitter.filter_tweet_batch(combined_tweets, query_list)
+    # valid_tweets = {}
+    # if len(combined_tweets) > 0:
+    #     valid_tweets = twitter.filter_tweet_batch(combined_tweets, query_list)
 
-    print(query_list)
-    if len(valid_tweets) > 0:
+    # print(query_list)
+    if len(combined_tweets) > 0:
         print('in the if statement')
         # print(valid_tweets)
-        # ordered_ids = twitter.sort_by_severity(combined_tweets)
+        ordered_ids = twitter.sort_by_severity(combined_tweets)
         # print('sort by severity works')
         # print("ordered ids: ",ordered_ids)
-        ordered_ids = combined_tweets
+        # ordered_ids = combined_tweets
         tweet_id_list = list(map (str, list(ordered_ids.keys())))
 
         # tweet_id_list = list(ordered_ids.keys())

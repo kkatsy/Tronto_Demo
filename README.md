@@ -35,11 +35,11 @@
 - [x] add spinner while tweets + info loads
 - [x] init gcloud app engine
 - [x] tweak chatbot
-- [ ] figure out where ner/debug_bertoverflow
+- [x] figure out where ner/debug_bertoverflow
 - [ ] get tweet_pipeline to work locally
-- [ ] move entire demo to gcloud
 - [ ] move entire demo to errol
+- [ ] move entire demo to gcloud: compute engine for main and gateway for APIs
 
 
 # ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
-# scp kkatsy@errol.ucdavis.edu:/home/raranovi/tronto_f.owl /Users/kk/Desktop/tronto_g.owl
+# scp -r kkatsy@errol.ucdavis.edu:/mnt/dian/tronto/exist /Users/kk/Desktop/
