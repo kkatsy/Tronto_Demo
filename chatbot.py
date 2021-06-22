@@ -11,6 +11,7 @@ class ChatBot:
 
     @staticmethod
     def get_known_context(description_list, dependency_list, cve_list):
+        # add known non-tweet info from ontology
         descriptions = ' '.join(description_list)
         dependency_info = 'Your application has the dependencies ' + ', '.join(dependency_list) + '.'
         cve_info = 'Your application has the vulnerabilities: ' + ', '.join(cve_list) + '.'
@@ -46,9 +47,7 @@ class ChatBot:
         return tweets_text
 
     def answer_to_question(self, question):
-        # question = "Is there a link to CVE?"
-        # print(self.combined_context)
-        print('here')
+        # qa api
         url = "http://0.0.0.0:9801/qa/pred"
         query = {"question": question, "context": self.combined_context}
         pred = requests.post(url=url, json=query)
@@ -57,6 +56,7 @@ class ChatBot:
         return pred.json()
 
     def update_data(self, description_list, dependency_list, cve_list, tweet_list):
+        # if new tweets, update chatbot context data
         if self.tweet_list != tweet_list:
             self.tweet_list = tweet_list
             self.known_context = self.get_known_context(description_list, dependency_list, cve_list)

@@ -36,10 +36,11 @@ class Tronto(object):
                 product_dict['version'] = version
                 product_dict['stage'] = stage
 
+                # clean names from dashes and slashes
                 key = key.replace('\\\\', '').replace('/', ' ').replace('\\', '')
                 if key[-1]=='-':
                     key = key[:-1]
-                    
+
                 products[key] = product_dict
 
         self.products_in_onto = products

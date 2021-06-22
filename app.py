@@ -13,11 +13,12 @@ from chatbot import ChatBot
 app = Flask(__name__)
 app.debug = True
 
-# create ontology + twitter objects
+# create ontology + twitter + chatbot objects
 tronto = Tronto()
 twitter = Twitter()
-
 chatBot = ChatBot()
+
+# global vars
 description_list = None
 dependency_list = None
 not_in_onto_list = None
@@ -56,11 +57,10 @@ def app_data(json_str):
 
     # get json app + dependencies from JS
     json_str = unquote(json_str)
-    # print("json_str: ", json_str)
+
     app_dict = json.loads(json_str)
 
     app_data_dict = tronto.get_app_data(app_dict)
-    # print(app_data_dict)
 
     global description_list, dependency_list, cve_list, not_in_onto_list
     description_list = tronto.get_descriptions(app_data_dict['dependencies'])
@@ -81,47 +81,41 @@ def tweet_ids(json_str):
 
     # get dependencies and cve from global vars
     global description_list, dependency_list, cve_list, not_in_onto_list, tweet_list
-    print('not in onto: ', not_in_onto_list)
+
     to_combine = []
     combined_queries = []
     for a_list in [dependency_list, cve_list, not_in_onto_list]:
         if len(a_list) > 15:
             a_list = a_list[-15:]
 
-        # query_str, query_list = twitter.get_query(a_list)
-        # query_1 = twitter.get_tweets(query_str + ' filter:links', 50)
-        # query_2 = twitter.get_tweets(query_str + ' -filter:links', 50)
-
+        # get tweets with links
         query_1, queries_1 = twitter.get_query(a_list, has_links=True)
-
         tweets_1 = twitter.get_tweets(query_1, 20)
+
+        # get tweets without links
         query_2, queries_2 = twitter.get_query(a_list, has_links=False)
-
         tweets_2 = twitter.get_tweets(query_2, 20)
-        queries = list(set(queries_1 + queries_2))
-        combined_queries.extend(queries)
 
+        queries = list(set(queries_1 + queries_2))
+
+        # tweets + queries to add to combined lists
+        combined_queries.extend(queries)
         to_combine.append(tweets_1)
         to_combine.append(tweets_2)
 
     combined_tweets = twitter.combine_tweet_dicts(to_combine)
-    print('combined queries: ', combined_queries)
+
     valid_tweets = {}
     if len(combined_tweets) > 0:
         valid_tweets = twitter.filter_tweet_batch(combined_tweets, combined_queries)
 
-    # print(query_list)
     if len(valid_tweets) > 0:
         print('in the if statement')
-        # print(valid_tweets)
-        ordered_ids = twitter.sort_by_severity(valid_tweets)
-        # print('sort by severity works')
-        # print("ordered ids: ",ordered_ids)
-        # ordered_ids = twitter.sort_by_severity(valid_tweets)
-        tweet_id_list = list(map (str, list(ordered_ids.keys())))
 
-        # tweet_id_list = list(ordered_ids.keys())
+        ordered_ids = twitter.sort_by_severity(valid_tweets)
+        tweet_id_list = list(map (str, list(ordered_ids.keys())))
         tweet_list = list(ordered_ids.values())
+
         chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)
         print("tweet id list: ",tweet_id_list)
     else:
@@ -138,6 +132,7 @@ def tweet_ids(json_str):
 def chatbot(question):
     print("in chatbot")
     question = unquote(question)
+    
     if len(question.split()) > 1:
         global description_list, dependency_list, cve_list, tweet_list
         chatBot.update_data(description_list, dependency_list, cve_list, tweet_list)

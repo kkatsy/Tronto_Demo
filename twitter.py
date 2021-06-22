@@ -64,11 +64,13 @@ class Twitter(object):
         return id_text_dict
 
     def combine_tweet_dicts(self, list_of_dicts):
+        # combine list of id_text dicts into single dict
         combined = list_of_dicts.pop()
         while len(list_of_dicts) != 0:
             next_dict = list_of_dicts.pop()
             combined = {**combined, **next_dict}
 
+        # filter out tweet repeats from dict
         unique_dict = {}
         for id, text in combined.items():
             if text not in unique_dict.values():
@@ -77,7 +79,7 @@ class Twitter(object):
         return unique_dict
 
     def filter_tweet_batch(self, id_text_dict, queries):
-        # make sure query in batch
+        # make sure tweets contain queries in text
         query_batch = {}
         for id, tweet in id_text_dict.items():
             print(tweet)
@@ -86,21 +88,15 @@ class Twitter(object):
                     query_batch[id] = tweet
                     break
 
-        # for i, the_tweet in enumerate(query_batch):
-        #     for j, a_tweet in enumerate(query_batch):
-        #         # if i and j not equal
-        #         if i != j and SequenceMatcher(None, the_tweet, a_tweet).ratio():
-        #         # check similarity,if really high, exclude one
-
         return query_batch
 
     def sort_by_severity(self, id_text_dict):
-        # Dian's classifier
+        # tweets_pipeline api
         tweets = []
         for id, text in id_text_dict.items():
             tweets.append((text,id))
 
-        print('starting up api')
+        print('starting up tweets_pipeline api')
         url = "http://0.0.0.0:9802/tweet/pred"
         query = {"tweets": tweets}
         pred = requests.post(url=url, json=query)
@@ -117,6 +113,7 @@ class Twitter(object):
         return filtered_dict
 
     def get_query(self, query_list, has_links):
+        # create twitter api query
         queries = []
         query_strings = []
         for query_item in query_list:
@@ -140,5 +137,6 @@ class Twitter(object):
             query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet filter:links'
         else:
             query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet -filter:links'
-        print(query_strings)
+
+        # return twitter query string, and query list
         return query, query_strings
