@@ -20,6 +20,7 @@ function clearForm() {
   $('.nav-tabs a[href="#tableTab"]').tab('show');
 
   $('#spinnerContainer').removeClass('spinner');
+  $('#tweetSpinnerContainer').removeClass('spinner');
   $('#dependencyTable').addClass('hidden');
   $('#tweet-container').addClass('hidden');
   $('#resultContainer').addClass('hidden');
@@ -90,6 +91,12 @@ function createTweets(tweet_list){
     }
     );
   }
+  // remove spinner
+  // make div visible
+  $("#tweet-container").removeClass('hidden');
+  $('#tweetSpinnerContainer').removeClass('spinner');
+  document.getElementById("chatbotPlaceholder").disabled = false;
+  document.getElementById("chatbotPlaceholder").placeholder = "Type your question...";
 }
 
 function showStatus(app_name, vulnerability_status, severity){
@@ -155,11 +162,13 @@ function showTweets(query_list){
         var tweet_list = JSON.parse(response)
         if (tweet_list.length > 0) {
           createTweets(tweet_list);
-          $("#tweet-container").removeClass('hidden');
+          // $("#tweet-container").removeClass('hidden');
         } else {
           console.log("no tweets to display")
           document.getElementById("tweetError").innerHTML = "No recent vulnerability-related tweets found.";
-
+          $('#tweetSpinnerContainer').removeClass('spinner');
+          document.getElementById("chatbotPlaceholder").disabled = false;
+          document.getElementById("chatbotPlaceholder").placeholder = "Type your question...";
         }
 
       }
@@ -215,12 +224,15 @@ function clickCheck() {
   if($("#dependencyTagsInput").val() != ""){
     // hide all results containers, start spinner
     $('#spinnerContainer').addClass('spinner');
+    $('#tweetSpinnerContainer').addClass('spinner');
     $("#dependencyTable").addClass('hidden');
     $("#tweet-container").addClass('hidden');
     $("#resultContainer").addClass('hidden');
     $("#navTabs").addClass('hidden');
     $("#chatbotContainer").addClass('hidden');
     $('#chatbotChat').empty();
+    document.getElementById("chatbotPlaceholder").disabled = true;
+    document.getElementById("chatbotPlaceholder").placeholder = "Please wait for tweets to load...";
     restartChat();
 
     // clear prev output in case of updated input

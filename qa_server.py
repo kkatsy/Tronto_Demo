@@ -18,6 +18,8 @@ def start_server(url_root='/qa',
     app = Flask(__name__)
     app.route = prefix_route(app.route, url_root)
 
+    print('9801')
+
     # hyper-paramters
     max_answer_len = 15
     model_path = "distilbert-base-uncased-distilled-squad"

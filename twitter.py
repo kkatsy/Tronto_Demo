@@ -1,5 +1,6 @@
 import tweepy
 from tweepy import OAuthHandler
+from difflib import SequenceMatcher
 import random
 import requests
 import sys
@@ -13,10 +14,10 @@ class Twitter(object):
 
     def __init__(self):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = ''
-        consumer_secret = ''
-        access_token = ''
-        access_token_secret = ''
+        consumer_key = 'SCpVZk7nEvnbvjGLI3DQNSBXf'
+        consumer_secret = '6E2BXFZEZudxuhckOoY6qc8L0YPb0CrUei0N1mIXzyluBpVQI6'
+        access_token = '1300638328404934659-67qbPFLmI47ivO6R7jMehTWgMPlVgd'
+        access_token_secret = 'oM9NSb37DiQolbxQr0MSHMiWwQKU2aKjBk4wWuEhrOxiC'
 
         # create OAuthHandler object
         self.auth = OAuthHandler(consumer_key, consumer_secret)
@@ -40,26 +41,29 @@ class Twitter(object):
 
     def get_tweets(self, query, count):
         #query += ' -filter:retweets'
-        print(query)
-        single_call = self.api.search(q=query, count=count, tweet_mode='extended', lang='en')
-
-        # for tweets in batch, get full text and process tweets
-        tweet_text = []
-        tweet_ids = []
-        for single_tweet in single_call:
-            print(single_tweet.id)
-            full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
-            tweet_text.append(full_tweet.full_text)
-            tweet_ids.append(single_tweet.id)
-
         id_text_dict = {}
-        for id, text in zip(tweet_ids, tweet_text):
-            if text not in id_text_dict.values():
-                id_text_dict[id] = text
+
+        try:
+            single_call = self.api.search(q=query, count=count, tweet_mode='extended', lang='en')
+
+            # for tweets in batch, get full text and process tweets
+            tweet_text = []
+            tweet_ids = []
+            for single_tweet in single_call:
+                print(single_tweet.id)
+                full_tweet = self.api.get_status(single_tweet.id, tweet_mode='extended')
+                tweet_text.append(full_tweet.full_text)
+                tweet_ids.append(single_tweet.id)
+
+            for id, text in zip(tweet_ids, tweet_text):
+                if text not in id_text_dict.values():
+                    id_text_dict[id] = text
+        except:
+            print('Twitter api query failed: limit prob exceeded')
 
         return id_text_dict
 
-    def combine_tweet_dicts(self,list_of_dicts):
+    def combine_tweet_dicts(self, list_of_dicts):
         combined = list_of_dicts.pop()
         while len(list_of_dicts) != 0:
             next_dict = list_of_dicts.pop()
@@ -72,9 +76,23 @@ class Twitter(object):
 
         return unique_dict
 
-    def filter_tweet_batch(self):
-        # given tweet text list, try to filter out irrelevant data
-        print('something')
+    def filter_tweet_batch(self, id_text_dict, queries):
+        # make sure query in batch
+        query_batch = {}
+        for id, tweet in id_text_dict.items():
+            print(tweet)
+            for q in queries:
+                if q.lower() in tweet.lower():
+                    query_batch[id] = tweet
+                    break
+
+        # for i, the_tweet in enumerate(query_batch):
+        #     for j, a_tweet in enumerate(query_batch):
+        #         # if i and j not equal
+        #         if i != j and SequenceMatcher(None, the_tweet, a_tweet).ratio():
+        #         # check similarity,if really high, exclude one
+
+        return query_batch
 
     def sort_by_severity(self, id_text_dict):
         # Dian's classifier
@@ -82,6 +100,7 @@ class Twitter(object):
         for id, text in id_text_dict.items():
             tweets.append((text,id))
 
+        print('starting up api')
         url = "http://0.0.0.0:9802/tweet/pred"
         query = {"tweets": tweets}
         pred = requests.post(url=url, json=query)
@@ -97,15 +116,18 @@ class Twitter(object):
 
         return filtered_dict
 
-    def get_query(self, query_list):
+    def get_query(self, query_list, has_links):
         queries = []
+        query_strings = []
         for query_item in query_list:
             exact_match = '\"'+ query_item + '\"'
             no_space = '\"'+ query_item.replace(' ','') + '\"'
             if exact_match != no_space:
                 queries.extend([exact_match, no_space])
+                query_strings.extend([query_item, query_item.replace(' ','')])
             else:
                 queries.extend([exact_match])
+                query_strings.extend([query_item])
 
         query = ''
         for i in range(len(queries) - 1):
@@ -113,6 +135,10 @@ class Twitter(object):
                 query += '( ' + queries[i]
             else:
                 query += ' OR ' + queries[i]
-        query += ' ) ' + '( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )'
 
-        return query
+        if has_links:
+            query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet filter:links'
+        else:
+            query += ' ) ' + 'AND' + ' ( ' + 'vulnerability' + ' OR ' + ' ddos' + ' )' + ' -is:retweet -filter:links'
+        print(query_strings)
+        return query, query_strings

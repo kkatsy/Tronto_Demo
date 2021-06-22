@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tronto</title>
+  <meta name="viewport" content="width=device-width">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js"></script>
+  <script sync src="https://platform.twitter.com/widgets.js"></script>
+
+  <script type="text/javascript" src="/static/bootstrap.js"></script>
+  <link href="/static/bootstrap.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/script.js"></script>
+  <link href="/static/script.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/bootstrap-tagsinput.js"></script>
+  <script type="text/javascript" src="/static/typeahead.js"></script>
+  <link href="/static/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
+  <link href="/static/typeahead.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/chart.js"></script>
+  <script type="text/javascript" src="/static/chatbot.js"></script>
+  <link href="/static/chatbot.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="#">
+  <link rel="icon" href="/static/images/tronto_logo.png" type = "image/x-icon">
+</head>
+
+
+<body>
+  <div id="logo">TRONTO</div>
+  <div class="container">
+    <div class="search-grid-container">
+        <p class="tronto_description"> Evaluating vulnerability is a critical step in building a new system:
+        you don’t want to use libraries would make you vulnerable to cybersecurity attacks. However, this
+        task is time-consuming and requires expert-level knowledge to be done well. There exist some
+        cybersecurity analysis tools, but they either fully rely on structured information in security
+        databases and miss vulnerabilities between updates, or they do use up-to-date info from the web
+        and social media, but treat it as purely unstructured information, not allowing a user to check if
+        a library is vulnerable or not.
+        <br> <br>
+        We made Tronto to address these problems: We use NLP approaches to
+        simplify and streamline the cybersecurity analysis process by combining known and real-time
+        information to get the fullest picture possible about the vulnerabilities for a specific set of
+        dependencies. <br><br></p>
+
+        <h1> Information Pipeline: </h1>
+        <img class="logo_img" src="/static/images/info_pipeline.png">
+
+        <p class="tronto_description"> Our system works by creating a pipeline with two parallel streams. On
+         one hand, we gather real-time tweets about the dependencies and their CVEs and use BERT classifiers
+         to get the cybersecurity tweets and to identify the severity level of the issues they describe. On
+       the other hand, we create an ontology using the established vulnerability records from the CVE repository.
+        Then we combine the known and potential severity scores into a final vulnerability report. <br> </p>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

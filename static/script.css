@@ -7,7 +7,7 @@ body {
   font-size:18px;
 }
 
-#logo{
+#logo {
   text-shadow: 1px 1px 2px lightsteelblue;
   font-family: Courier New;
   font-size: 110px;
@@ -16,6 +16,58 @@ body {
   text-align: center;
   vertical-align: middle;
   height: 18%;
+}
+
+h1 {
+  font-family: Courier New;
+  text-align: center;
+  vertical-align: middle;
+  margin: auto;
+  font-weight: semibold;
+  font-size: 23px;
+}
+
+h3 {
+  font-family: Courier New;
+  text-align: center;
+  vertical-align: middle;
+  margin: auto;
+  font-weight: bold;
+  font-style: italic;
+  color: steelblue;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.tronto_description {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.logo-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo-child {
+    flex: 1;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .container {
@@ -49,16 +101,17 @@ textarea {
   padding-bottom: 2px;
 }
 
-#not-in-onto{
+#not-in-onto {
   text-align: center;
-  font-weight: bold;
-  padding-top: 25px;
+  font-weight: 500;
+  padding-top: 30px;
 }
 
-#resultContainer{
+#resultContainer {
   margin: auto;
   width: 50%;
 }
+
 #warning-result {
   color: rgba(180,71,84,1.0);
   font-style: italic;
@@ -129,6 +182,15 @@ textarea {
   right: 14px;
 }
 
+#tweetSpinnerContainer {
+  position: relative;
+  height: 36px;
+  margin:0 auto;
+  width: inherit;
+  right: 14px;
+  padding-top: 25px;
+}
+
 .nav-tabs > li {
     float:none;
     display:inline-block;
@@ -157,10 +219,6 @@ textarea {
     text-align: center;
     width: 300px;
 }
-
-/* .chart-child:first-child {
-    margin-right: 20px;
-} */
 
 #tweetError {
   color: rgba(180,71,84,1.0);

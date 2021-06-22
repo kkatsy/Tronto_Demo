@@ -21,6 +21,7 @@
   <script type="text/javascript" src="/static/chatbot.js"></script>
   <link href="/static/chatbot.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="#">
+  <link rel="icon" href="/static/images/tronto_logo.png" type = "image/x-icon">
 </head>
 
 
@@ -43,7 +44,8 @@
 
       <div class="form-group" id="dependenciesForm">
         <label for="dependencyTagsInput">To check if your application is vulnerable, enter all of its direct dependencies:</label>
-        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="mysql,python 3.5.0,zoom,chrome" data-role="tagsinput">
+        <!-- <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="mysql,python 3.5.0,zoom,chrome" data-role="tagsinput"> -->
+        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="chrome,ios,quicktime,xpdf" data-role="tagsinput">
         <script> addTypeahead(); </script>
       </div>
 
@@ -91,6 +93,7 @@
 
           <div id="tweetTab" class="tab-pane fade">
             <div class="tab-container">
+              <div class="container" id="tweetSpinnerContainer"></div>
               <p id="tweetError"></p>
               <div class="tweet-container hidden" id="tweet-container"></div>
             </div>
@@ -119,7 +122,7 @@
                 <div class="chat" id="chatbotChat"></div>
                 <div class="busy" id="busy"></div>
                 <div class="input" id="chatbotInput">
-                  <input type="inputText" placeholder="Type your question..." />
+                  <input type="inputText" id="chatbotPlaceholder" placeholder="Type your question..." />
                   <a>Send</a>
                 </div>
 
