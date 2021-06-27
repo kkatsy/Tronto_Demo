@@ -39,7 +39,7 @@
 - [x] fix filtering so include queries
 - [x] figure out where ner/debug_bertoverflow
 - [x] get tweet_pipeline to work locally
-- [ ] clean up code + print statements + comments
+- [x] clean up code + print statements + comments
 - [ ] move entire demo to errol
 - [ ] get tweet_pipeline to work on errol
 - [ ] move entire demo to gcloud: compute engine for main and gateway for APIs
