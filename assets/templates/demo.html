@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tronto</title>
+  <meta name="viewport" content="width=device-width">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js"></script>
+  <script sync src="https://platform.twitter.com/widgets.js"></script>
+
+  <script type="text/javascript" src="/static/bootstrap.js"></script>
+  <link href="/static/bootstrap.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/script.js"></script>
+  <link href="/static/script.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/bootstrap-tagsinput.js"></script>
+  <script type="text/javascript" src="/static/typeahead.js"></script>
+  <link href="/static/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
+  <link href="/static/typeahead.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/chart.js"></script>
+  <script type="text/javascript" src="/static/chatbot.js"></script>
+  <link href="/static/chatbot.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="#">
+  <link rel="icon" href="/static/images/tronto_logo.png" type = "image/x-icon">
+</head>
+
+
+<body>
+  <div id="logo">TRONTO</div>
+  <div class="container">
+    <div class="search-grid-container">
+
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Get started by entering the libraries you want to use in your application - if you're using a not up-to-date version, make sure
+         to specify which version number you are using. If you can't find the library you're looking for in the dropdown, it means that it is not
+          in our system yet.<br>Here's a couple of example tags to get you started...  Sincerely, the Tronto Team.
+      </div>
+
+      <!-- <div class="form-group" id="appNameForm">
+        <label for="appNameFormInput">Enter your application's name:</label>
+        <textarea class="form-control" name="NameInput" id="appNameFormInput" rows="1">Canary</textarea>
+      </div> -->
+
+      <div class="form-group" id="dependenciesForm">
+        <label for="dependencyTagsInput">To check if your application is vulnerable, enter all of its direct dependencies:</label>
+        <!-- <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="mysql,python 3.5.0,zoom,chrome" data-role="tagsinput"> -->
+        <input type="text" name="dependencyInput" rows="2" id="dependencyTagsInput" value="chrome,ios,quicktime,xpdf" data-role="tagsinput">
+        <script> addTypeahead(); </script>
+      </div>
+
+      <!-- <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="embedCheck">
+        <label class="custom-control-label" for="embedCheck"> Add application to system</label>
+      </div> -->
+
+      <div class="knopki">
+        <button onclick="clickCheck()" class="btn btn-info">Check</button>
+        <button onclick="clearForm()" class="btn btn-info">Clear</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="search-grid-container">
+
+      <div class="result-container hidden" id="resultContainer">
+        <p id="result"></p>
+        <p id="overall-level"></p>
+      </div>
+
+      <div class="container" id="spinnerContainer"></div>
+
+      <ul class="nav nav-tabs hidden" id="navTabs">
+        <li class="active"><a data-toggle="tab" href="#tableTab">Dependency Table</a></li>
+        <li><a data-toggle="tab" href="#tweetTab">Recent Tweets </a></li>
+        <li><a data-toggle="tab" href="#cveTab">Vulnerability Visuals</a></li>
+        <li><a data-toggle="tab" href="#qaTab">Q&A Chatbot</a></li>
+      </ul>
+
+
+      <div class="tab-content" id="tabContent">
+
+          <div id="tableTab" class="tab-pane fade in active">
+            <p id="not-in-onto"></p>
+            <div class="tab-container">
+                <div class="table-container" id="tableContainer">
+                  <table class="table table-bordered hidden" id="dependencyTable"></table>
+                </div>
+              </div>
+          </div>
+
+          <div id="tweetTab" class="tab-pane fade">
+            <div class="tab-container">
+              <div class="container" id="tweetSpinnerContainer"></div>
+              <p id="tweetError"></p>
+              <div class="tweet-container hidden" id="tweet-container"></div>
+            </div>
+          </div>
+
+          <div id="cveTab" class="tab-pane fade">
+            <div class="tab-container">
+              <div class="chart-container">
+                <div class="chart-child" id="pieChart1">
+                  CVEs per Dependency
+                  <canvas id="pie-chart-1"></canvas>
+                </div>
+
+                <div class="chart-child" id="pieChart2">
+                  Severity Distribution
+                  <canvas id="pie-chart-2"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="qaTab" class="tab-pane fade">
+            <div class="tab-container">
+              <br>
+              <div class="chatbot-container hidden" id="chatbotContainer">
+                <div class="chat" id="chatbotChat"></div>
+                <div class="busy" id="busy"></div>
+                <div class="input" id="chatbotInput">
+                  <input type="inputText" id="chatbotPlaceholder" placeholder="Type your question..." />
+                  <a>Send</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>
