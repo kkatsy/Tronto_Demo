@@ -39,11 +39,7 @@
 - [x] fix filtering so include queries
 - [x] figure out where ner/debug_bertoverflow
 - [x] get tweet_pipeline to work locally
-- [ ] clean up code + print statements + comments
-- [ ] move entire demo to errol
-- [ ] get tweet_pipeline to work on errol
+- [x] clean up code + print statements + comments
+- [x] move entire demo to errol
+- [x] get tweet_pipeline to work on errol
 - [ ] move entire demo to gcloud: compute engine for main and gateway for APIs
-
-
-ssh -N -f -L localhost:9801:localhost:9801 kkatsy@errol.ucdavis.edu
-scp -r kkatsy@errol.ucdavis.edu:/mnt/dian/tronto/exist /Users/kk/Desktop/
