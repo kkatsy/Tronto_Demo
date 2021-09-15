@@ -1,6 +1,7 @@
 import tweepy
 from tweepy import OAuthHandler
 from difflib import SequenceMatcher
+from tweet_processing import sort_tweets
 import random
 import requests
 import sys
@@ -97,13 +98,15 @@ class Twitter(object):
             tweets.append((text,id))
 
         print('starting up tweets_pipeline api')
-        url = "http://0.0.0.0:9802/tweet/pred"
+
         query = {"tweets": tweets}
-        pred = requests.post(url=url, json=query)
+        pred = sort_tweets(query)
 
         # iterate through list, match text to id, append to list
         print('pred: ', pred)
-        list_of_dicts = pred.json()
+
+        list_of_dicts = pred
+        
         filtered_dict = {}
         for tweet_obj in list_of_dicts:
             text = tweet_obj['text']

@@ -1,5 +1,6 @@
 import requests
 from get_url_content import get_context
+from question_answering import answer_q
 import re
 
 class ChatBot:
@@ -47,13 +48,16 @@ class ChatBot:
         return tweets_text
 
     def answer_to_question(self, question):
-        # qa api
-        url = "http://0.0.0.0:9801/qa/pred"
+        # qa call
+
         query = {"question": question, "context": self.combined_context}
-        pred = requests.post(url=url, json=query)
-        print('there')
-        print(self.canary_context)
-        return pred.json()
+
+        pred = answer_q(query)
+
+        print('the query: ', query)
+        print('the answer: ', pred)
+
+        return pred
 
     def update_data(self, description_list, dependency_list, cve_list, tweet_list):
         # if new tweets, update chatbot context data
