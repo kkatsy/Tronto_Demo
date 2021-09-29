@@ -9,55 +9,61 @@ import torch
 from transformers import pipeline, AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
 
 # 9802
+use_BERT = False
+use_CVSS_score = True
+max_tweets = 50
+exist_threshold = 0.7
+
+# hyper-paramters
+max_answer_len = 15
+
+url_re = r'''(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))'''
+
+# bertoverflow_ner_model_path = "katyakatsy/tronto_debug_bertoverflow"
+# severity_model_path = "/pipeline_qa_server/model/cybersecurity_data"
+# cvss_model_path = "katyakatsy/tronto_cvss_score"
+# exist_model_path = "katyakatsy/tronto_exist"
+
+bertoverflow_ner_model_path = "/Users/kk/Desktop/debug_bertoverflow"
+severity_model_path = "/pipeline_qa_server/model/cybersecurity_data"
+cvss_model_path = "/Users/kk/Desktop/cvss_score"
+exist_model_path = "/Users/kk/Desktop/exist"
+
+
+handle_impossible_answer = True
+max_seq_length = 384
+max_question_len = 64
+device = -1  # -1 for cpu, 0 for gpu
+ner_confidence = 0.8
+
+if use_BERT:
+    bert_ner_model = pipeline("ner", device=device)
+    bert_ner_model.eval()
+
+bertoverflow_ner_model = pipeline("ner", model=bertoverflow_ner_model_path, tokenizer=bertoverflow_ner_model_path, device=device)
+
+# Note1: for pipelines, no need to do ".eval()"
+# Note2: for classification pipeline, it will normalize the prediction to (0, 1). Manually do this here (1-10 cvss 3)
+if use_CVSS_score:
+    cvss_config = AutoConfig.from_pretrained(cvss_model_path)
+    cvss_config.num_labels = 1
+    cvss_model = AutoModelForSequenceClassification.from_pretrained(cvss_model_path, config=cvss_config)
+    if (type(device) is int and device > -1) or type(device) is str:
+        cvss_model.to(device)
+    cvss_model.eval()
+    cvss_tokenizer = AutoTokenizer.from_pretrained(cvss_model_path)
+    cvss_max_length = 128
+    cvss_pad_token = cvss_tokenizer.convert_tokens_to_ids([cvss_tokenizer.pad_token])[0]
+    cvss_pad_token_segment_id = 0
+else:
+    severe_model = pipeline("sentiment-analysis", model=severity_model_path, tokenizer=severity_model_path,
+                            device=device)
+
+exist_model = pipeline("sentiment-analysis", model=exist_model_path, tokenizer=exist_model_path, device=device)
+
 
 def sort_tweets(data):
 
-    use_BERT = False
-    use_CVSS_score = True
-    max_tweets = 50
-    exist_threshold = 0.7
-
-    # hyper-paramters
-    max_answer_len = 15
-
-    url_re = r'''(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b/?(?!@)))'''
-
-    bertoverflow_ner_model_path = "/Users/kk/Desktop/debug_bertoverflow"
-    severity_model_path = "/pipeline_qa_server/model/cybersecurity_data"
-    cvss_model_path = "/Users/kk/Desktop/cvss_score"
-    exist_model_path = "/Users/kk/Desktop/exist"
-
-
-    handle_impossible_answer = True
-    max_seq_length = 384
-    max_question_len = 64
-    device = -1  # -1 for cpu, 0 for gpu
-    ner_confidence = 0.8
-
-    if use_BERT:
-        bert_ner_model = pipeline("ner", device=device)
-        bert_ner_model.eval()
-
-    bertoverflow_ner_model = pipeline("ner", model=bertoverflow_ner_model_path, tokenizer=bertoverflow_ner_model_path, device=device)
-
-    # Note1: for pipelines, no need to do ".eval()"
-    # Note2: for classification pipeline, it will normalize the prediction to (0, 1). Manually do this here (1-10 cvss 3)
-    if use_CVSS_score:
-        cvss_config = AutoConfig.from_pretrained(cvss_model_path)
-        cvss_config.num_labels = 1
-        cvss_model = AutoModelForSequenceClassification.from_pretrained(cvss_model_path, config=cvss_config)
-        if (type(device) is int and device > -1) or type(device) is str:
-            cvss_model.to(device)
-        cvss_model.eval()
-        cvss_tokenizer = AutoTokenizer.from_pretrained(cvss_model_path)
-        cvss_max_length = 128
-        cvss_pad_token = cvss_tokenizer.convert_tokens_to_ids([cvss_tokenizer.pad_token])[0]
-        cvss_pad_token_segment_id = 0
-    else:
-        severe_model = pipeline("sentiment-analysis", model=severity_model_path, tokenizer=severity_model_path,
-                                device=device)
-
-    exist_model = pipeline("sentiment-analysis", model=exist_model_path, tokenizer=exist_model_path, device=device)
 
     def preprocess(ori_text):
         text = copy.deepcopy(ori_text)
